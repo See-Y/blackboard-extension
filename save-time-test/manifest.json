@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 {
     "name": "Time save test",
     "description": "Time save test",
@@ -15,3 +16,25 @@
         "service_worker": "background.js"
       }
   }
+=======
+{
+    "name": "Time save test",
+    "description": "Time save test",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "options_page": "options.html",
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "scripting",
+        "storage",
+        "notifications"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    }
+}
+>>>>>>> Stashed changes

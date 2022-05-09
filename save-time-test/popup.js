@@ -1,5 +1,3 @@
-var lectureInfolist;
-
 function getLectureInfo() {
     if (document.location.href.includes("blackboard.unist.ac.kr/") && document.location.href.includes("tab_tab_group_id")) {
         String.prototype.extract = function(opts) {
@@ -67,28 +65,57 @@ function getLectureInfo() {
 
 
 function goToLecture(course_id) {
-    function docReady(fn) {
-        // see if DOM is already available
-        if (document.readyState === "complete" || document.readyState === "interactive") {
-            // call on next available tick
-            setTimeout(fn, 1);
-        } else {
-            document.addEventListener("DOMContentLoaded", fn);
-        }
+    var gotoCollaborateURL;
+    if (document.location.href.includes('portal/execute/tabs/tabAction')) {
+        window.location.replace(`https://blackboard.unist.ac.kr/webapps/collab-ultra/tool/collabultra/lti/launch?course_id=${course_id}`);
+        console.log(course_id);
+        return;
     }
-    docReady(function() {
-        if (document.location.href == "https://au-lti.bbcollab.com/collab/ui/scheduler/session") {
-            var detail = document.getElementsByClassName('sr-only')[0].id;
-            var detailedURL = document.location + "/" + detail;
-            document.getElementsByClassName('item-list__item-icon')[0].parentElement.click();
-            console.log("detail");
-        } else if (document.location.href.includes("au-lti.bbcollab.com/collab/ui/scheduler/session")) {
-            document.getElementsByClassName('launch-button ng-isolate-scope')[0].children[0].click();
-        } else {
-            window.location.replace(`https://blackboard.unist.ac.kr/webapps/collab-ultra/tool/collabultra/lti/launch?course_id=${course_id}`);
+    (function() {
+        var proxied = window.XMLHttpRequest.prototype.send;
+        window.XMLHttpRequest.prototype.send = function() {
+            var pointer = this
+            var intervalId = window.setInterval(function() {
+                if (pointer.readyState != 4) {
+                    return;
+                }
+                if (pointer.responseText.includes(`"url":`) && pointer.responseText.includes(`https://au.bbcollab.com/launch`)) {
+                    gotoCollaborateURL = JSON.parse(pointer.responseText).url
+                    window.location.replace(gotoCollaborateURL)
+                }
+                clearInterval(intervalId);
+
+            }, 10);
+            return proxied.apply(this, [].slice.call(arguments));
+        };
+
+        function waitForElm(selector) {
+            return new Promise(resolve => {
+                if (document.getElementsByClassName(selector)[0]) {
+                    return resolve(document.getElementsByClassName(selector)[0]);
+                }
+
+                const observer = new MutationObserver(mutations => {
+                    if (document.getElementsByClassName(selector)[0]) {
+                        resolve(document.getElementsByClassName(selector)[0]);
+                        observer.disconnect();
+                    }
+                });
+
+                observer.observe(document.body, {
+                    childList: true,
+                    subtree: true
+                });
+            });
         }
-        return detailedURL;
-    });
+        waitForElm('item-list__item-icon').then((elm) => {
+            console.log(elm.parentElement);
+            if (document.title = 'Bb Collaborate Sessions') {
+                elm.parentElement.click();
+            }
+        });
+    })();
+
 }
 
 function goToMainPage() {
@@ -100,7 +127,7 @@ function goToMainPage() {
             },
             injectionResults => {
                 for (const frameResult of injectionResults) {
-                    lectureInfolist = frameResult.result; // line 11
+                    var lectureInfolist = frameResult.result; // line 11
                     alert(JSON.stringify(lectureInfolist));
                     chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lectureInfolist) }, function() {
                         //alert(JSON.stringify(lectureInfolist));
@@ -112,7 +139,6 @@ function goToMainPage() {
 }
 
 function gotoCollaborate(course_id) {
-
     chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
             chrome.scripting.executeScript({
                 target: { tabId: tabs[0].id },
@@ -138,9 +164,11 @@ document.addEventListener("DOMContentLoaded", function() {
     btn0.addEventListener("click", () => {
         chrome.storage.sync.get(['lectureInfo'], function(res) {
             lectureInfolist = JSON.parse(res.lectureInfo);
-            if (lectureInfolist == undefined) {
+            //alert(lectureInfolist)
+            if (lectureInfolist == undefined || lectureInfolist == null) {
                 alert("메인페이지 접속버튼 클릭");
             } else {
+                alert(lectureInfolist[2]["id"])
                 gotoCollaborate(lectureInfolist[2]["id"]);
             }
         });

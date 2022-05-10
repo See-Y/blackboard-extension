@@ -1,70 +1,9 @@
-<<<<<<< Updated upstream
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"></meta>
-    <link rel="stylesheet" href="options.html" />
-    <style>
-      table {
-        width: 100%;
-        border-top: 1px solid #000000;
-        border-collapse: collapse;
-      }
-      tr, th {
-        border-bottom: 1px solid #000000;
-        padding: 5px;
-        vertical-align: middle;
-        text-align: center;
-      }
-    </style>
-  </head>
-  <body>
-    <form id="form">
-        <label for="fname">과목 이름(Course name):</label><br>
-        <input type="text" id="cname" name="cname" required><br>
-        <label for="fdate">첫번째 강의 요일(First course day):</label>
-        <select id = "fdate" required>
-          <option value="Monday">월요일(Monday)</option>
-          <option value="Tuesday">화요일(Tuesday)</option>
-          <option value="Wednesday">수요일(Wednesday)</option>
-          <option value="Thursday">목요일(Thursday)</option>
-          <option value="Friday">금요일(Friday)</option>
-        </select>
-        <input type="time" id="ftime" name="ftime" min="07:00" max="20:00" required><br>
-        <label for="sdate">두번째 강의 요일(Second course day):</label>
-        <select id = "sdate">
-          <option value="None">(해당 없음. None)</option>
-          <option value="Monday">월요일(Monday)</option>
-          <option value="Tuesday">화요일(Tuesday)</option>
-          <option value="Wednesday">수요일(Wednesday)</option>
-          <option value="Thursday">목요일(Thursday)</option>
-          <option value="Friday">금요일(Friday)</option>
-        </select>
-        <input type="time" id="stime" name="stime" min="07:00" max="20:00"><br>
-        <label for="tdate">세번째 강의 요일(Third course day):</label>
-        <select id = "tdate">
-          <option value="None">(해당 없음. None)</option>
-          <option value="Monday">월요일(Monday)</option>
-          <option value="Tuesday">화요일(Tuesday)</option>
-          <option value="Wednesday">수요일(Wednesday)</option>
-          <option value="Thursday">목요일(Thursday)</option>
-          <option value="Friday">금요일(Friday)</option>
-        </select>
-        <input type="time" id="ttime" name="ttime" min="07:00" max="20:00"><br>
-        <button id = "testbtn" type="submit">추가하기!</button> 
-        <button id = "rmbtn">제거하기!</button><br>
-    </form>
-    <table id="courseTable"></table>
-    <script src="./save.js"></script>
-    <div>과목 이름 적지 않거나 이미 등록된 과목을 중복 등록 금지</div>
-  </body>
-</html>
-=======
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8"></meta>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="options.html" />
     <style>
         table {
@@ -87,6 +26,11 @@
     <form id="form">
         <label for="fname">과목 이름(Course name):</label><br>
         <input type="text" id="cname" name="cname" required><br>
+        <select id="box1" onChange="myNewFunction(this);">
+  <option value="98">dog</option>
+  <option value="7122">cat</option>
+  <option value="142">bird</option>
+</select>
         <label for="fdate">첫번째 강의 요일(First course day):</label>
         <select id="fdate" required>
           <option value="Monday">월요일(Monday)</option>
@@ -141,4 +85,3 @@
 </body>
 
 </html>
->>>>>>> Stashed changes

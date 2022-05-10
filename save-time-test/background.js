@@ -35,7 +35,11 @@ function loadall() { // 현재 저장된 과목 이름 로드(디버깅용)
         let cursor = event.target.result;
         if (cursor) {
             let course_data = cursor.value;
-            console.log(course_data.name);
+            console.log(cursor.value);
+            chrome.storage.sync.get(['lectureInfo'], function(res) {
+                console.log(JSON.parse(res.lectureInfo));
+
+            });
             cursor.continue();
         }
     };

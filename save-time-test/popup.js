@@ -62,33 +62,12 @@ function getLectureInfo() {
     }
 }
 
-
-
 function goToLecture(course_id) {
-    var gotoCollaborateURL;
     if (document.location.href.includes('portal/execute/tabs/tabAction')) {
         window.location.replace(`https://blackboard.unist.ac.kr/webapps/collab-ultra/tool/collabultra/lti/launch?course_id=${course_id}`);
         console.log(course_id);
         return;
     }
-    (function() {
-        var XHR = XMLHttpRequest.prototype;
-        var open = XHR.open;
-        var send = XHR.send;
-
-        XHR.open = function(method, url) {
-            this._method = method;
-            this._url = url;
-            return open.apply(this, arguments);
-        };
-        alert(send);
-        XHR.send = function(postData) {
-            this.addEventListener('load', function() {
-                console.log(this.responseText);
-            });
-            return send.apply(this, arguments);
-        };
-    })();
 }
 
 function goToMainPage() {
@@ -102,9 +81,11 @@ function goToMainPage() {
                 for (const frameResult of injectionResults) {
                     var lectureInfolist = frameResult.result; // line 11
                     alert(JSON.stringify(lectureInfolist));
-                    chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lectureInfolist) }, function() {
-                        //alert(JSON.stringify(lectureInfolist));
-                    });
+                    if (JSON.stringify(lectureInfolist) != null) {
+                        chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lectureInfolist) }, function() {
+                            //alert(JSON.stringify(lectureInfolist));
+                        });
+                    }
                 }
             });
     });
@@ -113,24 +94,16 @@ function goToMainPage() {
 
 function gotoCollaborate(course_id) {
     chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
-            chrome.scripting.executeScript({
-                target: { tabId: tabs[0].id },
-                function: goToLecture,
-                args: [course_id]
-            })
+        chrome.scripting.executeScript({
+            target: { tabId: tabs[0].id },
+            function: goToLecture,
+            args: [course_id]
         })
-        // go to Collaborate page
-        // var detail = $('.sr-only')[0].id;
-        // var detailedURL = Document.location + "/" + detail;
-        // chrome.tabs.update({
-        //     url: detailedURL
-        // });
-        // $('.button.preserve.focus-item.loading-button')[0].click()
-
+    })
 }
 document.addEventListener("DOMContentLoaded", function() {
     var btn0 = document.querySelector("#btn");
-    btn0.addEventListener("click", goToMainPage)
+    btn0.addEventListener("click", goToMainPage);
 });
 document.addEventListener("DOMContentLoaded", function() {
     var btn0 = document.querySelector("#btn1");
@@ -141,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (lectureInfolist == undefined || lectureInfolist == null) {
                 alert("메인페이지 접속버튼 클릭");
             } else {
-                alert(lectureInfolist[2]["id"])
+                alert(lectureInfolist[2]);
                 gotoCollaborate(lectureInfolist[2]["id"]);
             }
         });

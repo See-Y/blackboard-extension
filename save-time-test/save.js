@@ -15,7 +15,8 @@ document.getElementById('testbtn').addEventListener("click", event => { // ì‚½ìž
         t_raw_time = '00:00';
     var st = form_data.get('cname');
     chrome.storage.sync.set({
-        [st]: [st, f_raw_time, s_raw_time, t_raw_time, f_date.value, s_date.value, t_date.value] }, function() {
+        [st]: [st, f_raw_time, s_raw_time, t_raw_time, f_date.value, s_date.value, t_date.value]
+    }, function() {
         console.log("saved!");
         if (chrome.runtime.error) {
             console.log("Runtime error.");

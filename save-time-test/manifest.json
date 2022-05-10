@@ -8,12 +8,27 @@
     },
     "options_page": "options.html",
     "permissions": [
-        "activeTab",
         "tabs",
         "scripting",
         "storage",
-        "notifications"
+        "notifications",
+        "webRequest"
     ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+
+    "content_scripts": [{
+        "matches": ["https://au-lti.bbcollab.com/*"],
+        "js": ["content-script.js"],
+        "run_at": "document_end"
+    }],
+    "web_accessible_resources": [{
+        "resources": [
+            "intercept.js"
+        ],
+        "matches": ["https://au-lti.bbcollab.com/*"]
+    }],
     "background": {
         "service_worker": "background.js"
     }

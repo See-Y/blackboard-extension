@@ -72,50 +72,23 @@ function goToLecture(course_id) {
         return;
     }
     (function() {
-        var proxied = window.XMLHttpRequest.prototype.send;
-        window.XMLHttpRequest.prototype.send = function() {
-            var pointer = this
-            var intervalId = window.setInterval(function() {
-                if (pointer.readyState != 4) {
-                    return;
-                }
-                if (pointer.responseText.includes(`"url":`) && pointer.responseText.includes(`https://au.bbcollab.com/launch`)) {
-                    gotoCollaborateURL = JSON.parse(pointer.responseText).url
-                    window.location.replace(gotoCollaborateURL)
-                }
-                clearInterval(intervalId);
+        var XHR = XMLHttpRequest.prototype;
+        var open = XHR.open;
+        var send = XHR.send;
 
-            }, 10);
-            return proxied.apply(this, [].slice.call(arguments));
+        XHR.open = function(method, url) {
+            this._method = method;
+            this._url = url;
+            return open.apply(this, arguments);
         };
-
-        function waitForElm(selector) {
-            return new Promise(resolve => {
-                if (document.getElementsByClassName(selector)[0]) {
-                    return resolve(document.getElementsByClassName(selector)[0]);
-                }
-
-                const observer = new MutationObserver(mutations => {
-                    if (document.getElementsByClassName(selector)[0]) {
-                        resolve(document.getElementsByClassName(selector)[0]);
-                        observer.disconnect();
-                    }
-                });
-
-                observer.observe(document.body, {
-                    childList: true,
-                    subtree: true
-                });
+        alert(send);
+        XHR.send = function(postData) {
+            this.addEventListener('load', function() {
+                console.log(this.responseText);
             });
-        }
-        waitForElm('item-list__item-icon').then((elm) => {
-            console.log(elm.parentElement);
-            if (document.title = 'Bb Collaborate Sessions') {
-                elm.parentElement.click();
-            }
-        });
+            return send.apply(this, arguments);
+        };
     })();
-
 }
 
 function goToMainPage() {

@@ -4,6 +4,7 @@
     "version": "1.0",
     "manifest_version": 3,
     "action": {
+        "default_icon": "icon.png",
         "default_popup": "popup.html"
     },
     "options_page": "options.html",
@@ -20,20 +21,31 @@
 
     "content_scripts": [{
             "matches": ["https://au-lti.bbcollab.com/*"],
-            "js": ["pageScript/content-script.js"],
+            "js": ["pageScript/ClickCollaborate.js"],
             "run_at": "document_end"
         },
         {
             "matches": ["https://blackboard.unist.ac.kr/webapps/portal/execute/tabs/*"],
             "js": ["pageScript/getLectureInfo.js"]
+        },
+        {
+            "matches": ["https://blackboard.unist.ac.kr/*"],
+            "js": ["pageScript/content-cancelLogout.js"]
         }
     ],
     "web_accessible_resources": [{
-        "resources": [
-            "pageScript/intercept.js"
-        ],
-        "matches": ["https://au-lti.bbcollab.com/*"]
-    }],
+            "resources": [
+                "pageScript/intercept.js"
+            ],
+            "matches": ["https://au-lti.bbcollab.com/*"]
+        },
+        {
+            "resources": [
+                "pageScript/cancelLogout.js"
+            ],
+            "matches": ["https://blackboard.unist.ac.kr/*"]
+        }
+    ],
     "background": {
         "service_worker": "background.js"
     }

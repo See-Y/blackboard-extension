@@ -62,7 +62,7 @@ function waitForElm(selector, index) {
 }
 waitForElm('portletList-img courseListing coursefakeclass ', 0).then((elm) => {
     var AllaTag = document.getElementsByTagName('a');
-    var lecturelist = new Array();
+    var lecturelist = new Object();
     for (var i = 0; i < AllaTag.length; i += 1) {
         if (AllaTag[i].parentElement.parentElement.className == 'portletList-img courseListing coursefakeclass ') {
             var temp = new Object();
@@ -70,7 +70,7 @@ waitForElm('portletList-img courseListing coursefakeclass ', 0).then((elm) => {
             temp["link"] = AllaTag[i].href;
             var params = AllaTag[i].href.extract();
             temp["id"] = params.id;
-            lecturelist.push(temp);
+            lecturelist[AllaTag[i].text.split(":")[0]] = temp;
         }
     }
     console.log(lecturelist);

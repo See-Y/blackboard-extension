@@ -4,7 +4,7 @@ document.getElementById('inputbtn').addEventListener("click", event => { // ì‚½ì
     event.preventDefault();
     var lec = [];
     var j_data = [];
-    var list_data = []
+    var list_data = new Object();
     chrome.storage.sync.get('lectureInfo', function(result) {
         for(var d in result) {
             const lec_data = JSON.parse(result[d]);
@@ -42,7 +42,6 @@ document.getElementById('inputbtn').addEventListener("click", event => { // ì‚½ì
                 'third_time' : time_data[2],
             };
             console.log(current);
-            
             list_data[current] = add_data; 
         }
         j_data = JSON.stringify(list_data);

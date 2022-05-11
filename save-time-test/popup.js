@@ -6,8 +6,6 @@ function goToLecture(course_id) {
     }
 }
 
-
-
 function gotoCollaborate(course_id) {
     chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
         chrome.scripting.executeScript({
@@ -36,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (lectureInfolist == undefined || lectureInfolist == null) {
                 alert("메인페이지 접속버튼 클릭");
             } else {
-                alert(lectureInfolist[2]);
+                //alert(lectureInfolist[2]);
                 gotoCollaborate(lectureInfolist[2]["id"]);
             }
         });

@@ -41,7 +41,6 @@ document.getElementById('inputbtn').addEventListener("click", event => { // 삽�
                 'third_date' : date_data[2],
                 'third_time' : time_data[2],
             };
-            console.log(current);
             list_data[current] = add_data; 
         }
         j_data = JSON.stringify(list_data);
@@ -65,7 +64,7 @@ document.getElementById('rmbtn').addEventListener("click", event => { // 삭제�
 });
 
 
-document.getElementById('testbtn').addEventListener("click", event => { // 삭제버튼 클릭시 이벤트
+document.getElementById('testbtn').addEventListener("click", event => {
     event.preventDefault();
     var allKeys = [];
     chrome.storage.sync.get(null, function(items) {
@@ -73,7 +72,8 @@ document.getElementById('testbtn').addEventListener("click", event => { // 삭�
         for(var k in allKeys) {
             chrome.storage.sync.get(allKeys[k], function(result) {
                 for(var d in result) {
-                    console.log(result[d]);
+                    const lec = JSON.parse(result[d]);
+                    console.log(lec);
                 }
               });
         }
@@ -97,7 +97,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
   window.onload = function() {
     chrome.storage.sync.get('lectureInfo', function(result) {
         for(var d in result) {
-            console.log(result[d]);
             const lec = JSON.parse(result[d]);
             console.log(lec);
             for(var current in lec) {

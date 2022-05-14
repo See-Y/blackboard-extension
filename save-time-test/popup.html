@@ -3,28 +3,95 @@
 
 <head>
     <meta charset="utf-8"></meta>
+    <script type='text/javascript' src="popup.js"></script>
+
+    <link rel="stylesheet" href="framework/bootstrap.min.css" />
+    <link rel="stylesheet" href="framework/bootstrap-table.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css" integrity="sha384-Tv5i09RULyHKMwX0E8wJUqSOaXlyu3SQxORObAI08iUwIalMmN5L6AvlPX2LMoSE" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous" />
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" href="options.html" />
-    <input type="button" value="메인페이지 접속" id="btn">
-    <input type="button" value="콜라보레이트 접속" id="btn1">
+    <div id="container"><button id="btn_option_popup">시간표 설정<i
+                            class="fa fa-cog"></i></button></button>
+    </div>
     <style>
+        #container {
+            text-align: center;
+        }
+        
         table {
             width: 100%;
             border-top: 1px solid #000000;
             border-collapse: collapse;
         }
         
+        tr:nth-child(1) {
+            background-color: #04AA6D;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        
+        td {
+            border-left: 1px solid #000000;
+            min-width: 68px;
+            border-top-left-radius: 12%;
+            border-top-right-radius: 12%;
+        }
+        
         tr,
         th {
             border-bottom: 1px solid #000000;
             padding: 5px;
+            min-width: 150px;
             vertical-align: middle;
             text-align: center;
+            width: 50px;
+            /* or whatever width you want. */
+            max-width: 50px;
+        }
+        
+        i {
+            width: 20px;
+            /* or whatever width you want. */
+            max-width: 20px;
+            height: 20px;
+            /* or whatever width you want. */
+            max-height: 20px;
+            /* or whatever width you want. */
+            display: inline-block;
+        }
+        
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        
+        #btn_option_popup {
+            border-radius: 12px;
+        }
+        
+        .Collab_btn {
+            border-radius: 12px;
         }
     </style>
 </head>
 
 <body>
-    <script src="./popup.js"></script>
+
 </body>
 
 </html>

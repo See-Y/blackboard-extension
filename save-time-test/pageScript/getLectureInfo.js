@@ -61,20 +61,26 @@ function waitForElm(selector, index) {
     });
 }
 waitForElm('portletList-img courseListing coursefakeclass ', 0).then((elm) => {
-    var AllaTag = document.getElementsByTagName('a');
-    var lecturelist = new Object();
-    for (var i = 0; i < AllaTag.length; i += 1) {
-        if (AllaTag[i].parentElement.parentElement.className == 'portletList-img courseListing coursefakeclass ') {
-            var temp = new Object();
-            temp["name"] = AllaTag[i].text;
-            temp["link"] = AllaTag[i].href;
-            var params = AllaTag[i].href.extract();
-            temp["id"] = params.id;
-            lecturelist[AllaTag[i].text.split(":")[0]] = temp;
+    chrome.storage.sync.get(['lectureInfo'], function(res) {
+        var lecturelist = JSON.parse(res.lectureInfo);
+        console.log(lecturelist);
+        if (!lecturelist) {
+            console.log(JSON.parse(res.lectureInfo));
+            var AllaTag = document.getElementsByTagName('a');
+            var lecturelist = new Object();
+            for (var i = 0; i < AllaTag.length; i += 1) {
+                if (AllaTag[i].parentElement.parentElement.className == 'portletList-img courseListing coursefakeclass ') {
+                    var temp = new Object();
+                    temp["name"] = AllaTag[i].text;
+                    temp["link"] = AllaTag[i].href;
+                    var params = AllaTag[i].href.extract();
+                    temp["id"] = params.id;
+                    lecturelist[AllaTag[i].text.split(":")[0]] = temp;
+                }
+            }
+            chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
+                // alert(JSON.stringify(lecturelist));
+            });
         }
-    }
-    console.log(lecturelist);
-    chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
-        // alert(JSON.stringify(lecturelist));
     });
 });

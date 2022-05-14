@@ -1,0 +1,78 @@
+ table {
+     width: 80%;
+     border-top: 1px solid #000000;
+     border-collapse: collapse;
+ }
+ 
+ #course_form {
+     display: inline;
+ }
+ 
+ .time_container {
+     display: inline;
+     overflow: hiddlen;
+     white-space: nowrap;
+ }
+ 
+ #course_form> :nth-child(n+6)> :nth-child(3)>:nth-child(n) {
+     background: #EAEFF1;
+     border: none;
+     border-bottom: 4px solid #C9D6DA;
+     display: inline;
+     margin-bottom: .625em;
+     margin-top: .3em;
+     outline-offset: 3px;
+     padding: .45em .45em .45em .65em;
+     width: 15%;
+ }
+ 
+ #course_form> :nth-child(n+6)> :nth-child(4)>:nth-child(n) {
+     background: #ced4da;
+     border: none;
+     border-bottom: 4px solid #C9D6DA;
+     display: inline;
+     margin-bottom: .625em;
+     margin-top: .3em;
+     outline-offset: 3px;
+     padding: .45em .45em .45em .65em;
+     width: 15%;
+ }
+ 
+ #course_form> :nth-child(n+6)> :nth-child(5)>:nth-child(n) {
+     background: #adb5bd;
+     border: none;
+     border-bottom: 4px solid #C9D6DA;
+     display: inline;
+     margin-bottom: .625em;
+     margin-top: .3em;
+     outline-offset: 3px;
+     padding: .45em .45em .45em .65em;
+     width: 15%;
+ }
+ 
+ #course_form> :nth-child(n+6)> :nth-child(n)>:nth-child(n)::before {
+     content: attr(placeholder) !important;
+     color: #aaa;
+     font-style: italic;
+     font-size: 0.9em;
+ }
+ 
+ input[type=time] {
+     position: relative;
+     bottom: 6.5px;
+     display: block;
+     height: 80%;
+ }
+ 
+ tr,
+ th {
+     border-bottom: 1px solid #000000;
+     padding: 5px;
+     vertical-align: middle;
+     text-align: center;
+ }
+ 
+ label {
+     font-weight: bold;
+     font-size: 15px;
+ }

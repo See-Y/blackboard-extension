@@ -60,28 +60,37 @@ function waitForElm() {
         });
     });
 }
+
+function getLectureElement() {
+    var AllaTag = document.getElementsByTagName('a');
+    var lecturelist = new Object();
+    for (var i = 0; i < AllaTag.length; i += 1) {
+        if (AllaTag[i].href.includes('/webapps/blackboard/execute/') && !AllaTag[i].className.includes('button')) {
+            var temp = new Object();
+            temp["name"] = AllaTag[i].text;
+            temp["link"] = AllaTag[i].href;
+            var params = AllaTag[i].href.extract();
+            temp["id"] = params.id;
+            lecturelist[AllaTag[i].text.split(":")[0]] = temp;
+        }
+    }
+    console.log(lecturelist);
+    chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
+        // alert(JSON.stringify(lecturelist));
+    });
+}
 waitForElm().then((elm) => {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
-        var lecturelist = JSON.parse(res.lectureInfo);
-        console.log(lecturelist);
-        if (!lecturelist || (Object.keys(lecturelist).length === 0 && Object.getPrototypeOf(lecturelist) === Object.prototype)) {
-            //console.log(JSON.parse(res.lectureInfo));
-            var AllaTag = document.getElementsByTagName('a');
-            var lecturelist = new Object();
-            for (var i = 0; i < AllaTag.length; i += 1) {
-                if (AllaTag[i].href.includes('/webapps/blackboard/execute/') && !AllaTag[i].className.includes('button')) {
-                    var temp = new Object();
-                    temp["name"] = AllaTag[i].text;
-                    temp["link"] = AllaTag[i].href;
-                    var params = AllaTag[i].href.extract();
-                    temp["id"] = params.id;
-                    lecturelist[AllaTag[i].text.split(":")[0]] = temp;
-                }
-            }
+        res.lectureInfo
+        if (res.lectureInfo == undefined && res.lectureInfo == null) {
+            getLectureElement();
+        } else {
+            var lecturelist = JSON.parse(res.lectureInfo);
             console.log(lecturelist);
-            chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
-                // alert(JSON.stringify(lecturelist));
-            });
+            if (!lecturelist || (Object.keys(lecturelist).length === 0 && Object.getPrototypeOf(lecturelist) === Object.prototype)) {
+                //console.log(JSON.parse(res.lectureInfo));
+                getLectureElement();
+            }
         }
     });
 });

@@ -27,10 +27,10 @@ function gotoCollaborate(course_id) {
 
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
-        // if (!lecturelist || Object.keys(lecturelist).length === 0 || Object.getPrototypeOf(lecturelist) === Object.prototype) {
-        //     alert("블랙보드에 접속하여 강좌정보를 가져오세요");
-        // }
         var lecturelist = JSON.parse(res.lectureInfo);
+        if (!lecturelist || (Object.keys(lecturelist).length === 0 && Object.getPrototypeOf(lecturelist) === Object.prototype)) {
+            alert("블랙보드에 접속하여 강좌정보를 가져오세요");
+        }
         var children = new Array();
         for (i in lecturelist) {
             var temp = new Object();

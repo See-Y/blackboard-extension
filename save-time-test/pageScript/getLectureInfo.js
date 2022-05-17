@@ -64,7 +64,7 @@ waitForElm('portletList-img courseListing coursefakeclass ', 0).then((elm) => {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
         var lecturelist = JSON.parse(res.lectureInfo);
         console.log(lecturelist);
-        if (!lecturelist) {
+        if (!lecturelist || Object.keys(lecturelist).length === 0 || Object.getPrototypeOf(lecturelist) === Object.prototype) {
             console.log(JSON.parse(res.lectureInfo));
             var AllaTag = document.getElementsByTagName('a');
             var lecturelist = new Object();

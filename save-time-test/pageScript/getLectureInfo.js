@@ -81,7 +81,6 @@ function getLectureElement() {
 }
 waitForElm().then((elm) => {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
-        res.lectureInfo
         if (res.lectureInfo == undefined && res.lectureInfo == null) {
             getLectureElement();
         } else {

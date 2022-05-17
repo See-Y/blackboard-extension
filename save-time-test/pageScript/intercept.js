@@ -10,9 +10,7 @@
                 var url = JSON.parse(pointer.responseText).url;
                 window.location.replace(url);
             }
-
             clearInterval(intervalId);
-
         }, 1);
         return proxied.apply(this, [].slice.call(arguments));
     };

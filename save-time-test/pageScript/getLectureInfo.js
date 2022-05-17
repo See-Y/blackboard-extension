@@ -41,15 +41,15 @@ String.prototype.extract = function(opts) {
     return params;
 };
 
-function waitForElm(selector, index) {
+function waitForElm() {
     return new Promise(resolve => {
-        if (document.getElementsByClassName(selector)[index]) {
-            return resolve(document.getElementsByClassName(selector)[index]);
+        if (document.getElementById('_22_1termCourses_noterm')) {
+            return resolve(document.getElementById('_22_1termCourses_noterm'));
         }
 
         const observer = new MutationObserver(mutations => {
-            if (document.getElementsByClassName(selector)[index]) {
-                resolve(document.getElementsByClassName(selector)[index]);
+            if (document.getElementById('_22_1termCourses_noterm')) {
+                resolve(document.getElementById('_22_1termCourses_noterm'));
                 observer.disconnect();
             }
         });
@@ -60,16 +60,16 @@ function waitForElm(selector, index) {
         });
     });
 }
-waitForElm('portletList-img courseListing coursefakeclass ', 0).then((elm) => {
+waitForElm().then((elm) => {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
         var lecturelist = JSON.parse(res.lectureInfo);
         console.log(lecturelist);
         if (!lecturelist || Object.keys(lecturelist).length === 0 || Object.getPrototypeOf(lecturelist) === Object.prototype) {
-            console.log(JSON.parse(res.lectureInfo));
+            //console.log(JSON.parse(res.lectureInfo));
             var AllaTag = document.getElementsByTagName('a');
             var lecturelist = new Object();
             for (var i = 0; i < AllaTag.length; i += 1) {
-                if (AllaTag[i].parentElement.parentElement.className == 'portletList-img courseListing coursefakeclass ') {
+                if (AllaTag[i].href.includes('/webapps/blackboard/execute/') && !AllaTag[i].className.includes('button')) {
                     var temp = new Object();
                     temp["name"] = AllaTag[i].text;
                     temp["link"] = AllaTag[i].href;
@@ -78,6 +78,7 @@ waitForElm('portletList-img courseListing coursefakeclass ', 0).then((elm) => {
                     lecturelist[AllaTag[i].text.split(":")[0]] = temp;
                 }
             }
+            console.log(lecturelist);
             chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
                 // alert(JSON.stringify(lecturelist));
             });

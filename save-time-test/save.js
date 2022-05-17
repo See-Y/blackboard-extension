@@ -59,7 +59,9 @@ document.getElementById('rmbtn').addEventListener("click", event => { // 삭제�
 
     event.preventDefault();
     alert("데이터 삭제 완료! (블랙보드에서 과목 등록부터 다시해주세요)");
-    chrome.storage.sync.clear();
+    chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(new Object()) }, function() {
+        // alert(JSON.stringify(lecturelist));
+    });
 
 });
 

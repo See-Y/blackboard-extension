@@ -16,6 +16,7 @@ function gotoCollaborate(course_id) {
     })
 }
 
+
 // chrome.storage.sync.get(['lectureInfo'], function(res) {
 //     var lecturelist = JSON.parse(res.lectureInfo);
 //     document.querySelector("table").bootstrapTable({
@@ -26,6 +27,9 @@ function gotoCollaborate(course_id) {
 
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
+        // if (!lecturelist || Object.keys(lecturelist).length === 0 || Object.getPrototypeOf(lecturelist) === Object.prototype) {
+        //     alert("블랙보드에 접속하여 강좌정보를 가져오세요");
+        // }
         var lecturelist = JSON.parse(res.lectureInfo);
         var children = new Array();
         for (i in lecturelist) {

@@ -1,22 +1,3 @@
-function goToLecture(course_id) {
-    if (document.location.href.includes('portal/execute/tabs/tabAction')) {
-        window.location.replace(`https://blackboard.unist.ac.kr/webapps/collab-ultra/tool/collabultra/lti/launch?course_id=${course_id}`);
-        console.log(course_id);
-        return;
-    }
-}
-
-function gotoCollaborate(course_id) {
-    chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
-        chrome.scripting.executeScript({
-            target: { tabId: tabs[0].id },
-            function: goToLecture,
-            args: [course_id]
-        })
-    })
-}
-
-
 // chrome.storage.sync.get(['lectureInfo'], function(res) {
 //     var lecturelist = JSON.parse(res.lectureInfo);
 //     document.querySelector("table").bootstrapTable({
@@ -27,9 +8,13 @@ function gotoCollaborate(course_id) {
 
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
-        var lecturelist = JSON.parse(res.lectureInfo);
-        if (!lecturelist || (Object.keys(lecturelist).length === 0 && Object.getPrototypeOf(lecturelist) === Object.prototype)) {
+        if (res.lectureInfo == undefined && res.lectureInfo == null) {
             alert("블랙보드에 접속하여 강좌정보를 가져오세요");
+        } else {
+            var lecturelist = JSON.parse(res.lectureInfo);
+            if (!lecturelist || (Object.keys(lecturelist).length === 0 && Object.getPrototypeOf(lecturelist) === Object.prototype)) {
+                alert("블랙보드에 접속하여 강좌정보를 가져오세요");
+            }
         }
         var children = new Array();
         const date_name = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "None"];

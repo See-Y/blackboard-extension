@@ -24,7 +24,7 @@ document.getElementById('inputbtn').addEventListener("click", event => { // ì‚½ì
             var date_index = [0, 1, 2];
             for (var i in date_index) {
                 var date_input_name = date_name + i.toString();
-                var date_raw_data = document.getElementById(date_input_name).value;
+                var date_raw_data = document.getElementById(date_input_name).selectedIndex;
                 date_data[i] = date_raw_data;
             }
             var add_data;
@@ -120,7 +120,7 @@ window.onload = function() {
                 course_label.innerHTML = lec[current].name.toString();
                 container.appendChild(course_label);
                 container.appendChild(new_line.cloneNode());
-                const date_name = ["None", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+                const date_name = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "None"];
                 for (var cur_idx in index) {
                     var timeContainer = document.createElement('div');
                     timeContainer.className = "time_container";
@@ -136,21 +136,11 @@ window.onload = function() {
                         opt.value = date_name[cur_date];
                         date_in.options.add(opt);
                     }
-                    date_in.setAttribute("value", date_data[cur_idx]);
-                    if (date_data[cur_idx] == undefined || date_data[cur_idx] == "None")
-                        date_data[cur_idx] = 0;
-                    else if (date_data[cur_idx] == "Monday")
-                        date_data[cur_idx] = 1;
-                    else if (date_data[cur_idx] == "Tuesday")
-                        date_data[cur_idx] = 2;
-                    else if (date_data[cur_idx] == "Wednesday")
-                        date_data[cur_idx] = 3;
-                    else if (date_data[cur_idx] == "Thursday")
-                        date_data[cur_idx] = 4;
-                    else if (date_data[cur_idx] == "Friday")
-                        date_data[cur_idx] = 5;
+                    if(date_data[cur_idx] == undefined)
+                        date_data[cur_idx] = 7;
                     if (time_data[cur_idx] == undefined)
                         time_data[cur_idx] = "09:00"
+                    date_in.setAttribute("value", date_name[date_data[cur_idx]]);
                     date_in.setAttribute("id", date_name_str);
                     date_in.selectedIndex = date_data[cur_idx];
                     time_in.setAttribute("id", time_name_str);

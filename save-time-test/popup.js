@@ -32,12 +32,13 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("블랙보드에 접속하여 강좌정보를 가져오세요");
         }
         var children = new Array();
+        const date_name = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "None"];
         for (i in lecturelist) {
             var temp = new Object();
             temp["lecture"] = i
-            temp["first_time"] = lecturelist[i].first_date == "None" || lecturelist[i].first_date == undefined ? "-" : lecturelist[i].first_date + "_" + lecturelist[i].first_time;
-            temp["second_time"] = lecturelist[i].second_date == "None" || lecturelist[i].second_date == undefined ? "-" : lecturelist[i].second_date + "_" + lecturelist[i].second_time;
-            temp["third_time"] = lecturelist[i].third_date == "None" || lecturelist[i].third_date == undefined ? "-" : lecturelist[i].third_date + "_" + lecturelist[i].third_time;
+            temp["first_time"] = lecturelist[i].first_date == "None" || lecturelist[i].first_date == undefined ? "-" : date_name[lecturelist[i].first_date] + "_" + lecturelist[i].first_time;
+            temp["second_time"] = lecturelist[i].second_date == "None" || lecturelist[i].second_date == undefined ? "-" : date_name[lecturelist[i].second_date] + "_" + lecturelist[i].second_time;
+            temp["third_time"] = lecturelist[i].third_date == "None" || lecturelist[i].third_date == undefined ? "-" : date_name[lecturelist[i].third_date] + "_" + lecturelist[i].third_time;
             temp["collab"] = lecturelist[i].id;
             //console.log(lecturelist[i].third_date);
             children.push(temp);

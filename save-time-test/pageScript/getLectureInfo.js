@@ -43,12 +43,12 @@ String.prototype.extract = function(opts) {
 
 function waitForElm() {
     return new Promise(resolve => {
-        if (document.getElementById('_22_1termCourses_noterm')) {
+        if (document.getElementById('_22_1termCourses_noterm') || document.getElementById("_22_1termCourses__141_1")) {
             return resolve(document.getElementById('_22_1termCourses_noterm'));
         }
 
         const observer = new MutationObserver(mutations => {
-            if (document.getElementById('_22_1termCourses_noterm')) {
+            if (document.getElementById('_22_1termCourses_noterm') || document.getElementById("_22_1termCourses__141_1")) {
                 resolve(document.getElementById('_22_1termCourses_noterm'));
                 observer.disconnect();
             }
@@ -81,11 +81,12 @@ function getLectureElement() {
 }
 waitForElm().then((elm) => {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
+        console.log(res.lectureInfo);
         if (res.lectureInfo == undefined && res.lectureInfo == null) {
             getLectureElement();
         } else {
             var lecturelist = JSON.parse(res.lectureInfo);
-            console.log(lecturelist);
+            //console.log(lecturelist);
             if (!lecturelist || (Object.keys(lecturelist).length === 0 && Object.getPrototypeOf(lecturelist) === Object.prototype)) {
                 //console.log(JSON.parse(res.lectureInfo));
                 getLectureElement();

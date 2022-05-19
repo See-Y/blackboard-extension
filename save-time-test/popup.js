@@ -8,6 +8,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
+        //console.log(res.lectureInfo);
         if (res.lectureInfo == undefined && res.lectureInfo == null) {
             alert("블랙보드에 접속하여 강좌정보를 가져오세요");
         } else {

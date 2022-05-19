@@ -81,7 +81,7 @@ function createAlarm(course_id, course_day, course_time) {
     // If small, add 7 days
     if (now_date > date) date.setDate(date.getDate()+7);
     console.log(course_id+" alarm set at "+date); 
-    chrome.alarms.create(course_id, {when : date.getTime()});
+    chrome.alarms.create(course_id, {periodInMinutes : 10080, when : date.getTime()});
 }
 
 document.getElementById('rmbtn').addEventListener("click", event => { // 삭제버튼 클릭시 이벤트

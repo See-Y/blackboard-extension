@@ -10,19 +10,18 @@ document.getElementById('inputbtn').addEventListener("click", event => { // 삽�
                 lec[p] = lec_data[p];
             }
         }
+        var duplicated_courses = [];
         for (var current in lec) {
             var time_data = [];
             var date_data = [];
             var time_name = "time_" + current.toString() + "_";
             var date_name = "date_" + current.toString() + "_";
-            var time_index = [0, 1, 2];
-            for (var i in time_index) {
+            for (let i = 0; i < 3; i++) {
                 var time_input_name = time_name + i.toString();
                 var time_raw_data = document.getElementById(time_input_name).value;
                 time_data[i] = time_raw_data;
             }
-            var date_index = [0, 1, 2];
-            for (var i in date_index) {
+            for (let i = 0; i < 3; i++) {
                 var date_input_name = date_name + i.toString();
                 var date_raw_data = document.getElementById(date_input_name).selectedIndex;
                 date_data[i] = date_raw_data;
@@ -39,23 +38,70 @@ document.getElementById('inputbtn').addEventListener("click", event => { // 삽�
                 'third_date': date_data[2],
                 'third_time': time_data[2],
             };
+            if(duplicated_courses.length == 0) {
+                for(let i = 0; i < 3; i++) {
+                    if(date_data[i] == 7)
+                        continue;
+                    for(let j = i + 1; j < 3; j++) {
+                        if(duplicate_check(date_data[i], date_data[j], time_data[i], time_data[j]))
+                            duplicated_courses.push(add_data.name);
+                    }
+                }
+            }
+            if(duplicated_courses.length == 0) {
+                var is_duplicated = false;
+                for(var check in list_data) {
+                    for(let i = 0; i < 3; i++) {
+                        if(date_data[i] == 7)
+                            continue;
+                        if(duplicate_check(date_data[i], list_data[check].first_date, time_data[i], list_data[check].first_time)) {
+                            duplicated_courses.push(list_data[check].name);
+                            is_duplicated = true;
+                        }
+                        else if(duplicate_check(date_data[i], list_data[check].second_date, time_data[i], list_data[check].second_time)) {
+                            duplicated_courses.push(list_data[check].name);
+                            is_duplicated = true;
+                        }
+                        else if(duplicate_check(date_data[i], list_data[check].third_date, time_data[i], list_data[check].third_time)) {
+                            duplicated_courses.push(list_data[check].name);
+                            is_duplicated = true;
+                        }
+                    }
+                }
+                if(is_duplicated == true)
+                    duplicated_courses.push(add_data.name);
+            }
             list_data[current] = add_data;
         }
-        j_data = JSON.stringify(list_data);
-        chrome.storage.sync.set({
-            ['lectureInfo']: j_data
-        }, function() {
-            console.log("saved!");
-            alert("저장 완료!");
-            if (chrome.runtime.error) {
-                console.log("Runtime error.");
+        if(duplicated_courses.length != 0) {
+            var alert_string = "";
+            for(let i = 0; i < duplicated_courses.length; i++) {
+                alert_string += duplicated_courses[i];
+                if(i < duplicated_courses.length - 1)
+                    alert_string += ", ";
             }
-            // Delete all alarms before setting new alarm
-            chrome.alarms.clearAll();
-            // Setting all alarms saved in chrome sync
-            setAlarm();
-        });
+            alert_string += "이(가) 시간이 중복됩니다. 다시 한번 확인해주세요.";
+            alert(alert_string);
+        }
+        else {
+            j_data = JSON.stringify(list_data);
+            chrome.storage.sync.set({
+                ['lectureInfo']: j_data
+            }, function() {
+                console.log("saved!");
+                alert("저장 완료!");
+                if (chrome.runtime.error) {
+                    console.log("Runtime error.");
+                }
+                // Delete all alarms before setting new alarm
+                chrome.alarms.clearAll();
+                // Setting all alarms saved in chrome sync
+                setAlarm();
+            });
+            location.reload();
+        }
     });
+    
 
 });
 
@@ -65,9 +111,12 @@ function setAlarm() {
         for (var d in result) {
             const lec = JSON.parse(result[d]);
             for (var current in lec) {
-                createAlarm(lec[current].id+":1", lec[current].first_date, lec[current].first_time);
-                createAlarm(lec[current].id+":2", lec[current].second_date, lec[current].second_time);
-                createAlarm(lec[current].id+":3", lec[current].third_date, lec[current].third_time);
+                if(lec[current].first_date != 7) // 7 indicates undefined or None
+                    createAlarm(lec[current].id+":1", lec[current].first_date, lec[current].first_time);
+                if(lec[current].second_date != 7)
+                    createAlarm(lec[current].id+":2", lec[current].second_date, lec[current].second_time);
+                if(lec[current].third_date != 7)
+                    createAlarm(lec[current].id+":3", lec[current].third_date, lec[current].third_time);
             }
         }
     });
@@ -91,7 +140,7 @@ document.getElementById('rmbtn').addEventListener("click", event => { // 삭제�
     chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(new Object()) }, function() {
         // alert(JSON.stringify(lecturelist));
     });
-
+    location.reload();
 });
 
 
@@ -135,7 +184,6 @@ window.onload = function() {
                 var container = document.createElement("div");
                 container.className = lec[current].name.toString();
                 form.appendChild(container)
-                var index = [0, 1, 2];
                 var new_line = document.createElement("br");
                 var course_label = document.createElement("label");
                 var time_data = [];
@@ -150,7 +198,7 @@ window.onload = function() {
                 container.appendChild(course_label);
                 container.appendChild(new_line.cloneNode());
                 const date_name = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "None"];
-                for (var cur_idx in index) {
+                for (let cur_idx = 0; cur_idx < 3; cur_idx++) {
                     var timeContainer = document.createElement('div');
                     timeContainer.className = "time_container";
                     container.appendChild(timeContainer);
@@ -183,4 +231,10 @@ window.onload = function() {
             }
         }
     });
+}
+
+function duplicate_check(x_date, y_date, x_time, y_time) {
+    if(x_date == y_date && x_time == y_time)
+        return true;
+    return false;
 }

@@ -10,10 +10,7 @@ function loadall() { // 현재 저장된 과목 이름 로드(디버깅용)
 }
 // Go to Lecture collaborate page
 function goToLecture(course_id) {
-    if (document.location.href.includes('portal/execute/tabs/tabAction')) {
-        window.location.replace(`https://blackboard.unist.ac.kr/webapps/collab-ultra/tool/collabultra/lti/launch?course_id=${course_id}`);
-        return;
-    }
+    window.location.replace(`https://blackboard.unist.ac.kr/webapps/collab-ultra/tool/collabultra/lti/launch?course_id=${course_id}`);
 }
 
 function gotoCollaborate(course_id) {

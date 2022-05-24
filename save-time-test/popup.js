@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
             temp["second_time"] = lecturelist[i].second_date == 7 || lecturelist[i].second_date == undefined ? "-" : date_name[lecturelist[i].second_date] + "_" + lecturelist[i].second_time;
             temp["third_time"] = lecturelist[i].third_date == 7 || lecturelist[i].third_date == undefined ? "-" : date_name[lecturelist[i].third_date] + "_" + lecturelist[i].third_time;
             temp["collab"] = lecturelist[i].id;
+            temp["auto_join"] = lecturelist[i].use_collaborate == undefined ? '-'  : lecturelist[i].use_collaborate == true ? 'Yes' : 'No';
             //console.log(lecturelist[i].third_date);
             children.push(temp);
         }

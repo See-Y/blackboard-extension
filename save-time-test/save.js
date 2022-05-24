@@ -16,6 +16,7 @@ document.getElementById('inputbtn').addEventListener("click", event => { // 삽�
             var date_data = [];
             var time_name = "time_" + current.toString() + "_";
             var date_name = "date_" + current.toString() + "_";
+            var check_name = "check_" + current.toString();
             for (let i = 0; i < 3; i++) {
                 var time_input_name = time_name + i.toString();
                 var time_raw_data = document.getElementById(time_input_name).value;
@@ -37,6 +38,7 @@ document.getElementById('inputbtn').addEventListener("click", event => { // 삽�
                 'second_time': time_data[1],
                 'third_date': date_data[2],
                 'third_time': time_data[2],
+                'use_collaborate': document.getElementById(check_name).checked
             };
             if(duplicated_courses.length == 0) {
                 for(let i = 0; i < 3; i++) {
@@ -98,7 +100,6 @@ document.getElementById('inputbtn').addEventListener("click", event => { // 삽�
                 // Setting all alarms saved in chrome sync
                 setAlarm();
             });
-            location.reload();
         }
     });
     
@@ -111,6 +112,8 @@ function setAlarm() {
         for (var d in result) {
             const lec = JSON.parse(result[d]);
             for (var current in lec) {
+                if(!lec[current].use_collaborate)
+                    continue;
                 if(lec[current].first_date != 7) // 7 indicates undefined or None
                     createAlarm(lec[current].id+":1", lec[current].first_date, lec[current].first_time);
                 if(lec[current].second_date != 7)
@@ -144,22 +147,6 @@ document.getElementById('rmbtn').addEventListener("click", event => { // 삭제�
 });
 
 
-document.getElementById('testbtn').addEventListener("click", event => {
-    event.preventDefault();
-    var allKeys = [];
-    chrome.storage.sync.get(null, function(items) {
-        allKeys = Object.keys(items);
-        for (var k in allKeys) {
-            chrome.storage.sync.get(allKeys[k], function(result) {
-                for (var d in result) {
-                    const lec = JSON.parse(result[d]);
-                    console.log(lec);
-                }
-            });
-        }
-    });
-
-});
 
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
@@ -188,6 +175,13 @@ window.onload = function() {
                 var course_label = document.createElement("label");
                 var time_data = [];
                 var date_data = [];
+                var check_name_str = "check_" + current.toString();
+                var check_label = document.createElement("label");
+                check_label.innerHTML = "콜라보레이트 자동접속 :  ";
+                var check_in = document.createElement("input");
+                check_in.type = "checkbox";
+                check_in.setAttribute("id", check_name_str);
+                check_in.checked = lec[current].use_collaborate == undefined ? true : lec[current].use_collaborate;
                 time_data[0] = lec[current].first_time;
                 time_data[1] = lec[current].second_time;
                 time_data[2] = lec[current].third_time;
@@ -202,9 +196,8 @@ window.onload = function() {
                     var timeContainer = document.createElement('div');
                     timeContainer.className = "time_container";
                     container.appendChild(timeContainer);
-                    var temp = cur_idx;
-                    var time_name_str = "time_" + current.toString() + "_" + temp.toString();
-                    var date_name_str = "date_" + current.toString() + "_" + temp.toString();
+                    var time_name_str = "time_" + current.toString() + "_" + cur_idx.toString();
+                    var date_name_str = "date_" + current.toString() + "_" + cur_idx.toString();
                     var time_in = document.createElement("input");
                     var date_in = document.createElement("select");
                     for (var cur_date in date_name) {
@@ -226,6 +219,11 @@ window.onload = function() {
                     timeContainer.appendChild(date_in);
                     timeContainer.appendChild(time_in);
                 }
+                var checkContainer = document.createElement('div');
+                checkContainer.className = "check_container";
+                container.appendChild(checkContainer);
+                checkContainer.appendChild(check_label);
+                checkContainer.appendChild(check_in);
                 //container.appendChild(new_line.cloneNode());
                 //container.appendChild(new_line.cloneNode());
             }

@@ -13,6 +13,18 @@
      overflow: hiddlen;
      white-space: nowrap;
  }
+
+ .check_container {
+    background: #999999;
+     border: none;
+     border-bottom: 4px solid #C9D6DA;
+     display: inline;
+     margin-bottom: .625em;
+     margin-top: .3em;
+     outline-offset: 3px;
+     padding: .45em .45em .45em .65em;
+     width: 12%;
+}
  
  #course_form> :nth-child(n+6)> :nth-child(3)>:nth-child(n) {
      background: #EAEFF1;
@@ -23,7 +35,7 @@
      margin-top: .3em;
      outline-offset: 3px;
      padding: .45em .45em .45em .65em;
-     width: 15%;
+     width: 12%;
  }
  
  #course_form> :nth-child(n+6)> :nth-child(4)>:nth-child(n) {
@@ -35,7 +47,7 @@
      margin-top: .3em;
      outline-offset: 3px;
      padding: .45em .45em .45em .65em;
-     width: 15%;
+     width: 12%;
  }
  
  #course_form> :nth-child(n+6)> :nth-child(5)>:nth-child(n) {
@@ -47,7 +59,7 @@
      margin-top: .3em;
      outline-offset: 3px;
      padding: .45em .45em .45em .65em;
-     width: 15%;
+     width: 12%;
  }
  
  #course_form> :nth-child(n+6)> :nth-child(n)>:nth-child(n)::before {
@@ -63,6 +75,10 @@
      display: block;
      height: 80%;
  }
+
+ input[type=checkbox] {
+    margin-left: 3px;
+}
  
  tr,
  th {

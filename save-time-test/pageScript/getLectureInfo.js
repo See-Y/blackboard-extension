@@ -43,13 +43,13 @@ String.prototype.extract = function(opts) {
 
 function waitForElm() {
     return new Promise(resolve => {
-        if (document.getElementById('_22_1termCourses_noterm') || document.getElementById("_22_1termCourses__141_1")) {
-            return resolve(document.getElementById('_22_1termCourses_noterm'));
+        if (document.querySelector('div[id*="22_1termCourses"]')) {
+            return resolve(document.querySelector('div[id*="22_1termCourses"]'));
         }
 
         const observer = new MutationObserver(mutations => {
-            if (document.getElementById('_22_1termCourses_noterm') || document.getElementById("_22_1termCourses__141_1")) {
-                resolve(document.getElementById('_22_1termCourses_noterm'));
+            if (document.querySelector('div[id*="22_1termCourses"]')) {
+                resolve(document.querySelector('div[id*="22_1termCourses"]'));
                 observer.disconnect();
             }
         });

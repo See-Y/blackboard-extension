@@ -41,6 +41,7 @@
             "matches": ["https://blackboard.unist.ac.kr/*"],
             "js": ["pageScript/content-cancelLogout.js"]
         }
+
     ],
     "web_accessible_resources": [{
             "resources": [
@@ -53,6 +54,13 @@
                 "pageScript/cancelLogout.js"
             ],
             "matches": ["https://blackboard.unist.ac.kr/*"]
+        },
+        {
+            "resources": [
+                "lectureInfo.json"
+            ],
+            "matches": ["<all_urls>"]
+
         }
     ]
 }

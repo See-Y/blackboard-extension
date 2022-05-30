@@ -71,13 +71,26 @@ function getLectureElement() {
             temp["link"] = AllaTag[i].href;
             var params = AllaTag[i].href.extract();
             temp["id"] = params.id;
-            lecturelist[AllaTag[i].text.split(":")[0]] = temp;
+            lecturelist[AllaTag[i].text.split(":")[0].split("_")[1]] = temp;
         }
     }
-    console.log(lecturelist);
-    chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
-        // alert(JSON.stringify(lecturelist));
-    });
+    fetch(chrome.runtime.getURL('lectureInfo.json'))
+        .then((resp) => resp.json())
+        .then(function(jsonData) {
+            for (var key in lecturelist) {
+                if (jsonData[key] == undefined) {
+                    delete lecturelist[key];
+                } else {
+                    lecturelist[key]["name"] = jsonData[key]["name"]
+                    lecturelist[key]["time"] = jsonData[key]["time"]
+                    lecturelist[key]["professor"] = jsonData[key]["professor"]
+                }
+            }
+            console.log(lecturelist);
+            chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
+                // alert(JSON.stringify(lecturelist));
+            });
+        });
 }
 waitForElm().then((elm) => {
     chrome.storage.sync.get(['lectureInfo'], function(res) {

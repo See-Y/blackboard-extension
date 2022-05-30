@@ -1,6 +1,6 @@
 {
-    "name": "Time save test",
-    "description": "Time save test",
+    "name": "Blackboard Extension",
+    "description": "Blackboard Extension from UNIST HeXA",
     "version": "1.0",
     "manifest_version": 3,
     "action": {

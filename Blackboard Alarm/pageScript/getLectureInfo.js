@@ -115,4 +115,47 @@ waitForElm().then((elm) => {
             }
         }
     });
+    setAlarm();
 });
+
+
+// Get all courses's time in chrome sync and set alarms
+function setAlarm() {
+    chrome.storage.sync.get(['lectureInfo'], function(res) {
+        console.log(res.lectureInfo);
+        var lecturelist = JSON.parse(res.lectureInfo);
+        for (var key in lecturelist) {
+            if (lecturelist[key]["timeplace0"]) {
+                var H = parseInt(lecturelist[key]["timeplace0"]["start"]/12);
+                var M = (lecturelist[key]["timeplace0"]["start"]%12)*5;
+                createAlarm(lecturelist[key]["link"]+":1", lecturelist[key]["timeplace0"]["day"], H.toString()+":"+M.toString());
+            }
+        }
+        /*
+        for (var d in result) {
+            const lec = JSON.parse(result[d]);
+            for (var current in lec) {
+                if(!lec[current].use_collaborate)
+                    continue;
+                if(lec[current].first_date != 7) // 7 indicates undefined or None
+                    createAlarm(lec[current].id+":1", lec[current].first_date, lec[current].first_time);
+                if(lec[current].second_date != 7)
+                    createAlarm(lec[current].id+":2", lec[current].second_date, lec[current].second_time);
+                if(lec[current].third_date != 7)
+                    createAlarm(lec[current].id+":3", lec[current].third_date, lec[current].third_time);
+            }
+        }
+        */
+    });
+}
+
+// Get course_id, course_day(days of the week), and time to set alarm
+function createAlarm(course_id, course_day, course_time) {
+    let now_date = new Date();
+    let date = new Date(now_date.getFullYear(), now_date.getMonth(), now_date.getDate()+(course_day-now_date.getDay()+7)%7, course_time.split(":")[0], course_time.split(":")[1]);
+    // Check whether the time is smaller or bigger than current time
+    // If small, add 7 days
+    if (now_date > date) date.setDate(date.getDate()+7);
+    console.log(course_id+" alarm set at "+date); 
+    chrome.alarms.create(course_id, {periodInMinutes : 10080, when : date.getTime()});
+}

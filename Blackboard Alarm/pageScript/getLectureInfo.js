@@ -84,6 +84,15 @@ function getLectureElement() {
                     lecturelist[key]["name"] = jsonData[key]["name"]
                     lecturelist[key]["time"] = jsonData[key]["time"]
                     lecturelist[key]["professor"] = jsonData[key]["professor"]
+                    if (jsonData[key]["timeplace0"]) {
+                        lecturelist[key]["timeplace0"] = jsonData[key]["timeplace0"]
+                    }
+                    if (jsonData[key]["timeplace1"]) {
+                        lecturelist[key]["timeplace1"] = jsonData[key]["timeplace1"]
+                    }
+                    if (jsonData[key]["timeplace2"]) {
+                        lecturelist[key]["timeplace2"] = jsonData[key]["timeplace2"]
+                    }
                 }
             }
             console.log(lecturelist);

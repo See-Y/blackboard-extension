@@ -16,6 +16,14 @@
      width: 100%;
  }
  
+ #lecturename {
+     position: absolute;
+ }
+ 
+ #lecturetime {
+     position: absolute;
+ }
+ 
  td {
      white-space: pre-line;
      border-left: 1px solid #000000;

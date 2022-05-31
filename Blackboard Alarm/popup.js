@@ -25,10 +25,19 @@ document.addEventListener("DOMContentLoaded", function() {
                     var a = parseInt(i) + 1
                     var lecturename = document.createElement("div");
                     lecturename.textContent = key
+                    lecturename.setAttribute("id", "lecturename");
                     tablebody.children[a].appendChild(lecturename);
+                    var l = "timeplace" + i;
+                    console.log(lecturelist[key][l])
+                    var toppos = lecturelist[key][l]["start"] / 288 * 400
+                    lecturename.style.top = toppos;
+
                     var lecturetime = document.createElement("div");
                     lecturetime.textContent = "(" + lecturelist[key]["time"] + ")";
+                    lecturetime.setAttribute("id", "lecturetime");
                     tablebody.children[a].appendChild(lecturetime)
+                    lecturetime.style.top = toppos + 10;
+
                     var new_line = document.createElement("br");
                     tablebody.children[a].appendChild(new_line.cloneNode());
 

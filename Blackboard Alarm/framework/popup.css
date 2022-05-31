@@ -1,31 +1,65 @@
  #container {
      text-align: center;
      font-size: 12px;
-     vertical-align: middle;
+     height: 500px;
  }
  
  table {
-     white-space: pre-line;
-     margin: 0;
-     padding: 0;
      color: #666;
      font-family: "맑은 고딕", 돋움, tahoma;
      font-size: 11px;
-     letter-spacing: -0.5px;
      display: block;
      width: 100%;
  }
- /* #lecture {
-     position: absolute;
- } */
- /*
+ 
+ #lecture {
+     width: 62px;
+     z-index: 10;
+     overflow: hidden;
+     box-sizing: border-box;
+     width: 100%;
+     border-left: 2.5px solid #EAEFF1;
+     border-right: 2.5px solid #EAEFF1;
+     /* border: 3px solid #EAEFF1; */
+ }
+ 
+ .tablehead {
+     width: 62px;
+     height: auto;
+     width: 100%;
+     font-family: "맑은 고딕";
+     font-size: 12px;
+     font-weight: bold;
+ }
+ 
  #lecturetime {
-     position: absolute;
- } */
+     width: 62px;
+     height: 100%;
+     font-family: "맑은 고딕";
+     font-size: 11px;
+     background: #EAEFF1;
+ }
+ 
+ .time {
+     height: 35px;
+     border: 1px solid #d6d6d6;
+ }
+ 
+ #lecturename {
+     width: 62px;
+     font-family: "맑은 고딕";
+     font-size: 10px;
+     font-weight: bold;
+     background: #EAEFF1;
+ }
+ 
+ .grid {
+     height: 35px;
+     border: 1px solid #d6d6d6;
+ }
  
  td {
-     white-space: pre-line;
-     border-left: 1px solid #000000;
+     border-left: 1px solid #d6d6d6;
      min-width: 68px;
      border-top-left-radius: 12%;
      border-top-right-radius: 12%;
@@ -33,14 +67,12 @@
  
  tr,
  th {
-     white-space: pre-line;
      border-bottom: 1px solid #000000;
-     padding: 5px;
      vertical-align: middle;
      text-align: center;
-     width: 70px;
+     /* width: 70px;
      /* or whatever width you want. */
-     max-width: 70px;
+     /* max-width: 70px; */
  }
  
  i {
@@ -53,10 +85,8 @@
      /* or whatever width you want. */
      display: inline-block;
  }
- 
- .button {
+ /* .button {
      background-color: #4CAF50;
-     /* Green */
      color: white;
      padding: 20px;
      text-align: center;
@@ -77,4 +107,4 @@
  .Collab_btn {
      vertical-align: middle;
      border-radius: 12px;
- }
+ } */

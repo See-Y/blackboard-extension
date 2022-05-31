@@ -27,12 +27,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     lecutureI.setAttribute("id", "lecture");
                     var d = parseInt(a["timeplace" + c].day) + 1;
                     var lecturename = document.createElement("div");
-                    lecturename.textContent = key
+                    lecturename.textContent = lecturelist[key]["name"]
                     lecturename.setAttribute("id", "lecturename");
                     lecutureI.appendChild(lecturename);
 
                     var lecturetime = document.createElement("div");
-                    lecturetime.textContent = "(" + lecturelist[key]["time"] + ")";
+                    //lecturetime.textContent = lecturelist[key]["professor"]
                     lecturetime.setAttribute("id", "lecturetime");
                     lecutureI.appendChild(lecturetime);
 
@@ -40,48 +40,49 @@ document.addEventListener("DOMContentLoaded", function() {
                     var new_line = document.createElement("br");
                     lecutureI.appendChild(new_line.cloneNode());
 
-                    lecutureI.style.top = (parseInt(a["timeplace" + c].start) / 288 * 400) + "px";
+                    lecutureI.style.position = "absolute"
+                    lecutureI.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 275) + "px";
+                    lecutureI.style.height = ((parseInt(a["timeplace" + c].end) - parseInt(a["timeplace" + c].start)) * 2.8) + "px";
 
                     tablebody.children[d].appendChild(lecutureI);
                 }
             }
         }
 
-        function compare(a, b) {
-            if (parseInt(a.style.top, 10) > parseInt(b.style.top, 10)) {
-                return 1;
-            }
-            if (parseInt(a.style.top, 10) < parseInt(b.style.top, 10)) {
-                return -1;
-            }
-            // a must be equal to b
-            return 0;
-        }
-        for (var i = 1; i < 6; i++) {
-            var el = document.querySelector("#container > div.tablebody > table > tbody > tr").children[i];
-            var ls = [].slice.call(el.children).sort(compare);
-            console.log(ls)
-            for (var b = el.childNodes.length - 1; b >= 0; b--) {
-                el.removeChild(el.childNodes[b]);
-            }
-            for (var a in ls) {
-                el.appendChild(ls[a]);
-            }
-        }
-        document.querySelector("#container > div.tablebody > table > tbody > tr")
-            // var children = new Array();
-            // const date_name = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "None"];
-            // for (i in lecturelist) {
-            //     var temp = new Object();
-            //     temp["lecture"] = i
-            //     temp["first_time"] = lecturelist[i].first_date == 7 || lecturelist[i].first_date == undefined ? "-" : date_name[lecturelist[i].first_date] + "_" + lecturelist[i].first_time;
-            //     temp["second_time"] = lecturelist[i].second_date == 7 || lecturelist[i].second_date == undefined ? "-" : date_name[lecturelist[i].second_date] + "_" + lecturelist[i].second_time;
-            //     temp["third_time"] = lecturelist[i].third_date == 7 || lecturelist[i].third_date == undefined ? "-" : date_name[lecturelist[i].third_date] + "_" + lecturelist[i].third_time;
-            //     temp["collab"] = lecturelist[i].id;
-            //     temp["auto_join"] = lecturelist[i].use_collaborate == undefined ? '-'  : lecturelist[i].use_collaborate == true ? 'Yes' : 'No';
-            //     //console.log(lecturelist[i].third_date);
-            //     children.push(temp);
-            // }
+        // function compare(a, b) {
+        //     if (parseInt(a.style.top, 10) > parseInt(b.style.top, 10)) {
+        //         return 1;
+        //     }
+        //     if (parseInt(a.style.top, 10) < parseInt(b.style.top, 10)) {
+        //         return -1;
+        //     }
+        //     // a must be equal to b
+        //     return 0;
+        // }
+        // for (var i = 1; i < 6; i++) {
+        //     var el = document.querySelector("#container > div.tablebody > table > tbody > tr").children[i];
+        //     var ls = [].slice.call(el.children).sort(compare);
+        //     console.log(ls)
+        //     for (var b = el.childNodes.length - 1; b >= 0; b--) {
+        //         el.removeChild(el.childNodes[b]);
+        //     }
+        //     for (var a in ls) {
+        //         el.appendChild(ls[a]);
+        //     }
+        // }
+        // var children = new Array();
+        // const date_name = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "None"];
+        // for (i in lecturelist) {
+        //     var temp = new Object();
+        //     temp["lecture"] = i
+        //     temp["first_time"] = lecturelist[i].first_date == 7 || lecturelist[i].first_date == undefined ? "-" : date_name[lecturelist[i].first_date] + "_" + lecturelist[i].first_time;
+        //     temp["second_time"] = lecturelist[i].second_date == 7 || lecturelist[i].second_date == undefined ? "-" : date_name[lecturelist[i].second_date] + "_" + lecturelist[i].second_time;
+        //     temp["third_time"] = lecturelist[i].third_date == 7 || lecturelist[i].third_date == undefined ? "-" : date_name[lecturelist[i].third_date] + "_" + lecturelist[i].third_time;
+        //     temp["collab"] = lecturelist[i].id;
+        //     temp["auto_join"] = lecturelist[i].use_collaborate == undefined ? '-'  : lecturelist[i].use_collaborate == true ? 'Yes' : 'No';
+        //     //console.log(lecturelist[i].third_date);
+        //     children.push(temp);
+        // }
 
         // function addHeaders(table, keys) {
         //     var row = table.insertRow();

@@ -19,8 +19,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         var tablebody = document.getElementsByClassName("tablebody")[1].children[0].children[0];
         //var date_list = ["월", "화", "수", "목", "금"]
+        var colorlist = ["#eff9cc", "#dee8f6", "#ffe9e9", "#ffedda", "#dcf2e9", "#dceef2", "#fff8cc", "#ffe9e9"]
+        var i = 0
         for (key in lecturelist) {
             var a = lecturelist[key]
+            i += 1;
             for (var c = 0; c < 3; c++) {
                 if (a["timeplace" + c]) {
                     var lecutureI = document.createElement("div");
@@ -43,7 +46,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     lecutureI.style.position = "absolute"
                     lecutureI.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 275) + "px";
                     lecutureI.style.height = ((parseInt(a["timeplace" + c].end) - parseInt(a["timeplace" + c].start)) * 2.8) + "px";
-
+                    lecturename.style.background = colorlist[i]
+                    lecturetime.style.background = colorlist[i]
                     tablebody.children[d].appendChild(lecutureI);
                 }
             }

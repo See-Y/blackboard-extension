@@ -13,18 +13,46 @@
  }
  
  #lecture {
-     width: 62px;
      z-index: 10;
      overflow: hidden;
      box-sizing: border-box;
-     width: 100%;
+     width: 62px;
+     height: auto;
      border-left: 2.5px solid #EAEFF1;
      border-right: 2.5px solid #EAEFF1;
      /* border: 3px solid #EAEFF1; */
  }
  
+ .lectureinformation {
+     width:60px;
+     max-width: 57px;
+     height:55px;
+     max-width: 57px;
+     /* display: inline-block; */
+     font-family: "맑은 고딕";
+     font-size: 11px;
+     /* background: #EAEFF1; */
+     text-align: center;
+     align-items : center;
+    white-space:pre-line;
+    word-break:break-all;
+}
+.btn_div{
+    width:60px;
+     max-width: 57px;
+     height:11px;
+     color: red;
+     /* display: inline-block; */
+     font-family: "맑은 고딕";
+     font-size: 10px;
+     background: #EAEFF1; 
+     text-align: right;
+    white-space:pre-line;
+    word-break:break-all;
+}
+ 
  .tablehead {
-     width: 62px;
+     width: auto;
      height: auto;
      width: 100%;
      font-family: "맑은 고딕";
@@ -33,7 +61,7 @@
  }
  
  #lecturetime {
-     width: 62px;
+     width: 57px;
      height: 100%;
      font-family: "맑은 고딕";
      font-size: 11px;
@@ -46,7 +74,7 @@
  }
  
  #lecturename {
-     width: 62px;
+     width: 57px;
      font-family: "맑은 고딕";
      font-size: 10px;
      font-weight: bold;

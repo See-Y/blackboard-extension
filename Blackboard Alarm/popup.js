@@ -9,6 +9,9 @@
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
         //console.log(res.lectureInfo);
+        function openOption(evt) {
+            console.log(evt);
+        }
         if (res.lectureInfo == undefined && res.lectureInfo == null) {
             alert("블랙보드에 접속하여 강좌정보를 가져오세요");
         } else {
@@ -18,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         var tablebody = document.getElementsByClassName("tablebody")[1].children[0].children[0];
-        //var date_list = ["월", "화", "수", "목", "금"]
         var colorlist = ["#eff9cc", "#dee8f6", "#ffe9e9", "#ffedda", "#dcf2e9", "#dceef2", "#fff8cc", "#ffe9e9"]
         var i = 0
         for (key in lecturelist) {
@@ -28,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (a["timeplace" + c]) {
                     var lecutureI = document.createElement("div");
                     lecutureI.setAttribute("id", "lecture");
+                    lecutureI.className = "lecture";
                     var d = parseInt(a["timeplace" + c].day) + 1;
                     var lecturename = document.createElement("div");
                     lecturename.textContent = lecturelist[key]["name"]
@@ -48,10 +51,84 @@ document.addEventListener("DOMContentLoaded", function() {
                     lecutureI.style.height = ((parseInt(a["timeplace" + c].end) - parseInt(a["timeplace" + c].start)) * 2.8) + "px";
                     lecturename.style.background = colorlist[i]
                     lecturetime.style.background = colorlist[i]
+                        // lecturetime.style.display = "none"
+
+                    var lectureinfomation = document.createElement('div');
+                    lectureinfomation.textContent = a["professor"]
+                    lectureinfomation.className = "lectureinformation";
+                    var btn_div = document.createElement("div");
+                    var Collab_btn = document.createElement("input");
+                    btn_div.className = "btn_div";
+                    Collab_btn.type = "checkbox";
+                    Collab_btn.value = key+"_timeplace" + c
+                    // Collab_btn.style.display = "none";
+                    Collab_btn.id = a["name"] + "_collab";
+                    Collab_btn.className = "collab_btn";
                     tablebody.children[d].appendChild(lecutureI);
+                    var left = lecutureI.getBoundingClientRect().left;
+                    var top = lecutureI.getBoundingClientRect().top;
+                    lectureinfomation.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 275) + "px";
+                    lectureinfomation.style.left = ((parseInt(d)-0.68) * 68) + "px";
+                    lectureinfomation.style.top = top + "px";
+                    lectureinfomation.style.position = "fixed";
+                    Collab_btn.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 285) + "px";
+                    Collab_btn.style.left = ((parseInt(d)-0.68) * 68) + "px";
+                    Collab_btn.style.position = "fixed";
+                    Collab_btn.checked = a["timeplace" + c].collab == undefined || a["timeplace" + c].collab == true ? true: false;
+                    btn_div.style.left = ((parseInt(d)-0.68) * 68) + "px";
+                    btn_div.style.top = (parseInt(top)-10.5)+ "px";
+                    btn_div.textContent = "자동접속"
+                    btn_div.style.position = "fixed";
+        
+                    //lectureinfomation.style.width = "120px";
+                    btn_div.appendChild(Collab_btn);
+                    lecutureI.appendChild(lectureinfomation);
+                    lectureinfomation.appendChild(btn_div);
+                    lectureinfomation.style.display = "none";
                 }
             }
         }
+        var Collab_btn = document.getElementsByClassName("lecture");
+        for (var i = 0; i < Collab_btn.length; i += 1) {
+            (function() {
+                var thisbtn = Collab_btn[i]
+                var c = 0;
+                Collab_btn[i].addEventListener("click", () => {
+                    if (c % 2 == 1) {
+                        //console.log(thisbtn);
+                        thisbtn.children[3].style.display = "none";
+                        thisbtn.children[0].style.display = ""
+                    } else {
+                        thisbtn.children[3].style.display = "";
+                        thisbtn.children[0].style.display = "none"
+                    }
+                    c += 1;
+                    //Collab_btn[i].style.display = "none"
+                }, false);
+            }());
+        }
+        var checkboxls = document.getElementsByClassName("collab_btn");
+        for(var i=0; i< checkboxls.length; i+=1){
+            (function() {
+                checkboxls[i].addEventListener('change', (event) => {
+            if (event.currentTarget.checked) {
+                
+                lecturelist[event.currentTarget.value.split("_")[0]][event.currentTarget.value.split("_")[1]]["collab"]=true
+                chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
+                
+                });
+            } 
+            else {
+                lecturelist[event.currentTarget.value.split("_")[0]][event.currentTarget.value.split("_")[1]]["collab"]=false;
+                chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
+                
+                });
+                alert("자동접속취소")
+            }
+        })
+            }());
+        }
+        
 
         // function compare(a, b) {
         //     if (parseInt(a.style.top, 10) > parseInt(b.style.top, 10)) {

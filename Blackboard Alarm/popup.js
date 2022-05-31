@@ -18,29 +18,26 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         var tablebody = document.getElementsByClassName("tablebody")[1].children[0].children[0];
-        var date_list = ["월", "화", "수", "목", "금"]
+        //var date_list = ["월", "화", "수", "목", "금"]
         for (key in lecturelist) {
-            for (i in date_list) {
-                if (lecturelist[key]["time"].includes(date_list[i]) && i != undefined) {
-                    var a = parseInt(i) + 1
+            var a = lecturelist[key]
+            for (var c = 0; c < 3; c++) {
+                if (a["timeplace" + c]) {
+                    var d = parseInt(a["timeplace" + c].day) + 1;
                     var lecturename = document.createElement("div");
                     lecturename.textContent = key
                     lecturename.setAttribute("id", "lecturename");
-                    tablebody.children[a].appendChild(lecturename);
-                    var l = "timeplace" + i;
-                    console.log(lecturelist[key][l])
-                    var toppos = lecturelist[key][l]["start"] / 288 * 400
-                    lecturename.style.top = toppos;
+                    tablebody.children[d].appendChild(lecturename);
+                    lecturename.style.top = (parseInt(a["timeplace" + c].start) / 288 * 400) + "px"
 
                     var lecturetime = document.createElement("div");
                     lecturetime.textContent = "(" + lecturelist[key]["time"] + ")";
                     lecturetime.setAttribute("id", "lecturetime");
-                    tablebody.children[a].appendChild(lecturetime)
-                    lecturetime.style.top = toppos + 10;
+                    tablebody.children[d].appendChild(lecturetime);
+                    lecturename.style.top = (parseInt(a["timeplace" + c].start) / 288 * 400 + 10) + "px"
 
                     var new_line = document.createElement("br");
-                    tablebody.children[a].appendChild(new_line.cloneNode());
-
+                    tablebody.children[d].appendChild(new_line.cloneNode());
                 }
             }
         }

@@ -1,0 +1,15 @@
+{
+  "name": "HeXA study",
+  "description": "for practice",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "host_permissions": ["https://blackboard.unist.ac.kr/*"]
+}

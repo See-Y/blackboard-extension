@@ -1,0 +1,22 @@
+.float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #011a53;
+  opacity: 0.7;
+  color: white;
+}
+
+.popupDiv {
+  float: top;
+  position: fixed;
+  width: 600px;
+  height: 300px;
+  bottom: 120px;
+  right: 120px;
+  background-color: white;
+  color: #011a53;
+  border-radius: 20px;
+}

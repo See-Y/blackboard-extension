@@ -97,10 +97,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (c % 2 == 1) {
                         //console.log(thisbtn);
                         thisbtn.children[3].style.display = "none";
-                        thisbtn.children[0].style.display = ""
+                        thisbtn.children[0].style.display = "";
+                        thisbtn.id = "lecture";
                     } else {
                         thisbtn.children[3].style.display = "";
                         thisbtn.children[0].style.display = "none"
+                        thisbtn.id = "lecture_inactive";
                     }
                     c += 1;
                     //Collab_btn[i].style.display = "none"
@@ -127,6 +129,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
             }());
         }
+        chrome.storage.sync.get(['uname'], function(res) {
+            if (res.uname == undefined && res.uname == null) {
+
+            } else {
+                document.getElementById("lname").value = res.uname.split("_")[0];
+                document.getElementById("fname").value = res.uname.split("_")[1];
+            }
+        })
         var modal = document.getElementById("myModal");
         var span = document.getElementsByClassName("close")[0];
         var optionBtn = document.getElementsByClassName("setting")[0];
@@ -136,7 +146,16 @@ document.addEventListener("DOMContentLoaded", function() {
         span.onclick = function() {
             modal.style.display = "none";
         }
+        var submitBtn = document.getElementById("submitBtn")
+        submitBtn.onclick = function() {
+            modal.style.display = "none";
+            if (document.getElementById("fname").value != "" && document.getElementById("lname").value != "") {
+                var uname = document.getElementById("fname").value + "_" + document.getElementById("lname").value;
+                chrome.storage.sync.set({ 'uname': uname }, function() {
 
+                });
+            }
+        }
     })
 
 });

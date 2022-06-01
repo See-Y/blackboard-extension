@@ -25,6 +25,18 @@
      /* border: 3px solid #EAEFF1; */
  }
  
+ #lecture:hover {
+     z-index: 0;
+     overflow: hidden;
+     box-sizing: border-box;
+     width: auto;
+     max-width: 66px;
+     height: auto;
+     border-left: 1.5px solid #EAEFF1;
+     border-right: 1.5px solid #EAEFF1;
+     filter: brightness(85%);
+ }
+ 
  .lectureinformation {
      width: 60px;
      max-width: 57px;
@@ -106,6 +118,10 @@
      /* min-width: 28px; */
  }
  
+ .setting:hover {
+     background-color: #d6d6d6;
+ }
+ 
  i {
      width: 16px;
      /* or whatever width you want. */
@@ -116,6 +132,8 @@
      /* or whatever width you want. */
      display: inline-block;
  }
+ 
+ i:hover {}
  
  #myModal {
      text-align: left;
@@ -141,6 +159,7 @@
      border: 1px solid #ccc;
      border-radius: 4px;
      box-sizing: border-box;
+     font-weight: bold;
  }
  
  input[type=submit]:hover {

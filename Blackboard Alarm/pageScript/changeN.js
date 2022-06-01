@@ -40,11 +40,12 @@ String.prototype.extract = function(opts) {
     };
     return params;
 };
-var userName = "20221221_서휘원"
 
 var rpl = document.location.href.extract().uname.split("#")[0];
-var newUrl = document.location.href.replace(rpl, "20221221_서휘원")
-    //alert(newUrl);
-if (!document.location.href.includes(userName.split("_")[0])) {
+var uname = document.currentScript.id;
+var newUrl = document.location.href.replace(rpl, uname);
+//alert(newUrl);
+if (!document.location.href.includes(uname.split("_")[0])) {
     window.location.replace(newUrl);
+
 }

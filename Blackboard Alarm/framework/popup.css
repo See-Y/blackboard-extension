@@ -122,6 +122,14 @@
      background-color: #d6d6d6;
  }
  
+ #resetBtn:hover {
+     background-color: #d6d6d6;
+ }
+ 
+ #closeBtn:hover {
+     background-color: #d6d6d6;
+ }
+ 
  i {
      width: 16px;
      /* or whatever width you want. */

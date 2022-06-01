@@ -156,6 +156,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         }
+        var resetBtn = document.querySelector("#myModal > div > label:nth-child(9)");
+        resetBtn.onclick = function() {
+            chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(new Object()) }, function() {
+                alert("데이터 삭제 완료! (블랙보드에서 과목 등록부터 다시해주세요)");
+            });
+        }
     })
 
 });

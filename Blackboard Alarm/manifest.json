@@ -40,6 +40,11 @@
         {
             "matches": ["https://blackboard.unist.ac.kr/*"],
             "js": ["pageScript/content-cancelLogout.js"]
+        },
+        {
+            "matches": ["https://unist-kr.zoom.us/j/*"],
+            "js": ["pageScript/changeName.js"],
+            "run_at": "document_end"
         }
     ],
     "web_accessible_resources": [{
@@ -53,6 +58,12 @@
                 "pageScript/cancelLogout.js"
             ],
             "matches": ["https://blackboard.unist.ac.kr/*"]
+        },
+        {
+            "resources": [
+                "pageScript/changeN.js"
+            ],
+            "matches": ["https://unist-kr.zoom.us/*"]
         },
         {
             "resources": [

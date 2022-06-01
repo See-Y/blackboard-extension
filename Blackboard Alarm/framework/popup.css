@@ -1,7 +1,7 @@
  #container {
      text-align: center;
      font-size: 12px;
-     height: 460px;
+     height: 445px;
      overflow: hidden;
  }
  
@@ -103,7 +103,7 @@
      text-align: center;
      /* width: 70px;
      /* or whatever width you want. */
-     /* max-width: 70px; */
+     /* min-width: 28px; */
  }
  
  i {
@@ -115,6 +115,36 @@
      max-height: 16px;
      /* or whatever width you want. */
      display: inline-block;
+ }
+ 
+ #myModal {
+     text-align: left;
+     border-radius: 5px;
+     padding: 20px;
+     min-width: 270px;
+     text-align: center;
+ }
+ 
+ input[type=submit] {
+     position: relative;
+     min-width: 240px;
+     min-height: 20px;
+     box-sizing: border-box;
+     margin: 0 auto;
+ }
+ 
+ input[type=text],
+ select {
+     max-height: 20px;
+     min-width: 240px;
+     margin: 0 auto;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     box-sizing: border-box;
+ }
+ 
+ input[type=submit]:hover {
+     background-color: #45a049;
  }
  /* .button {
      background-color: #4CAF50;

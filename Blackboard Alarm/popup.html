@@ -9,16 +9,33 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="framework/popup.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css" integrity="sha384-Tv5i09RULyHKMwX0E8wJUqSOaXlyu3SQxORObAI08iUwIalMmN5L6AvlPX2LMoSE" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous" />
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'> -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="options.html" />
     <div id="container">
+        <div id="myModal" class="modal" style="display: none;">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close"><i class='fa-solid fa-xmark'></i></span>
+                <label for="fname"></label>
+                <input type="text" id="fname" name="fname" placeholder="학번">
+                <label for="lname"><br></label>
+                <input type="text" id="lname" name="lname" placeholder="이름">
+                <br>
+                <input type="submit" id="submitBtn" value="저장">
+            </div>
+
+        </div>
         <!-- <button id="btn_option_popup">시간표 설정<i class="fa fa-cog"></i></button> -->
         <div class="tablehead">
             <table class="tablehead">
                 <tbody>
                     <tr>
-                        <th>---</th>
+                        <th>
+                            <div class="setting"><i class="fa fa-cog"></i></div>
+                        </th>
                         <td>월</td>
                         <td>화</td>
                         <td>수</td>

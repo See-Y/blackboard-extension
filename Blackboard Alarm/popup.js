@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     lecutureI.appendChild(new_line.cloneNode());
 
                     lecutureI.style.position = "absolute"
-                    lecutureI.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 275) + "px";
+                    lecutureI.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 291) + "px";
                     lecutureI.style.height = ((parseInt(a["timeplace" + c].end) - parseInt(a["timeplace" + c].start)) * 2.8) + "px";
                     lecturename.style.background = colorlist[i]
                     lecturetime.style.background = colorlist[i]
@@ -67,11 +67,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     tablebody.children[d].appendChild(lecutureI);
                     var left = lecutureI.getBoundingClientRect().left;
                     var top = lecutureI.getBoundingClientRect().top;
-                    lectureinfomation.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 275) + "px";
+                    lectureinfomation.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 250) + "px";
                     lectureinfomation.style.left = ((parseInt(d) - 0.62) * 62) + "px";
                     lectureinfomation.style.top = top + "px";
                     lectureinfomation.style.position = "fixed";
-                    Collab_btn.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 285) + "px";
+                    Collab_btn.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 300) + "px";
                     Collab_btn.style.left = ((parseInt(d) - 0.65) * 62) + "px";
                     Collab_btn.style.position = "fixed";
                     Collab_btn.checked = a["timeplace" + c].collab == undefined || a["timeplace" + c].collab == true ? true : false;
@@ -127,107 +127,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
             }());
         }
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+        var optionBtn = document.getElementsByClassName("setting")[0];
+        optionBtn.onclick = function() {
+            modal.style.display = "block";
+        }
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
 
-
-        // function compare(a, b) {
-        //     if (parseInt(a.style.top, 10) > parseInt(b.style.top, 10)) {
-        //         return 1;
-        //     }
-        //     if (parseInt(a.style.top, 10) < parseInt(b.style.top, 10)) {
-        //         return -1;
-        //     }
-        //     // a must be equal to b
-        //     return 0;
-        // }
-        // for (var i = 1; i < 6; i++) {
-        //     var el = document.querySelector("#container > div.tablebody > table > tbody > tr").children[i];
-        //     var ls = [].slice.call(el.children).sort(compare);
-        //     console.log(ls)
-        //     for (var b = el.childNodes.length - 1; b >= 0; b--) {
-        //         el.removeChild(el.childNodes[b]);
-        //     }
-        //     for (var a in ls) {
-        //         el.appendChild(ls[a]);
-        //     }
-        // }
-        // var children = new Array();
-        // const date_name = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "None"];
-        // for (i in lecturelist) {
-        //     var temp = new Object();
-        //     temp["lecture"] = i
-        //     temp["first_time"] = lecturelist[i].first_date == 7 || lecturelist[i].first_date == undefined ? "-" : date_name[lecturelist[i].first_date] + "_" + lecturelist[i].first_time;
-        //     temp["second_time"] = lecturelist[i].second_date == 7 || lecturelist[i].second_date == undefined ? "-" : date_name[lecturelist[i].second_date] + "_" + lecturelist[i].second_time;
-        //     temp["third_time"] = lecturelist[i].third_date == 7 || lecturelist[i].third_date == undefined ? "-" : date_name[lecturelist[i].third_date] + "_" + lecturelist[i].third_time;
-        //     temp["collab"] = lecturelist[i].id;
-        //     temp["auto_join"] = lecturelist[i].use_collaborate == undefined ? '-'  : lecturelist[i].use_collaborate == true ? 'Yes' : 'No';
-        //     //console.log(lecturelist[i].third_date);
-        //     children.push(temp);
-        // }
-
-        // function addHeaders(table, keys) {
-        //     var row = table.insertRow();
-        //     for (var i = 0; i < keys.length; i++) {
-        //         var cell = row.insertCell();
-        //         cell.appendChild(document.createTextNode(keys[i]));
-        //     }
-        // }
-
-        // var table = document.createElement('table');
-        // for (var i = 0; i < children.length; i++) {
-
-        //     var child = children[i];
-        //     if (i === 0) {
-        //         addHeaders(table, Object.keys(child));
-        //     }
-        //     var row = table.insertRow();
-        //     Object.keys(child).forEach(function(k) {
-        //         var cell = row.insertCell();
-        //         if (k == "collab") {
-        //             var btn = document.createElement("button");
-        //             btn.className = "Collab_btn";
-        //             btn.textContent = "Link";
-        //             var icon = document.createElement("i");
-        //             icon.className = 'fa fa-play'
-        //             btn.append(icon);
-        //             btn.setAttribute("id", child[k]);
-        //             cell.appendChild(btn);
-        //         } else {
-        //             cell.appendChild(document.createTextNode(child[k]));
-        //         }
-        //     })
-        // }
-
-        // document.getElementById('container').appendChild(table);
-        // var Collab_btn = document.getElementsByClassName("Collab_btn");
-        // for (var i = 0; i < Collab_btn.length; i += 1) {
-        //     (function() {
-        //         var Collab_Url = `https://blackboard.unist.ac.kr/webapps/collab-ultra/tool/collabultra/lti/launch?course_id=${Collab_btn[i].getAttribute('id')}`;
-        //         Collab_btn[i].addEventListener("click", () => {
-        //             chrome.tabs.query({ url: Collab_Url }, function(tabs) {
-        //                 if (tabs.length) {
-        //                     chrome.tabs.create(tabs[0].id, { active: true });
-        //                 } else {
-        //                     chrome.tabs.create({ url: Collab_Url });
-        //                 }
-        //             });
-        //         });
-        //     }());
-        // }
     })
 
-
-    // var btn0 = document.querySelector("#btn_option_popup");
-    // btn0.addEventListener("click", () => {
-    //     if (document.location.href.includes("blackboard.unist.ac.kr/") && document.location.href.includes("tab_tab_group_id")) {} else {
-    //         var optionsUrl = chrome.runtime.getURL('options.html');
-
-    //         chrome.tabs.query({ url: optionsUrl }, function(tabs) {
-    //             if (tabs.length) {
-    //                 chrome.tabs.create(tabs[0].id, { active: true });
-    //             } else {
-    //                 chrome.tabs.create({ url: optionsUrl });
-    //             }
-    //         });
-    //     }
-    // });
 });

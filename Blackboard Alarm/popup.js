@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log(evt);
         }
         if (res.lectureInfo == undefined && res.lectureInfo == null) {
-            alert("블랙보드에 접속하여 강좌정보를 가져오세요");
+            alert("블랙보드에 접속하여 강좌정보를 가져오세요!(현재 접속중일경우 새로고침(F5))");
         } else {
             var lecturelist = JSON.parse(res.lectureInfo);
             if (!lecturelist || (Object.keys(lecturelist).length === 0 && Object.getPrototypeOf(lecturelist) === Object.prototype)) {
-                alert("블랙보드에 접속하여 강좌정보를 가져오세요");
+                alert("블랙보드에 접속하여 강좌정보를 가져오세요!(현재 접속중일경우 새로고침(F5))");
             }
         }
         var tablebody = document.getElementsByClassName("tablebody")[1].children[0].children[0];

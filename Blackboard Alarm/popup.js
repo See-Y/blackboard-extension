@@ -124,8 +124,9 @@ document.addEventListener("DOMContentLoaded", function() {
                         chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
 
                         });
-                        alert("자동접속취소")
+                        alert("자동접속취소");
                     }
+                    chrome.runtime.sendMessage({message: "setAlarm"}, function(response) {console.log(response.state);});
                 })
             }());
         }

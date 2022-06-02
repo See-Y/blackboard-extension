@@ -30,19 +30,25 @@ function setAlarm() {
         var lecturelist = JSON.parse(res.lectureInfo);
         for (var key in lecturelist) {
             if (lecturelist[key]["timeplace0"]) {
-                var H = parseInt(lecturelist[key]["timeplace0"]["start"]/12);
-                var M = (lecturelist[key]["timeplace0"]["start"]%12)*5;
-                createAlarm(lecturelist[key]["link"]+":1", lecturelist[key]["timeplace0"]["day"], H+":"+M);
+                if (lecturelist[key]["timeplace0"]["collab"]!=false) {
+                    var H = parseInt(lecturelist[key]["timeplace0"]["start"]/12);
+                    var M = (lecturelist[key]["timeplace0"]["start"]%12)*5;
+                    createAlarm(lecturelist[key]["id"]+":1", lecturelist[key]["timeplace0"]["day"], H+":"+M);
+                }
             }
             if (lecturelist[key]["timeplace1"]) {
-                var H = parseInt(lecturelist[key]["timeplace1"]["start"]/12);
-                var M = (lecturelist[key]["timeplace1"]["start"]%12)*5;
-                createAlarm(lecturelist[key]["link"]+":1", lecturelist[key]["timeplace1"]["day"], H+":"+M);
+                if (lecturelist[key]["timeplace1"]["collab"]!=false) {
+                    var H = parseInt(lecturelist[key]["timeplace1"]["start"]/12);
+                    var M = (lecturelist[key]["timeplace1"]["start"]%12)*5;
+                    createAlarm(lecturelist[key]["id"]+":1", lecturelist[key]["timeplace1"]["day"], H+":"+M);
+                }
             }
             if (lecturelist[key]["timeplace2"]) {
-                var H = parseInt(lecturelist[key]["timeplace2"]["start"]/12);
-                var M = (lecturelist[key]["timeplace2"]["start"]%12)*5;
-                createAlarm(lecturelist[key]["link"]+":1", lecturelist[key]["timeplace2"]["day"], H+":"+M);
+                if (lecturelist[key]["timeplace1"]["collab"]!=false) {
+                    var H = parseInt(lecturelist[key]["timeplace2"]["start"]/12);
+                    var M = (lecturelist[key]["timeplace2"]["start"]%12)*5;
+                    createAlarm(lecturelist[key]["id"]+":1", lecturelist[key]["timeplace2"]["day"], H+":"+M);
+                }
             }
         }
     });

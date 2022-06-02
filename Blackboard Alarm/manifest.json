@@ -17,8 +17,6 @@
         "activeTab",
         "scripting",
         "storage",
-        "notifications",
-        "webRequest",
         "alarms"
     ],
     "host_permissions": [

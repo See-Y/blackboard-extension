@@ -37,6 +37,13 @@
      filter: brightness(85%);
  }
  
+ #lecture:hover #lecturename {
+     content: ""
+ }
+ /* #lecture:hover #lecturetime {
+     display: inline;
+ } */
+ 
  .lectureinformation {
      width: 60px;
      max-width: 57px;
@@ -131,6 +138,7 @@
  }
  
  i {
+     z-index: 11;
      width: 16px;
      /* or whatever width you want. */
      max-width: 16px;
@@ -140,8 +148,6 @@
      /* or whatever width you want. */
      display: inline-block;
  }
- 
- i:hover {}
  
  #myModal {
      text-align: left;

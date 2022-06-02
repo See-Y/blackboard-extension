@@ -1,17 +1,23 @@
-// chrome.storage.sync.get(['lectureInfo'], function(res) {
-//     var lecturelist = JSON.parse(res.lectureInfo);
-//     document.querySelector("table").bootstrapTable({
-//         data: lecturelist
-//     });
-// })
-
-
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
-        //console.log(res.lectureInfo);
-        function openOption(evt) {
-            console.log(evt);
+        chrome.alarms.onAlarm.addListener(function(alarm) {
+            console.log(alarm.name.split(":")[0] + " alarm works");
+            gotoCollaborate(alarm.name.split(":")[0]);
+        });
+
+        function setAlarm(timeplace, course_id) {
+            var H = parseInt(timeplace["start"] / 12);
+            var M = (timeplace["start"] % 12) * 5;
+            var course_day = timeplace["day"];
+            var course_time = H + ":" + M;
+
+            let now_date = new Date();
+            let date = new Date(now_date.getFullYear(), now_date.getMonth(), now_date.getDate() + (course_day - now_date.getDay() + 7) % 7, course_time.split(":")[0], course_time.split(":")[1]);
+            if (now_date > date) date.setDate(date.getDate() + 7);
+            chrome.alarms.create(course_id, { periodInMinutes: 10080, when: date.getTime() });
+            return date;
         }
+
         if (res.lectureInfo == undefined && res.lectureInfo == null) {
             alert("블랙보드에 접속하여 강좌정보를 가져오세요!(현재 접속중일경우 새로고침(F5))");
         } else {
@@ -30,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (a["timeplace" + c]) {
                     var lecutureI = document.createElement("div");
                     lecutureI.setAttribute("id", "lecture");
+                    //lecutureI.className = "lecture";
                     lecutureI.className = "lecture";
                     var d = parseInt(a["timeplace" + c].day) + 1;
                     var lecturename = document.createElement("div");
@@ -49,9 +56,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     lecutureI.style.position = "absolute"
                     lecutureI.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 291) + "px";
                     lecutureI.style.height = ((parseInt(a["timeplace" + c].end) - parseInt(a["timeplace" + c].start)) * 2.8) + "px";
-                    lecturename.style.background = colorlist[i]
-                    lecturetime.style.background = colorlist[i]
-                        // lecturetime.style.display = "none"
+                    lecturename.style.background = colorlist[i];
+                    lecturetime.style.background = colorlist[i];
+                    // lecturetime.style.display = "none"
 
                     var lectureinfomation = document.createElement('div');
                     lectureinfomation.textContent = a["professor"]
@@ -74,7 +81,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     Collab_btn.style.top = ((parseInt(a["timeplace" + c].start) / 288 * 840) - 300) + "px";
                     Collab_btn.style.left = ((parseInt(d) - 0.65) * 62) + "px";
                     Collab_btn.style.position = "fixed";
-                    Collab_btn.checked = a["timeplace" + c].collab == undefined || a["timeplace" + c].collab == true ? true : false;
+                    Collab_btn.checked = a["timeplace" + c].collab == undefined || a["timeplace" + c].collab == false ? false : true;
+
+
                     btn_div.style.left = ((parseInt(d) - 0.7) * 62) + "px";
                     btn_div.style.top = (parseInt(top) - 10.5) + "px";
                     btn_div.textContent = "자동접속"
@@ -112,21 +121,71 @@ document.addEventListener("DOMContentLoaded", function() {
         var checkboxls = document.getElementsByClassName("collab_btn");
         for (var i = 0; i < checkboxls.length; i += 1) {
             (function() {
+                var timeplace = lecturelist[checkboxls[i].value.split("_")[0]][checkboxls[i].value.split("_")[1]];
+                var course_id = lecturelist[checkboxls[i].value.split("_")[0]].id;
+                var course_name = lecturelist[checkboxls[i].value.split("_")[0]].name;
+                var redCircle = '<i class="fas fa-circle" style="color:red"></i>';
+                var greenCircle = '<i class="fas fa-circle" style="color:lightgreen"></i>';
+
+                if (checkboxls[i].checked) {
+                    var lectureinfo = checkboxls[i].parentElement.parentElement.parentElement.firstChild;
+                    var dt = setAlarm(timeplace, course_id);
+                    var dformat = `${(dt.getMonth() + 1).toString().padStart(2, '0')}/${dt.getDate().toString().padStart(2, '0')}/${dt.getFullYear().toString().padStart(4, '0')} ${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`
+                    lectureinfo.parentElement.onmouseover = () => { lectureinfo.textContent = dformat; }
+                    lectureinfo.parentElement.onmouseout = function() {
+                        lectureinfo.textContent = course_name;
+                        lectureinfo.parentElement.children[0].insertAdjacentHTML('beforeend', greenCircle);
+                        lectureinfo.parentElement.children[0].children[0].style.position = "fixed";
+                        lectureinfo.parentElement.children[0].children[0].style.top = parseInt(lectureinfo.parentElement.getBoundingClientRect().bottom, 10) - 16 + "px";
+                        lectureinfo.parentElement.children[0].children[0].style.left = parseInt(lectureinfo.parentElement.getBoundingClientRect().right, 10) - 16 + "px";
+                    }
+                    lectureinfo.parentElement.children[0].insertAdjacentHTML('beforeend', greenCircle);
+                    lectureinfo.parentElement.children[0].children[0].style.position = "fixed";
+                    console.log(lectureinfo.parentElement.getBoundingClientRect().bottom, lectureinfo.parentElement.getBoundingClientRect().right)
+                    lectureinfo.parentElement.children[0].children[0].style.top = parseInt(lectureinfo.parentElement.getBoundingClientRect().bottom, 10) - 16 + "px";
+                    lectureinfo.parentElement.children[0].children[0].style.left = parseInt(lectureinfo.parentElement.getBoundingClientRect().right, 10) - 16 + "px";
+                } else if (checkboxls[i].checked == false) {
+                    var lectureinfo = checkboxls[i].parentElement.parentElement.parentElement.firstChild;
+                    lectureinfo.parentElement.children[0].insertAdjacentHTML('beforeend', redCircle);
+                    lectureinfo.parentElement.children[0].children[0].style.position = "fixed";
+                    lectureinfo.parentElement.children[0].children[0].style.top = parseInt(lectureinfo.parentElement.getBoundingClientRect().bottom, 10) - 16 + "px";
+                    lectureinfo.parentElement.children[0].children[0].style.left = parseInt(lectureinfo.parentElement.getBoundingClientRect().right, 10) - 16 + "px";
+                }
                 checkboxls[i].addEventListener('change', (event) => {
+                    var lectureinfo = event.currentTarget.parentElement.parentElement.parentElement.firstChild;
                     if (event.currentTarget.checked) {
 
-                        lecturelist[event.currentTarget.value.split("_")[0]][event.currentTarget.value.split("_")[1]]["collab"] = true
+                        timeplace["collab"] = true
                         chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
 
                         });
+                        var dt = setAlarm(timeplace, course_id);
+                        var dformat = `${(dt.getMonth() + 1).toString().padStart(2, '0')}/${dt.getDate().toString().padStart(2, '0')}/${dt.getFullYear().toString().padStart(4, '0')} ${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`
+                        alert(`알림이 (${dformat})에 설정됨`)
+                        lectureinfo.parentElement.onmouseover = () => { lectureinfo.textContent = dformat; }
+                        lectureinfo.parentElement.onmouseout = () => {
+                            lectureinfo.textContent = course_name;
+                            lectureinfo.parentElement.children[0].insertAdjacentHTML('beforeend', greenCircle);
+                            lectureinfo.parentElement.children[0].children[0].style.position = "fixed";
+                            lectureinfo.parentElement.children[0].children[0].style.top = parseInt(lectureinfo.parentElement.getBoundingClientRect().bottom, 10) - 16 + "px";
+                            lectureinfo.parentElement.children[0].children[0].style.left = parseInt(lectureinfo.parentElement.getBoundingClientRect().right, 10) - 16 + "px";
+                        }
                     } else {
-                        lecturelist[event.currentTarget.value.split("_")[0]][event.currentTarget.value.split("_")[1]]["collab"] = false;
+                        timeplace["collab"] = false;
                         chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
 
                         });
-                        alert("자동접속취소");
+                        var dt = setAlarm(timeplace, course_id);
+                        var dformat = `${(dt.getMonth() + 1).toString().padStart(2, '0')}/${dt.getDate().toString().padStart(2, '0')}/${dt.getFullYear().toString().padStart(4, '0')} ${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`
+
+                        lectureinfo.parentElement.onmouseover = () => { lectureinfo.textContent = course_name; }
+                        lectureinfo.parentElement.onmouseout = () => {
+                            lectureinfo.parentElement.children[0].insertAdjacentHTML('beforeend', redCircle);
+                            lectureinfo.parentElement.children[0].children[0].style.position = "fixed";
+                            lectureinfo.parentElement.children[0].children[0].style.top = parseInt(lectureinfo.parentElement.getBoundingClientRect().bottom, 10) - 16 + "px";
+                            lectureinfo.parentElement.children[0].children[0].style.left = parseInt(lectureinfo.parentElement.getBoundingClientRect().right, 10) - 16 + "px";
+                        }
                     }
-                    chrome.runtime.sendMessage({message: "setAlarm"}, function(response) {console.log(response.state);});
                 })
             }());
         }

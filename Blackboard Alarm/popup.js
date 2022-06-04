@@ -1,26 +1,34 @@
+/**
+ * Get course id and time informations and set alarms.
+ * @param {object} timeplace time info
+ * @param {string} course_id course id
+ * @returns {object} date info
+ */
+function setAlarm(timeplace, course_id) {
+    var H = parseInt(timeplace["start"] / 12);
+    var M = (timeplace["start"] % 12) * 5;
+    var course_day = timeplace["day"];
+    var course_time = H + ":" + M;
+
+    let now_date = new Date();
+    let date = new Date(now_date.getFullYear(), now_date.getMonth(), now_date.getDate() + (course_day - now_date.getDay() + 8) % 7, course_time.split(":")[0], course_time.split(":")[1]);
+    if (now_date > date) date.setDate(date.getDate() + 7);
+    chrome.alarms.create(course_id + ":" + course_day, { periodInMinutes: 10080, when: date.getTime() });
+    chrome.alarms.getAll(function(alarms) { console.log(alarms); });
+    return date;
+}
+
+/**
+ * Delete alarm corresponding to the course id.
+ * @param {string} course_id course id
+ */
+function deleteAlarm(course_id) {
+    chrome.alarms.clear(course_id);
+    chrome.alarms.getAll(function(alarms) { console.log(alarms); });
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
-        chrome.alarms.onAlarm.addListener(function(alarm) {
-            console.log(alarm.name.split(":")[0] + " alarm works");
-            gotoCollaborate(alarm.name.split(":")[0]);
-        });
-
-        function setAlarm(timeplace, course_id) {
-            var H = parseInt(timeplace["start"] / 12);
-            var M = (timeplace["start"] % 12) * 5;
-            var course_day = timeplace["day"];
-            var course_time = H + ":" + M;
-
-            let now_date = new Date();
-            let date = new Date(now_date.getFullYear(), now_date.getMonth(), now_date.getDate() + (course_day - now_date.getDay() + 7) % 7, course_time.split(":")[0], course_time.split(":")[1]);
-            if (now_date > date) date.setDate(date.getDate() + 7);
-            chrome.alarms.create(course_id + ":" + course_day, { periodInMinutes: 10080, when: date.getTime() });
-            return date;
-        }
-
-        function deleteAlarm(course_id) {
-            chrome.alarms.clear(course_id);
-        }
         if (res.lectureInfo == undefined && res.lectureInfo == null) {
             alert("블랙보드에 접속하여 강좌정보를 가져오세요!(현재 접속중일경우 새로고침(F5))");
         } else {
@@ -227,8 +235,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
             }());
         }
-        chrome.alarms.getAll(function(alarms) { console.log(alarms); })
-
+        chrome.alarms.getAll(function(alarms) { console.log(alarms); });
     })
-
 });

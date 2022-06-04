@@ -115,5 +115,4 @@ waitForElm().then((elm) => {
             }
         }
     });
-    chrome.runtime.sendMessage({message: "setAlarm"}, function(response) {console.log(response.state);});
 });

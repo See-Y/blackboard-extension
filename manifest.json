@@ -1,6 +1,6 @@
 {
-  "name": "HeXA study",
-  "description": "for practice",
+  "name": "Blackboard Extension",
+  "description": "Blackboard Extension from UNIST HeXA",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
@@ -11,5 +11,12 @@
     "default_popup": "popup.html"
   },
   "options_page": "options.html",
-  "host_permissions": ["https://blackboard.unist.ac.kr/*"]
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["https://blackboard.unist.ac.kr/*"],
+      "js": ["content_scripts/btn.js"],
+      "css": ["modules/style.css"]
+    }
+  ]
 }

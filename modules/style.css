@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: 0 !important;
+  border: 0;
+}
+
+.floatDiv {
+  z-index: 9999;
+
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+}
+
+.floatBtn {
+  border-radius: 5px;
+  border-color: transparent;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #011a53;
+  opacity: 0.8;
+  color: white;
+}
+
+.popupDiv {
+  z-index: 9999;
+  transition: all 150ms;
+
+  float: top;
+  position: fixed;
+  width: 300px;
+  height: 450px;
+  bottom: 105px;
+  right: 40px;
+  padding: 5px;
+  background-color: white;
+  color: #011a53;
+  border-radius: 5px;
+  border: 2px solid #f2f2f2;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* -------- */
+
+.popupNav {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popupX,
+.todoX {
+  align-self: flex-end;
+
+  padding: 6px 8px;
+
+  background-color: #ededed;
+  color: red;
+
+  border-radius: 0.25em;
+  cursor: pointer;
+}
+
+.todoX {
+  padding: 2px 4px;
+}
+
+.popupContent {
+  flex: 1 1 0%;
+}
+
+.assignmentsLi {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addTodoForm {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.addTodoInput {
+  flex: 1;
+}
+
+.popupX,
+.addTodoBtn,
+.addTodoInput {
+  border-radius: 0.25rem;
+
+  padding-left: 0.75rem; /* 12px */
+  padding-right: 0.75rem;
+  padding-top: 0.5rem; /* 8px */
+  padding-bottom: 0.5rem;
+
+  background-color: #f2f2f2;
+
+  transition: all 0.15s;
+}
+
+.popupX:hover,
+.todoX:hover {
+  --tw-ring-inset: ;
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0/0.1), 0 1px 2px -1px rgb(0 0 0/0.1);
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 0px #fff;
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 3px rgba(238, 51, 51, 0.5);
+
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--tw-shadow, 0 0 #0000);
+}
+
+.addTodoBtn:focus,
+.addTodoInput:focus {
+  --tw-ring-inset: ;
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0/0.1), 0 1px 2px -1px rgb(0 0 0/0.1);
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 0px #fff;
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 3px rgba(51, 170, 238, 0.5);
+
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--tw-shadow, 0 0 #0000);
+}

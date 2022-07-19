@@ -8,7 +8,6 @@
 
 .floatDiv {
   z-index: 9999;
-
   position: fixed;
   width: 60px;
   height: 60px;
@@ -31,10 +30,9 @@
 .popupDiv {
   z-index: 9999;
   transition: all 150ms;
-
   float: top;
   position: fixed;
-  width: 300px;
+  width: 500px;
   height: 450px;
   bottom: 105px;
   right: 40px;
@@ -85,7 +83,15 @@
   flex-direction: row;
 
   align-items: center;
-  justify-content: space-between;
+  gap: 0.3em;
+}
+
+.todoContent {
+  flex: 1;
+}
+
+.todoX {
+  align-self: center;
 }
 
 .addTodoForm {

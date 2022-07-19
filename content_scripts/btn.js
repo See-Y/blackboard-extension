@@ -51,13 +51,14 @@ const initializeUI = () => {
     tagName: "div",
     className: "popupNav",
   });
-
   var popupTitle = HTMLAppender({
     parent: popupNav,
     tagName: "span",
-    className: "popupTime",
-    innerText: "HeXA_UNIST",
+    className: "popupTitle",
   });
+
+  setInterval(() => (popupTitle.innerText = dateFormatter()), 1000);
+
   var popupX = HTMLAppender({
     parent: popupNav,
     tagName: "button",
@@ -109,9 +110,10 @@ const initializeUI = () => {
         evt.stopPropagation();
         evt.preventDefault();
 
-        var array = /(.*) (\(2\d{3}\.\d{2}\.\d{2} \d{2}:\d{2}\))/.exec(
-          document.getElementById("todoInput").value
-        );
+        var array =
+          /(.*) \(([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):([0-5][0-9]))\)/.exec(
+            document.getElementById("todoInput").value
+          );
 
         todos.push({ _id: nanoid(), content: array[1], date: array[2] });
         localStorage.setItem("todos", JSON.stringify(todos));
@@ -127,7 +129,7 @@ const initializeUI = () => {
     tagName: "input",
     id: "todoInput",
     className: "addTodoInput",
-    placeholder: "Add Todo (yyyy.mm.dd hh:mm)",
+    placeholder: "Add Todo (YYYY-MM-DD HH:MM)",
   });
 
   var addTodoBtn = HTMLAppender({
@@ -139,6 +141,7 @@ const initializeUI = () => {
   });
 
   printTodos(assignmentsUl);
+  setInterval(() => printTodos(assignmentsUl), 1000);
 };
 
 const printTodos = (assignmentsUl) => {
@@ -154,13 +157,19 @@ const printLi = (assignmentsUl, todo) => {
     className: "assignmentsLi",
   });
 
-  HTMLAppender({
+  var span = HTMLAppender({
     parent: li,
     tagName: "span",
     className: "todoContent",
-    innerText: `${todo.content} [${todo.date}, 9days remain]`,
+    innerText: `${todo.content}\n${todo.date}`,
   });
 
+  var d_day = HTMLAppender({
+    parent: li,
+    tagName: "span",
+    className: "todoD_day",
+    innerText: fromNow(todo.date),
+  });
   HTMLAppender({
     parent: li,
     tagName: "button",
@@ -191,6 +200,46 @@ const HTMLAppender = (elObj) => {
 
   parent.appendChild(el);
   return el;
+};
+
+const leftPad = (obj, num = 2) => {
+  return obj.toString().padStart(num, "0");
+};
+const dateFormatter = () => {
+  const [year, month, day, hour, min] = getDateObj(new Date());
+  return `HeXA Todo ${year}-${month}-${day} ${hour}:${min}`;
+};
+
+const getDateObj = (src) => {
+  const year = leftPad(src.getFullYear(), 4);
+  const month = leftPad(src.getMonth() + 1);
+  const day = leftPad(src.getDate());
+  const hour = leftPad(src.getHours());
+  const min = leftPad(src.getMinutes());
+  const sec = leftPad(src.getSeconds());
+
+  return [year, month, day, hour, min, sec];
+};
+
+const fromNow = (dueDate) => {
+  let diff = new Date(dueDate) - Date.now();
+  let isOver = false;
+
+  if (diff <= 0) {
+    diff = -diff;
+    isOver = true;
+  }
+
+  const diffDay = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const diffHour = leftPad(Math.floor((diff / (1000 * 60 * 60)) % 24));
+  const diffMin = leftPad(Math.floor((diff / (1000 * 60)) % 60));
+  const diffSec = leftPad(Math.floor((diff / 1000) % 60));
+
+  return (
+    `${diffDay} ${diffDay > 1 ? "days" : "day"} ` +
+    `${diffHour}:${diffMin}:${diffSec} ` +
+    `${isOver ? "over" : "remain"}`
+  );
 };
 
 initializeUI();

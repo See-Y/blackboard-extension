@@ -38,7 +38,6 @@
   right: 40px;
   padding: 5px;
   background-color: white;
-  color: #011a53;
   border-radius: 5px;
   border: 2px solid #f2f2f2;
 
@@ -76,6 +75,19 @@
 
 .popupContent {
   flex: 1 1 0%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.assignmentsUl {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.3em;
 }
 
 .assignmentsLi {
@@ -84,6 +96,10 @@
 
   align-items: center;
   gap: 0.3em;
+  padding: 0.25em 0.4em;
+
+  border: 1px solid #f2f2f2;
+  border-radius: 0.25em;
 }
 
 .todoContent {
@@ -128,6 +144,13 @@
 
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
     var(--tw-shadow, 0 0 #0000);
+  background-color: rgba(238, 51, 51);
+  color: #fff;
+}
+
+.addTodoBtn:hover {
+  background-color: rgba(51, 170, 238);
+  color: #fff;
 }
 
 .addTodoBtn:focus,

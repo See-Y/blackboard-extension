@@ -57,7 +57,10 @@ const initializeUI = () => {
     className: "popupTitle",
   });
 
-  setInterval(() => (popupTitle.innerText = dateFormatter()), 1000);
+  setInterval(
+    () => (popupTitle.innerText = `HeXA Todo ${dateFormatter()}`),
+    1000
+  );
 
   var popupX = HTMLAppender({
     parent: popupNav,
@@ -110,14 +113,17 @@ const initializeUI = () => {
         evt.stopPropagation();
         evt.preventDefault();
 
-        var array =
-          /(.*) \(([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):([0-5][0-9]))\)/.exec(
-            document.getElementById("todoInput").value
-          );
+        const todoInput = document.getElementById("todoInput");
 
-        todos.push({ _id: nanoid(), content: array[1], date: array[2] });
+        if (!todoInput.value.trim()) return;
+
+        todos.push({
+          _id: nanoid(),
+          content: todoInput.value,
+          date: document.getElementById("dateInput").valueAsNumber - 32_400_000,
+        });
         localStorage.setItem("todos", JSON.stringify(todos));
-        document.getElementById("todoInput").value = "";
+        todoInput.value = "";
 
         printTodos(assignmentsUl);
       },
@@ -129,7 +135,18 @@ const initializeUI = () => {
     tagName: "input",
     id: "todoInput",
     className: "addTodoInput",
-    placeholder: "Add Todo (YYYY-MM-DD HH:MM)",
+    placeholder: "Add Todo",
+  });
+
+  const [year, month, day, hour, min] = getDateObj(new Date());
+
+  var todoDateInput = HTMLAppender({
+    parent: addTodoForm,
+    tagName: "input",
+    id: "dateInput",
+    className: "todoDateInput",
+    type: "datetime-local",
+    value: `${year}-${month}-${day}T${hour}:${min}`,
   });
 
   var addTodoBtn = HTMLAppender({
@@ -161,7 +178,7 @@ const printLi = (assignmentsUl, todo) => {
     parent: li,
     tagName: "span",
     className: "todoContent",
-    innerText: `${todo.content}\n${todo.date}`,
+    innerText: `${todo.content}\n${dateFormatter(new Date(todo.date))}`,
   });
 
   var d_day = HTMLAppender({
@@ -205,9 +222,10 @@ const HTMLAppender = (elObj) => {
 const leftPad = (obj, num = 2) => {
   return obj.toString().padStart(num, "0");
 };
-const dateFormatter = () => {
-  const [year, month, day, hour, min] = getDateObj(new Date());
-  return `HeXA Todo ${year}-${month}-${day} ${hour}:${min}`;
+
+const dateFormatter = (src = new Date()) => {
+  const [year, month, day, hour, min] = getDateObj(src);
+  return `${year}-${month}-${day} ${hour}:${min}`;
 };
 
 const getDateObj = (src) => {

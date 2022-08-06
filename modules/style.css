@@ -6,6 +6,58 @@
   border: 0;
 }
 
+.red {
+  background-color: #ff8a80 !important;
+}
+.pink {
+  background-color: #ff80ab !important;
+}
+.lime {
+  background-color: #f4ff81 !important;
+}
+.yellow {
+  background-color: #ffff8d !important;
+}
+.amber {
+  background-color: #ffe57f !important;
+}
+.orange {
+  background-color: #ffd180 !important;
+}
+.deep-orange {
+  background-color: #ff9e80 !important;
+}
+.green {
+  background-color: #b9f6ca !important;
+}
+.light-green {
+  background-color: #ccff90 !important;
+}
+.teal {
+  background-color: #a7ffeb !important;
+}
+.cyan {
+  background-color: #84ffff !important;
+}
+.blue {
+  background-color: #82b1ff !important;
+}
+.light-blue {
+  background-color: #80d8ff !important;
+}
+.indigo {
+  background-color: #8c9eff !important;
+}
+.purple {
+  background-color: #ea80fc !important;
+}
+.deep-purple {
+  background-color: #b388ff !important;
+}
+.white {
+  background-color: #f2f2f2 !important;
+}
+
 .floatDiv {
   z-index: 9999;
   position: fixed;
@@ -16,7 +68,7 @@
 }
 
 .floatBtn {
-  border-radius: 5px;
+  border-radius: 0.3em;
   border-color: transparent;
   width: 60px;
   height: 60px;
@@ -33,12 +85,12 @@
   float: top;
   position: fixed;
   width: 500px;
-  height: 450px;
+  height: 475px;
   bottom: 105px;
   right: 40px;
   padding: 5px;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 0.3em;
   border: 2px solid #f2f2f2;
 
   display: flex;
@@ -65,7 +117,7 @@
   background-color: #ededed;
   color: red;
 
-  border-radius: 0.25em;
+  border-radius: 0.3em;
   cursor: pointer;
 }
 
@@ -95,15 +147,27 @@
   flex-direction: row;
 
   align-items: center;
-  gap: 0.3em;
-  padding: 0.25em 0.4em;
+  gap: 0.5em;
+  padding: 0.3em 0.5em;
 
   border: 1px solid #f2f2f2;
-  border-radius: 0.25em;
+  border-radius: 0.3em;
+}
+
+.todoContents {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.4em;
 }
 
 .todoContent {
-  flex: 1;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.todoDate {
+  font-size: 0.875em;
 }
 
 .todoX {
@@ -113,7 +177,7 @@
 .addTodoForm {
   display: flex;
   flex-direction: row;
-  gap: 5px;
+  gap: 0.5em;
 }
 
 .addTodoInput {

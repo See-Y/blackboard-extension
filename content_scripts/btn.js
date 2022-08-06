@@ -14,6 +14,26 @@ const nanoid = (t = 21) =>
       ""
     );
 
+const colors = [
+  "white",
+  "red",
+  "pink",
+  "lime",
+  "yellow",
+  "amber",
+  "orange",
+  "deep-orange",
+  "green",
+  "light-green",
+  "teal",
+  "cyan",
+  "blue",
+  "light-blue",
+  "indigo",
+  "purple",
+  "deep-purple",
+];
+
 let todos = JSON.parse(localStorage.getItem("todos")) ?? [];
 
 const initializeUI = () => {
@@ -121,6 +141,7 @@ const initializeUI = () => {
           _id: nanoid(),
           content: todoInput.value,
           date: document.getElementById("dateInput").valueAsNumber - 32_400_000,
+          color: document.getElementById("todoColor").value,
         });
         localStorage.setItem("todos", JSON.stringify(todos));
         todoInput.value = "";
@@ -137,6 +158,27 @@ const initializeUI = () => {
     className: "addTodoInput",
     placeholder: "Add Todo",
   });
+
+  var addColorSelect = HTMLAppender({
+    parent: addTodoForm,
+    tagName: "select",
+    id: "todoColor",
+    className: "addTodoColor",
+    placeholder: "Color",
+    eventListener: {
+      change: (evt) => {
+        addTodoInput.className = `${evt.target.value} addTodoInput`;
+      },
+    },
+  });
+
+  for (const color of colors)
+    HTMLAppender({
+      parent: addColorSelect,
+      tagName: "option",
+      value: color,
+      innerText: color,
+    });
 
   const [year, month, day, hour, min] = getDateObj(new Date());
 
@@ -171,14 +213,27 @@ const printLi = (assignmentsUl, todo) => {
   var li = HTMLAppender({
     parent: assignmentsUl,
     tagName: "li",
-    className: "assignmentsLi",
+    className: "assignmentsLi " + todo.color,
   });
 
-  var span = HTMLAppender({
+  var div = HTMLAppender({
     parent: li,
+    tagName: "div",
+    className: "todoContents",
+  });
+
+  HTMLAppender({
+    parent: div,
     tagName: "span",
     className: "todoContent",
-    innerText: `${todo.content}\n${dateFormatter(new Date(todo.date))}`,
+    innerText: `${todo.content}`,
+  });
+
+  HTMLAppender({
+    parent: div,
+    tagName: "span",
+    className: "todoDate",
+    innerText: `${dateFormatter(new Date(todo.date))}`,
   });
 
   var d_day = HTMLAppender({
@@ -187,6 +242,7 @@ const printLi = (assignmentsUl, todo) => {
     className: "todoD_day",
     innerText: fromNow(todo.date),
   });
+
   HTMLAppender({
     parent: li,
     tagName: "button",

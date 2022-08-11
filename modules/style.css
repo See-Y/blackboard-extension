@@ -180,12 +180,23 @@
   gap: 0.5em;
 }
 
+.loadAssignsForm {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+}
+
 .addTodoInput {
+  flex: 1;
+}
+
+.loadAssignsInput {
   flex: 1;
 }
 
 .popupX,
 .addTodoBtn,
+.loadAssignsBtn,
 .addTodoInput {
   border-radius: 0.25rem;
 

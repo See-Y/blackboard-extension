@@ -199,6 +199,77 @@ const initializeUI = () => {
     innerText: "Add",
   });
 
+  var loadAssignsDiv = HTMLAppender({
+    parent: popupDiv,
+    tagName: "div",
+    className: "loadAssignsDiv",
+  });
+
+  var loadAssignsForm = HTMLAppender({
+    parent: loadAssignsDiv,
+    tagName: "form",
+    id: "loadAssignsForm",
+    className: "loadAssignsForm",
+    autocomplete: "off",
+    eventListener: {
+      load: () => {},
+      submit: (evt) => {
+        evt.stopImmediatePropagation();
+        evt.stopPropagation();
+        evt.preventDefault();
+        const fetchUrl = "https://blackboard.unist.ac.kr/webapps/calendar/calendarData/selectedCalendarEvents?start=0&end=2147483647000";
+        fetch(fetchUrl) 
+            .then((response) => response.json())
+            .then(function(fetchData) {
+                var fetchedAssignsContents = [];
+                var fetchedAssignsDates = [];
+                for(var key in fetchData) {
+                    var newStartString = fetchData[key]["start"];
+                    var newDate = new Date(newStartString);
+                    var Todo = {
+                        _id : nanoid(),
+                        content : fetchData[key]["title"],
+                        date : newDate.getTime(),
+                        color: fetchData[key]["color"],
+                    };
+                    fetchedAssignsContents.push(Todo.content);
+                    fetchedAssignsDates.push(Todo.date);
+                    var set = true;
+                    for(alreadyTodo in todos) {
+                      if(todos[alreadyTodo].content == Todo.content && todos[alreadyTodo].date == Todo.date) {
+                        set = false;
+                        break;
+                      }
+                    } // 중복체크
+                    if(set)
+                      todos.push(Todo);
+                }
+                var todosTemp = todos;
+                for(alreadyTodo in todosTemp) {
+                  if(colors.indexOf(todosTemp[alreadyTodo].color) < 0) { // 과제인지 사용자가 직접 추가한거인지 구분 (색상 코드명 활용)
+                    var idx = fetchedAssignsContents.indexOf(todosTemp[alreadyTodo].content);
+                    if(idx < 0 || (idx >= 0 && fetchedAssignsDates.indexOf(todosTemp[alreadyTodo].date) < 0)) { // 없어지거나 있는데 시간이 바뀐경우
+                      console.log(todosTemp[alreadyTodo]._id);
+                      todos = todos.filter((item) => item._id !== todosTemp[alreadyTodo]._id); // 제거
+                    }
+                  }
+                }
+                localStorage.setItem("todos", JSON.stringify(todos));
+                printTodos(assignmentsUl);
+            }
+        );
+      },
+    },
+  });
+
+  var loadAssignsInput = HTMLAppender({
+    parent: loadAssignsForm,
+    tagName: "button",
+    className: "loadAssignsBtn",
+    type: "submit",
+    innerText: "Load assigns from BB calendar",
+  });
+
   printTodos(assignmentsUl);
   setInterval(() => printTodos(assignmentsUl), 1000);
 };
@@ -213,7 +284,11 @@ const printLi = (assignmentsUl, todo) => {
   var li = HTMLAppender({
     parent: assignmentsUl,
     tagName: "li",
-    className: "assignmentsLi " + todo.color,
+    className: (colors.indexOf(todo.color) < 0 ? "assignmentsLi" : "assignmentsLi " + todo.color), // 과제면 color 등록 안함 (색상코드 사용)
+    style: { 
+      background: (colors.indexOf(todo.color) < 0 ? todo.color : ""), // 과제면 color 이걸로 등록함
+      color: (colors.indexOf(todo.color) < 0 ? "white" : ""),
+    },
   });
 
   var div = HTMLAppender({

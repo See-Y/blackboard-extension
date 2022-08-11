@@ -223,7 +223,8 @@
   color: #fff;
 }
 
-.addTodoBtn:hover {
+.addTodoBtn:hover,
+.loadAssignsBtn:hover {
   background-color: rgba(51, 170, 238);
   color: #fff;
 }

@@ -97,8 +97,9 @@ function getLectureElement() {
             }
             console.log(lecturelist);
             chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
-                // alert(JSON.stringify(lecturelist));
+
             });
+
         });
 }
 waitForElm().then((elm) => {
@@ -115,5 +116,4 @@ waitForElm().then((elm) => {
             }
         }
     });
-    chrome.runtime.sendMessage({message: "setAlarm"}, function(response) {console.log(response.state);});
 });

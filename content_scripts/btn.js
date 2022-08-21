@@ -226,9 +226,12 @@ const initializeUI = () => {
                 for(var key in fetchData) {
                     var newStartString = fetchData[key]["start"];
                     var newDate = new Date(newStartString);
+                    var assignName = fetchData[key]["title"];
+                    if(fetchData[key]["eventType"] === "Assignment")
+                      assignName = fetchData[key]["calendarName"] + ": " + assignName;
                     var Todo = {
                         _id : nanoid(),
-                        content : fetchData[key]["title"],
+                        content : assignName,
                         date : newDate.getTime(),
                         color: fetchData[key]["color"],
                     };

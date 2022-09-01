@@ -217,7 +217,8 @@ const initializeUI = () => {
         evt.stopImmediatePropagation();
         evt.stopPropagation();
         evt.preventDefault();
-        const fetchUrl = "https://blackboard.unist.ac.kr/webapps/calendar/calendarData/selectedCalendarEvents?start=0&end=2147483647000";
+        const fetchUrl = "https://blackboard.unist.ac.kr/webapps/calendar/calendarData/selectedCalendarEvents?start=" + Date.now() + "&end=2147483647000";
+        console.log(fetchUrl);
         fetch(fetchUrl) 
             .then((response) => response.json())
             .then(function(fetchData) {
@@ -227,7 +228,7 @@ const initializeUI = () => {
                     var newStartString = fetchData[key]["start"];
                     var newDate = new Date(newStartString);
                     var assignName = fetchData[key]["title"];
-                    if(fetchData[key]["eventType"] === "Assignment")
+                    if(fetchData[key]["calendarName"] !== "Personal")
                       assignName = fetchData[key]["calendarName"] + ": " + assignName;
                     var Todo = {
                         _id : nanoid(),

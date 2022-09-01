@@ -4,6 +4,37 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 });
 chrome.alarms.clearAll();
 // 알람작동시 콜랩 접속
+
+/*
+ * Get course id and time informations and set alarms.
+ * @param {object} timeplace time info
+ * @param {string} course_id course id
+ * @returns {object} date info
+ */
+function setAlarm(timeplace, course_id) {
+    var H = parseInt(timeplace["start"] / 12);
+    var M = (timeplace["start"] % 12) * 5;
+    var course_day = timeplace["day"];
+    var course_time = H + ":" + M;
+
+    let now_date = new Date();
+    let date = new Date(now_date.getFullYear(), now_date.getMonth(), now_date.getDate() + (course_day - now_date.getDay() + 8) % 7, course_time.split(":")[0], course_time.split(":")[1]);
+    if (now_date > date) date.setDate(date.getDate() + 7);
+    chrome.alarms.create(course_id + ":" + course_day, { periodInMinutes: 10080, when: date.getTime() });
+    chrome.alarms.getAll(function(alarms) { console.log(alarms); });
+    return date;
+}
+
+/**
+ * Delete alarm corresponding to the course id.
+ * @param {string} course_id course id
+ */
+function deleteAlarm(course_id) {
+    chrome.alarms.clear(course_id);
+    chrome.alarms.getAll(function(alarms) { console.log(alarms); });
+}
+
+
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
         if (res.lectureInfo == undefined && res.lectureInfo == null) {
@@ -237,8 +268,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
             }());
         }
-        chrome.alarms.getAll(function(alarms) { console.log(alarms); })
-
+        chrome.alarms.getAll(function(alarms) { console.log(alarms); });
     })
-
 });

@@ -1,4 +1,11 @@
-/**
+chrome.alarms.onAlarm.addListener(function(alarm) {
+    console.log(alarm.name.split(":")[0] + " alarm works");
+    gotoCollaborate(alarm.name.split(":")[0]);
+});
+chrome.alarms.clearAll();
+// 알람작동시 콜랩 접속
+
+/*
  * Get course id and time informations and set alarms.
  * @param {object} timeplace time info
  * @param {string} course_id course id
@@ -27,6 +34,7 @@ function deleteAlarm(course_id) {
     chrome.alarms.getAll(function(alarms) { console.log(alarms); });
 }
 
+
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.sync.get(['lectureInfo'], function(res) {
         if (res.lectureInfo == undefined && res.lectureInfo == null) {
@@ -36,6 +44,28 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!lecturelist || (Object.keys(lecturelist).length === 0 && Object.getPrototypeOf(lecturelist) === Object.prototype)) {
                 alert("블랙보드에 접속하여 강좌정보를 가져오세요!(현재 접속중일경우 새로고침(F5))");
             }
+            console.log(lecturelist);
+        }
+        // 강의정보가 등록되어있는지 확인
+        function getKeyByValue(object, value) {
+            return Object.keys(object).find(key => object["id"] === value);
+        }
+
+        function setAlarm(timeplace, course_id) {
+            var H = parseInt(timeplace["start"] / 12);
+            var M = (timeplace["start"] % 12) * 5;
+            var course_day = parseInt(timeplace["day"]) + 1;
+            var course_time = H + ":" + M;
+
+            let now_date = new Date();
+            let date = new Date(now_date.getFullYear(), now_date.getMonth(), now_date.getDate() + (course_day - now_date.getDay() + 7) % 7, course_time.split(":")[0], course_time.split(":")[1]);
+            if (now_date > date) date.setDate(date.getDate() + 7);
+            chrome.alarms.create(course_id + ":" + timeplace["day"], { periodInMinutes: 10080, when: date.getTime() });
+            return date;
+        }
+
+        function deleteAlarm(dayandid) {
+            chrome.alarms.clear(dayandid);
         }
         var tablebody = document.getElementsByClassName("tablebody")[1].children[0].children[0];
         var colorlist = ["#eff9cc", "#dee8f6", "#ffe9e9", "#ffedda", "#dcf2e9", "#dceef2", "#fff8cc", "#ffe9e9"]
@@ -159,6 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var resetBtn = document.querySelector("#myModal > div > label:nth-child(9)");
         resetBtn.onclick = function() {
             chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(new Object()) }, function() {
+                chrome.alarms.clearAll();
                 alert("데이터 삭제 완료! (블랙보드에서 과목 등록부터 다시해주세요)");
             });
         }
@@ -191,6 +222,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     lectureinfo.parentElement.children[0].children[0].style.left = ((parseInt(course_day) + 1) * 62) + "px";
 
                 } else if (checkboxls[i].checked == false) {
+                    console.log(course_id + ":" + timeplace["day"]);
+                    deleteAlarm(course_id + ":" + timeplace["day"])
                     var lectureinfo = checkboxls[i].parentElement.parentElement.parentElement.firstChild;
                     lectureinfo.parentElement.children[0].insertAdjacentHTML('beforeend', redCircle);
                     lectureinfo.parentElement.children[0].children[0].style.position = "fixed";
@@ -200,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 checkboxls[i].addEventListener('change', (event) => {
                     var lectureinfo = event.currentTarget.parentElement.parentElement.parentElement.firstChild;
-                    if (event.currentTarget.checked) {
+                    if (event.currentTarget.checked == true) {
 
                         timeplace["collab"] = true
                         chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
@@ -218,12 +251,12 @@ document.addEventListener("DOMContentLoaded", function() {
                             lectureinfo.parentElement.children[0].children[0].style.left = parseInt(lectureinfo.parentElement.getBoundingClientRect().right, 10) - 16 + "px";
                         }
                     } else {
+                        console.log(event.currentTarget.checked)
                         timeplace["collab"] = false;
                         chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
 
                         });
                         deleteAlarm(course_id + ":" + course_day);
-
                         lectureinfo.parentElement.onmouseover = () => { lectureinfo.textContent = course_name; }
                         lectureinfo.parentElement.onmouseout = () => {
                             lectureinfo.parentElement.children[0].insertAdjacentHTML('beforeend', redCircle);

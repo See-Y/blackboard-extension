@@ -142,6 +142,7 @@ const initializeUI = () => {
           content: todoInput.value,
           date: document.getElementById("dateInput").valueAsNumber - 32_400_000,
           color: document.getElementById("todoColor").value,
+          linkcode: ""
         });
         localStorage.setItem("todos", JSON.stringify(todos));
         todoInput.value = "";
@@ -235,6 +236,7 @@ const initializeUI = () => {
                         content : assignName,
                         date : newDate.getTime(),
                         color: fetchData[key]["color"],
+                        linkcode: fetchData[key]["id"]
                     };
                     fetchedAssignsContents.push(Todo.content);
                     fetchedAssignsDates.push(Todo.date);
@@ -332,6 +334,22 @@ const printLi = (assignmentsUl, todo) => {
         todos = todos.filter((item) => item._id !== todo._id);
         localStorage.setItem("todos", JSON.stringify(todos));
         printTodos(assignmentsUl);
+      },
+    },
+  });
+
+  HTMLAppender({
+    parent: li,
+    tagName: "button",
+    className: "AssignLink",
+    innerText: "Link",
+    eventListener: {
+      click: () => {
+        if(todo.linkcode !== "") {
+          console.log(todo.linkcode);
+          var linkurl = "https://blackboard.unist.ac.kr/webapps/calendar/launch/attempt/" + todo.linkcode;
+          window.open(linkurl);
+        }
       },
     },
   });

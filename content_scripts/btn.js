@@ -125,6 +125,10 @@ const initializeUI = () => {
     tagName: "div",
     className: "assignmentsDiv",
   });
+
+ 
+
+
   var assignmentsUl = HTMLAppender({
     parent: assignmentsDiv,
     tagName: "ul",
@@ -295,13 +299,14 @@ const initializeUI = () => {
   });
 
   var changeTodoDiv = HTMLAppender({
-    parent: popupDiv,
+    parent: assignmentsDiv ,
     tagName: "div",
     className: "changeTodoDiv",
     id: "changeTodoDiv",
     style: {
       display:"none",
-      "z-index":99999
+      "z-index":99999,
+      background:"black"
     },
   });
 
@@ -426,8 +431,10 @@ const printLi = (assignmentsUl, todo) => {
     eventListener: {
       dblclick: () => { // 각 과제 열 더블클릭시 이벤트
         // 입력창 설정
-        console.log(li.getBoundingClientRect());
+        console.log(li.offsetTop);
+        console.log(li.getBoundingClientRect().top);
         var changeDiv = document.getElementById("changeTodoDiv");
+        changeDiv.style.top = li.getBoundingClientRect().top + "px";
         console.log(changeDiv);
         document.getElementById("nameChange").value = todo.content;
         document.getElementById("nameChangeHidden").value = todo._id; // 바꿀 과목 id 보이지 않는 곳에 저장
@@ -437,11 +444,13 @@ const printLi = (assignmentsUl, todo) => {
         }
         else {
           document.getElementById("colorChange").value = "white";
-          document.getElementById("nameChange").className = "ChangeTodoName " + white;
+          document.getElementById("nameChange").className = "ChangeTodoName " + "white";
         }
         const currentDate = new Date(todo.date);
         document.getElementById("dateChange").value = `${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}T${("0" + currentDate.getHours()).slice(-2)}:${("0" + currentDate.getMinutes()).slice(-2)}`;
         changeDiv.style.display = "flex";
+        changeDiv.style.position = "fixed";
+        changeDiv.style.height = li.getBoundingClientRect().height + "px";
       },
     },
   });

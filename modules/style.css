@@ -186,18 +186,24 @@
   gap: 0.5em;
 }
 
+.changeTodoForm {
+  flex:1;
+}
+
 .addTodoInput {
   flex: 1;
 }
 
 .loadAssignsInput {
-  flex: 1;
+  flex:1;
 }
+
 
 .popupX,
 .addTodoBtn,
 .loadAssignsBtn,
-.addTodoInput {
+.addTodoInput,
+.ChangeTodoName{
   border-radius: 0.25rem;
 
   padding-left: 0.75rem; /* 12px */
@@ -208,6 +214,21 @@
   background-color: #f2f2f2;
 
   transition: all 0.15s;
+}
+
+.ChangeTodoBtn
+{
+  border-radius: 0.25rem;
+
+  padding-left: 0.5rem; /* 12px */
+  padding-right: 0.5rem;
+  padding-top: 0.25rem; /* 8px */
+  padding-bottom: 0.25rem;
+
+  background-color: #f2f2f2;
+
+  transition: all 0.15s;
+  flex:1;
 }
 
 .popupX:hover,

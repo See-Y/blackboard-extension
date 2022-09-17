@@ -82,6 +82,24 @@ const initializeUI = () => {
     1000
   );
 
+  var sortDate = HTMLAppender({
+    parent: popupNav,
+    tagName: "button",
+    className: "sortDate",
+    innerText: "Sort by Date",
+    eventListener: {
+      click: () => {
+        console.log(todos);
+        todos.sort(function(a, b) {
+          return (a.date < b.date) ? -1 : (a.date > b.date) ? 1 : 0;
+        });
+        console.log(todos);
+        localStorage.setItem("todos", JSON.stringify(todos));
+        printTodos(assignmentsUl);
+      },
+    },
+  });
+
   var popupX = HTMLAppender({
     parent: popupNav,
     tagName: "button",
@@ -242,7 +260,7 @@ const initializeUI = () => {
                     fetchedAssignsDates.push(Todo.date);
                     var set = true;
                     for(alreadyTodo in todos) {
-                      if(todos[alreadyTodo].content == Todo.content && todos[alreadyTodo].date == Todo.date) {
+                      if(todos[alreadyTodo].content == Todo.content && todos[alreadyTodo].date == Todo.date && todos[alreadyTodo].color == Todo.color) {
                         set = false;
                         break;
                       }
@@ -276,6 +294,116 @@ const initializeUI = () => {
     innerText: "Load assigns from BB calendar",
   });
 
+  var changeTodoDiv = HTMLAppender({
+    parent: popupDiv,
+    tagName: "div",
+    className: "changeTodoDiv",
+    id: "changeTodoDiv",
+    style: {
+      display:"none",
+      "z-index":99999
+    },
+  });
+
+  var changeTodoForm = HTMLAppender({
+    parent: changeTodoDiv,
+    tagName: "form",
+    id: "changeTodoForm",
+    className: "changeTodoForm",
+    autocomplete: "off",
+    eventListener: {
+      load: () => {},
+      submit: (evt) => {
+        evt.stopImmediatePropagation();
+        evt.stopPropagation();
+        evt.preventDefault();
+        const targetId = document.getElementById("nameChangeHidden").value;
+        var changeTodo = todos;
+        console.log(todos);
+        for(assign in changeTodo) {
+          console.log(changeTodo[assign]);
+          if(changeTodo[assign]._id === targetId) {
+            changeTodo[assign].content = document.getElementById("nameChange").value;
+            changeTodo[assign].date = document.getElementById("dateChange").valueAsNumber - 32_400_000;
+            changeTodo[assign].color = document.getElementById("colorChange").value;
+          }
+        }
+        localStorage.setItem("todos", JSON.stringify(changeTodo));
+        todos = changeTodo;
+        printTodos(assignmentsUl);
+        changeTodoDiv.style.display = "none";
+      },
+    },
+  });
+
+  var changeTodoInputName = HTMLAppender({
+    parent: changeTodoForm,
+    tagName: "input",
+    id: "nameChange",
+    className: "ChangeTodoName",
+    placeholder: "Change..",
+  });
+
+  var changeTodoInputNameHidden = HTMLAppender({
+    parent: changeTodoForm,
+    tagName: "input",
+    id: "nameChangeHidden",
+    style: {
+      display: "none",
+    },
+  });
+
+  var changeColorSelect = HTMLAppender({
+    parent: changeTodoForm,
+    tagName: "select",
+    id: "colorChange",
+    className: "ChangeTodoColor",
+    placeholder: "Color",
+    eventListener: {
+      change: (evt) => {
+        console.log(evt.target.value);
+        changeTodoInputName.className = `${evt.target.value} ChangeTodoName`;
+      },
+    },
+  });
+
+  for (const color of colors)
+    HTMLAppender({
+      parent: changeColorSelect,
+      tagName: "option",
+      value: color,
+      innerText: color,
+    });
+
+  var changeTodoInputDate = HTMLAppender({
+    parent: changeTodoForm,
+    tagName: "input",
+    id: "dateChange",
+    className: "TodoDateChange",
+    type: "datetime-local",
+  });
+
+  var changeTodoCloseBtn = HTMLAppender({
+    parent: changeTodoForm,
+    tagName: "button",
+    className: "ChangeTodoBtn",
+    type: "button",
+    innerText: "X",
+    eventListener: {
+      click: () => {
+        changeTodoDiv.style.display = "none";
+      },
+    },
+  });
+
+  var changeTodoBtn = HTMLAppender({
+    parent: changeTodoForm,
+    tagName: "button",
+    className: "ChangeTodoBtn",
+    type: "submit",
+    innerText: "O",
+  });
+
   printTodos(assignmentsUl);
   setInterval(() => printTodos(assignmentsUl), 1000);
 };
@@ -294,6 +422,27 @@ const printLi = (assignmentsUl, todo) => {
     style: { 
       background: (colors.indexOf(todo.color) < 0 ? todo.color : ""), // 과제면 color 이걸로 등록함
       color: (colors.indexOf(todo.color) < 0 ? "white" : ""),
+    },
+    eventListener: {
+      dblclick: () => { // 각 과제 열 더블클릭시 이벤트
+        // 입력창 설정
+        console.log(li.getBoundingClientRect());
+        var changeDiv = document.getElementById("changeTodoDiv");
+        console.log(changeDiv);
+        document.getElementById("nameChange").value = todo.content;
+        document.getElementById("nameChangeHidden").value = todo._id; // 바꿀 과목 id 보이지 않는 곳에 저장
+        if(colors.indexOf(todo.color) >= 0) {
+          document.getElementById("colorChange").value = todo.color;
+          document.getElementById("nameChange").className = "ChangeTodoName " + todo.color;
+        }
+        else {
+          document.getElementById("colorChange").value = "white";
+          document.getElementById("nameChange").className = "ChangeTodoName " + white;
+        }
+        const currentDate = new Date(todo.date);
+        document.getElementById("dateChange").value = `${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}T${("0" + currentDate.getHours()).slice(-2)}:${("0" + currentDate.getMinutes()).slice(-2)}`;
+        changeDiv.style.display = "flex";
+      },
     },
   });
 
@@ -341,7 +490,7 @@ const printLi = (assignmentsUl, todo) => {
   HTMLAppender({
     parent: li,
     tagName: "button",
-    className: "AssignLink",
+    className: "assignLink",
     innerText: "Link",
     eventListener: {
       click: () => {

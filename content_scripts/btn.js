@@ -525,7 +525,7 @@ const printLi = (assignmentsUl, todo) => {
   HTMLAppender({
     parent: li,
     tagName: "button",
-    className: "AssignLink",
+    className: todo.linkcode !== "" ? "AssignLink" : "AssignLink EmptyLink",
     innerText: "🔗",
     eventListener: {
       click: () => {

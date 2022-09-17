@@ -336,11 +336,6 @@
   color: #fff;
 }
 
-.todoX:hover {
-  background-color: rgba(238, 51, 51);
-  color: #fff;
-}
-
 .addTodoBtn:hover,
 .loadAssignsBtn:hover,
 .AssignLink:hover,
@@ -349,8 +344,15 @@
   color: #fff;
 }
 
+.todoX:hover,
+.EmptyLink:hover {
+  background-color: rgba(238, 51, 51);
+  color: #fff;
+}
+
 .addTodoBtn:focus,
-.addTodoInput:focus {
+.addTodoInput:focus,
+.todoDateInput:focus {
   --tw-ring-inset: ;
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0/0.1), 0 1px 2px -1px rgb(0 0 0/0.1);
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 0px #fff;

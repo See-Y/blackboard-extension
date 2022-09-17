@@ -275,6 +275,7 @@ const initializeUI = () => {
             .then(function(fetchData) {
                 var fetchedAssignsContents = [];
                 var fetchedAssignsDates = [];
+                var fetchedAssignsColors = [];
                 for(var key in fetchData) {
                     var newStartString = fetchData[key]["start"];
                     var newDate = new Date(newStartString);
@@ -291,6 +292,7 @@ const initializeUI = () => {
                     };
                     fetchedAssignsContents.push(Todo.content);
                     fetchedAssignsDates.push(Todo.date);
+                    fetchedAssignsColors.push(Todo.color);
                     var set = true;
                     for(alreadyTodo in todos) {
                       if(todos[alreadyTodo].content == Todo.content && todos[alreadyTodo].date == Todo.date && todos[alreadyTodo].color == Todo.color) {
@@ -305,7 +307,7 @@ const initializeUI = () => {
                 for(alreadyTodo in todosTemp) {
                   if(todosTemp[alreadyTodo].linkcode !== "") { // 과제인지 사용자가 직접 추가한거인지 구분
                     var idx = fetchedAssignsContents.indexOf(todosTemp[alreadyTodo].content);
-                    if(idx < 0 || (idx >= 0 && fetchedAssignsDates.indexOf(todosTemp[alreadyTodo].date) < 0)) { // 없어지거나 있는데 시간이 바뀐경우
+                    if(idx < 0 || (idx >= 0 && (fetchedAssignsDates.indexOf(todosTemp[alreadyTodo].date) < 0 || fetchedAssignsColors.indexOf(todosTemp[alreadyTodo].color) < 0))) { // 없어지거나 있는데 시간이 바뀐경우
                       console.log(todosTemp[alreadyTodo]._id);
                       todos = todos.filter((item) => item._id !== todosTemp[alreadyTodo]._id); // 제거
                     }

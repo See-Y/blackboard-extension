@@ -134,9 +134,6 @@ const initializeUI = () => {
     className: "assignmentsDiv",
   });
 
- 
-
-
   var assignmentsUl = HTMLAppender({
     parent: assignmentsDiv,
     tagName: "ul",
@@ -191,43 +188,44 @@ const initializeUI = () => {
     placeholder: "Add Todo",
   });
 
-  // var addColorSelect = HTMLAppender({
-  //   parent: addTodoForm,
-  //   tagName: "select",
-  //   id: "todoColor",
-  //   className: "addTodoColor",
-  //   placeholder: "Color",
-  //   eventListener: {
-  //     change: (evt) => {
-  //       addTodoInput.className = `${evt.target.value} addTodoInput`;
-  //     },
-  //   },
-  // });
-
-  // for (const color of colors)
-  //   HTMLAppender({
-  //     parent: addColorSelect,
-  //     tagName: "option",
-  //     value: color,
-  //     innerText: color,
-  //   });
-
-  var ColorPickerPopup = HTMLAppender({
-    parent: addTodoDiv,
+  var colorPickerDiv = HTMLAppender({
+    parent: addTodoForm,
+    tagName: "div",
+    className: "colorPickerDiv",
+  })
+  
+  var colorPickerPopup = HTMLAppender({
+    parent: colorPickerDiv,
     tagName: "div",
     className: "colorPickerPopup",
   })
 
-  var addColorPicker = HTMLAppender({
-    parent: addTodoForm,
+  for (const color of colors)
+    HTMLAppender({
+      parent: colorPickerPopup,
+      tagName: "button",
+      className: "colorElement " + color,
+      value: color,
+      eventListener: {
+        click: (evt) => {
+          colorPickerBtn.className = `${evt.target.value} colorPickerBtn`
+          colorPickerBtn.value = evt.target.value
+          colorPickerPopup.style.display = "none"
+        }
+      }
+    })
+
+  var colorPickerBtn = HTMLAppender({
+    parent: colorPickerDiv,
     tagName: "button",
     id: "todoColor",
-    className: "addTodoColor",
+    value: "c_white",
+    className: "colorPickerBtn",
     innerText: "🎨",
     eventListener: {
       click: () => (
-        ColorPickerPopup.style.display =
-          ColorPickerPopup.style.display === "block" ? "none" : "block")
+        colorPickerPopup.style.display =
+          colorPickerPopup.style.display === "flex" ? "none" : "flex")
     }
   })
 

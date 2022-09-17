@@ -135,7 +135,7 @@
 .popupX,
 .todoX,
 .AssignLink,
-.addTodoColor {
+.colorPickerBtn {
   align-self: flex-end;
 
   background-color: #ededed;
@@ -158,7 +158,7 @@
   padding: 6px 8px;
 }
 
-.addTodoColor {
+.colorPickerBtn {
   font-size: 1.2em;
 }
 
@@ -224,32 +224,57 @@
   gap: 0.5em;
 }
 
-.changeTodoForm {
-  flex:1;
-}
-
-.addTodoInput {
-  flex: 1;
-}
-
+.changeTodoForm,
+.addTodoInput,
 .loadAssignsInput {
   flex:1;
 }
 
 .colorPickerPopup {
+  border-radius: 0.25rem;
+  transition: all 150ms;
   display: none;
   z-index: 9999;
-  width: 50px;
-  height: 50px;
-  position: relative;
-  background-color: #f2f2f2;
+  width: 140px;
+  height: 100px;
+
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+
+  position: absolute;
+  background-color: #ededed;
+  bottom: 7rem;
+  left: 14rem;
+
+  transition: all 0.5s;
+
+  align-items: center;
+  justify-content: space-around;
+  flex-flow: row wrap;
+  gap: 3px;
+}
+
+.colorElement {
+  flex: none;
+
+  border-style: solid;
+  border-radius: 0.25rem;
+  border-color: #000;
+  border-width: 0.01rem;
+
+  width: 15px;
+  height: 15px;
+
+  cursor: pointer;
 }
 
 .popupX,
 .addTodoBtn,
 .loadAssignsBtn,
 .addTodoInput,
-.addTodoColor,
+.colorPickerBtn,
 .todoDateInput {
   border-radius: 0.25rem;
 
@@ -258,12 +283,17 @@
   padding-top: 0.5rem; /* 8px */
   padding-bottom: 0.5rem;
 
-  background-color: #f2f2f2;
+  background-color: #ededed;
 
   transition: all 0.15s;
+  cursor: pointer;
 }
 
-.addTodoColor {
+.addTodoInput {
+  cursor: text;
+}
+
+.colorPickerBtn {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   padding-top: 0.4rem;
@@ -288,19 +318,15 @@
 }
 
 .addTodoBtn:hover,
-.loadAssignsBtn:hover {
+.loadAssignsBtn:hover,
+.AssignLink:hover,
+.colorPickerBtn:hover {
   background-color: rgba(51, 170, 238);
   color: #fff;
 }
 
-.AssignLink:hover {
-  background-color: rgba(80, 200, 120);
-  color: #fff;
-}
-
 .addTodoBtn:focus,
-.addTodoInput:focus,
-.addTodoColor:focus {
+.addTodoInput:focus {
   --tw-ring-inset: ;
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0/0.1), 0 1px 2px -1px rgb(0 0 0/0.1);
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 0px #fff;

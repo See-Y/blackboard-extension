@@ -6,60 +6,84 @@
   border: 0;
 }
 
-.red {
-  background-color: #ff8a80 !important;
+.c_b65151 {
+  background-color: #b65151 !important;
 }
-.pink {
-  background-color: #ff80ab !important;
+.c_d53383 {
+  background-color: #d53383 !important;
 }
-.lime {
-  background-color: #f4ff81 !important;
+.c_ba0665 {
+  background-color: #ba0665 !important;
 }
-.yellow {
-  background-color: #ffff8d !important;
+.c_de1934 {
+  background-color: #de1934 !important;
 }
-.amber {
-  background-color: #ffe57f !important;
+.c_bc0f0f {
+  background-color: #bc0f0f !important;
 }
-.orange {
-  background-color: #ffd180 !important;
+.c_670033 {
+  background-color: #670033 !important;
 }
-.deep-orange {
-  background-color: #ff9e80 !important;
+.c_b06216 {
+  background-color: #b06216 !important;
 }
-.green {
-  background-color: #b9f6ca !important;
+.c_844b15 {
+  background-color: #844b15 !important;
 }
-.light-green {
-  background-color: #ccff90 !important;
+.c_6f5b27 {
+  background-color: #6f5b27 !important;
 }
-.teal {
-  background-color: #a7ffeb !important;
+.c_687e34 {
+  background-color: #687e34 !important;
 }
-.cyan {
-  background-color: #84ffff !important;
+.c_4a831c {
+  background-color: #4a831c !important;
 }
-.blue {
-  background-color: #82b1ff !important;
+.c_006400 {
+  background-color: #006400 !important;
 }
-.light-blue {
-  background-color: #80d8ff !important;
+.c_008850 {
+  background-color: #008850 !important;
 }
-.indigo {
-  background-color: #8c9eff !important;
+.c_0c808b {
+  background-color: #0c808b !important;
 }
-.purple {
-  background-color: #ea80fc !important;
+.c_1a78d3 {
+  background-color: #1a78d3 !important;
 }
-.deep-purple {
-  background-color: #b388ff !important;
+.c_0352ea {
+  background-color: #0352ea !important;
 }
-.white {
+.c_2525bf {
+  background-color: #2525bf !important;
+}
+.c_09367f {
+  background-color: #09367f !important;
+}
+.c_9e02fe {
+  background-color: #9e02fe !important;
+}
+.c_800080 {
+  background-color: #800080 !important;
+}
+.c_5f2782 {
+  background-color: #5f2782 !important;
+}
+.c_777777 {
+  background-color: #777777 !important;
+}
+.c_52515d {
+  background-color: #52515d !important;
+}
+.c_222222 {
+  background-color: #222222 !important;
+}
+.c_white {
   background-color: #f2f2f2 !important;
 }
 
 .floatDiv {
-  z-index: 9999;
+  z-index: 9998;
   position: fixed;
   width: 60px;
   height: 60px;
@@ -80,7 +104,7 @@
 }
 
 .popupDiv {
-  z-index: 9999;
+  z-index: 9998;
   transition: all 150ms;
   float: top;
   position: fixed;
@@ -109,20 +133,33 @@
 }
 
 .popupX,
-.todoX {
+.todoX,
+.AssignLink,
+.addTodoColor {
   align-self: flex-end;
 
-  padding: 6px 8px;
-
   background-color: #ededed;
-  color: red;
 
   border-radius: 0.3em;
   cursor: pointer;
 }
 
+.popupX {
+  color: red;
+  padding: 6px 8px;
+}
+
 .todoX {
-  padding: 2px 4px;
+  color: red;
+  padding: 7px 8px;
+}
+
+.AssignLink {
+  padding: 6px 8px;
+}
+
+.addTodoColor {
+  font-size: 1.2em;
 }
 
 .popupContent {
@@ -170,14 +207,15 @@
   font-size: 0.875em;
 }
 
-.todoX {
+.todoX,
+.AssignLink {
   align-self: center;
 }
 
 .addTodoForm {
   display: flex;
   flex-direction: row;
-  gap: 0.5em;
+  gap: 0.2em;
 }
 
 .loadAssignsForm {
@@ -194,10 +232,21 @@
   flex: 1;
 }
 
+.colorPickerPopup {
+  display: none;
+  z-index: 9999;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  background-color: #f2f2f2;
+}
+
 .popupX,
 .addTodoBtn,
 .loadAssignsBtn,
-.addTodoInput {
+.addTodoInput,
+.addTodoColor,
+.todoDateInput {
   border-radius: 0.25rem;
 
   padding-left: 0.75rem; /* 12px */
@@ -210,8 +259,14 @@
   transition: all 0.15s;
 }
 
-.popupX:hover,
-.todoX:hover {
+.addTodoColor {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.6rem;
+}
+
+.popupX:hover{
   --tw-ring-inset: ;
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0/0.1), 0 1px 2px -1px rgb(0 0 0/0.1);
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 0px #fff;
@@ -223,14 +278,25 @@
   color: #fff;
 }
 
+.todoX:hover {
+  background-color: rgba(238, 51, 51);
+  color: #fff;
+}
+
 .addTodoBtn:hover,
 .loadAssignsBtn:hover {
   background-color: rgba(51, 170, 238);
   color: #fff;
 }
 
+.AssignLink:hover {
+  background-color: rgba(80, 200, 120);
+  color: #fff;
+}
+
 .addTodoBtn:focus,
-.addTodoInput:focus {
+.addTodoInput:focus,
+.addTodoColor:focus {
   --tw-ring-inset: ;
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0/0.1), 0 1px 2px -1px rgb(0 0 0/0.1);
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 0px #fff;

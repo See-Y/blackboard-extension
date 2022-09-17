@@ -15,23 +15,31 @@ const nanoid = (t = 21) =>
     );
 
 const colors = [
-  "white",
-  "red",
-  "pink",
-  "lime",
-  "yellow",
-  "amber",
-  "orange",
-  "deep-orange",
-  "green",
-  "light-green",
-  "teal",
-  "cyan",
-  "blue",
-  "light-blue",
-  "indigo",
-  "purple",
-  "deep-purple",
+  "c_b65151",
+  "c_d53383",
+  "c_ba0665",
+  "c_de1934",
+  "c_bc0f0f",
+  "c_670033",
+  "c_b06216",
+  "c_844b15",
+  "c_6f5b27",
+  "c_687e34",
+  "c_4a831c",
+  "c_006400",
+  "c_008850",
+  "c_0c808b",
+  "c_1a78d3",
+  "c_0352ea",
+  "c_2525bf",
+  "c_09367f",
+  "c_9e02fe",
+  "c_800080",
+  "c_5f2782",
+  "c_777777",
+  "c_52515d",
+  "c_222222",
+  "c_white"
 ];
 
 let todos = JSON.parse(localStorage.getItem("todos")) ?? [];
@@ -120,6 +128,7 @@ const initializeUI = () => {
     tagName: "div",
     className: "addTodoDiv",
   });
+
   var addTodoForm = HTMLAppender({
     parent: addTodoDiv,
     tagName: "form",
@@ -160,26 +169,45 @@ const initializeUI = () => {
     placeholder: "Add Todo",
   });
 
-  var addColorSelect = HTMLAppender({
+  // var addColorSelect = HTMLAppender({
+  //   parent: addTodoForm,
+  //   tagName: "select",
+  //   id: "todoColor",
+  //   className: "addTodoColor",
+  //   placeholder: "Color",
+  //   eventListener: {
+  //     change: (evt) => {
+  //       addTodoInput.className = `${evt.target.value} addTodoInput`;
+  //     },
+  //   },
+  // });
+
+  // for (const color of colors)
+  //   HTMLAppender({
+  //     parent: addColorSelect,
+  //     tagName: "option",
+  //     value: color,
+  //     innerText: color,
+  //   });
+
+  var ColorPickerPopup = HTMLAppender({
+    parent: addTodoDiv,
+    tagName: "div",
+    className: "colorPickerPopup",
+  })
+
+  var addColorPicker = HTMLAppender({
     parent: addTodoForm,
-    tagName: "select",
+    tagName: "button",
     id: "todoColor",
     className: "addTodoColor",
-    placeholder: "Color",
+    innerText: "🎨",
     eventListener: {
-      change: (evt) => {
-        addTodoInput.className = `${evt.target.value} addTodoInput`;
-      },
-    },
-  });
-
-  for (const color of colors)
-    HTMLAppender({
-      parent: addColorSelect,
-      tagName: "option",
-      value: color,
-      innerText: color,
-    });
+      click: () => (
+        ColorPickerPopup.style.display =
+          ColorPickerPopup.style.display === "block" ? "none" : "block")
+    }
+  })
 
   const [year, month, day, hour, min] = getDateObj(new Date());
 
@@ -342,7 +370,7 @@ const printLi = (assignmentsUl, todo) => {
     parent: li,
     tagName: "button",
     className: "AssignLink",
-    innerText: "Link",
+    innerText: "🔗",
     eventListener: {
       click: () => {
         if(todo.linkcode !== "") {

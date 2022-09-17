@@ -224,12 +224,16 @@
   gap: 0.5em;
 }
 
+.changeTodoForm {
+  flex:1;
+}
+
 .addTodoInput {
   flex: 1;
 }
 
 .loadAssignsInput {
-  flex: 1;
+  flex:1;
 }
 
 .colorPickerPopup {

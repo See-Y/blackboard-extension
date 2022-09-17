@@ -205,6 +205,7 @@ const initializeUI = () => {
       parent: colorPickerPopup,
       tagName: "button",
       className: "colorElement " + color,
+      type: "button",
       value: color,
       eventListener: {
         click: (evt) => {
@@ -220,6 +221,7 @@ const initializeUI = () => {
     tagName: "button",
     id: "todoColor",
     value: "c_white",
+    type: "button",
     className: "colorPickerBtn",
     innerText: "🎨",
     eventListener: {
@@ -279,11 +281,12 @@ const initializeUI = () => {
                     var assignName = fetchData[key]["title"];
                     if(fetchData[key]["calendarName"] !== "Personal")
                       assignName = fetchData[key]["calendarName"] + ": " + assignName;
+                    const re = new RegExp('[a-zA-Z0-9]{6}');
                     var Todo = {
                         _id : nanoid(),
                         content : assignName,
                         date : newDate.getTime(),
-                        color: fetchData[key]["color"],
+                        color: "c_" + re.exec(fetchData[key]["color"])[0],
                         linkcode: fetchData[key]["id"]
                     };
                     fetchedAssignsContents.push(Todo.content);
@@ -300,7 +303,7 @@ const initializeUI = () => {
                 }
                 var todosTemp = todos;
                 for(alreadyTodo in todosTemp) {
-                  if(colors.indexOf(todosTemp[alreadyTodo].color) < 0) { // 과제인지 사용자가 직접 추가한거인지 구분 (색상 코드명 활용)
+                  if(todosTemp[alreadyTodo].linkcode !== "") { // 과제인지 사용자가 직접 추가한거인지 구분
                     var idx = fetchedAssignsContents.indexOf(todosTemp[alreadyTodo].content);
                     if(idx < 0 || (idx >= 0 && fetchedAssignsDates.indexOf(todosTemp[alreadyTodo].date) < 0)) { // 없어지거나 있는데 시간이 바뀐경우
                       console.log(todosTemp[alreadyTodo]._id);
@@ -309,6 +312,7 @@ const initializeUI = () => {
                   }
                 }
                 localStorage.setItem("todos", JSON.stringify(todos));
+                console.log(todos);
                 printTodos(assignmentsUl);
             }
         );
@@ -449,11 +453,13 @@ const printLi = (assignmentsUl, todo) => {
   var li = HTMLAppender({
     parent: assignmentsUl,
     tagName: "li",
-    className: (colors.indexOf(todo.color) < 0 ? "assignmentsLi" : "assignmentsLi " + todo.color), // 과제면 color 등록 안함 (색상코드 사용)
-    style: { 
-      background: (colors.indexOf(todo.color) < 0 ? todo.color : ""), // 과제면 color 이걸로 등록함
-      color: (colors.indexOf(todo.color) < 0 ? "white" : ""),
-    },
+    className: "assignmentsLi " + todo.color
+  });
+
+  var div = HTMLAppender({
+    parent: li,
+    tagName: "div",
+    className: "todoContents",
     eventListener: {
       dblclick: () => { // 각 과제 열 더블클릭시 이벤트
         // 입력창 설정
@@ -481,17 +487,12 @@ const printLi = (assignmentsUl, todo) => {
     },
   });
 
-  var div = HTMLAppender({
-    parent: li,
-    tagName: "div",
-    className: "todoContents",
-  });
-
   HTMLAppender({
     parent: div,
     tagName: "span",
     className: "todoContent",
     innerText: `${todo.content}`,
+    
   });
 
   HTMLAppender({
@@ -499,6 +500,7 @@ const printLi = (assignmentsUl, todo) => {
     tagName: "span",
     className: "todoDate",
     innerText: `${dateFormatter(new Date(todo.date))}`,
+    
   });
 
   var d_day = HTMLAppender({

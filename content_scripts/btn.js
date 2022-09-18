@@ -492,6 +492,7 @@ const printLi = (assignmentsUl, todo) => {
         document.getElementById("nameChange").value = todo.content;
         document.getElementById("nameChangeHidden").value = todo._id; // 바꿀 과목 id 보이지 않는 곳에 저장
         document.getElementById("changeColor").value = todo.color;
+        document.getElementById("changeColor").className = todo.color + " colorPickerBtn";
         const currentDate = new Date(todo.date);
         document.getElementById("dateChange").value = `${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}T${("0" + currentDate.getHours()).slice(-2)}:${("0" + currentDate.getMinutes()).slice(-2)}`;
         changeDiv.style.display = "flex";

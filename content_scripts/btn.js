@@ -127,6 +127,7 @@ const initializeUI = () => {
     eventListener: {
       scroll:() => {
         var changeDiv = document.getElementById("changeTodoDiv");
+        changeColorPopup.style.display = "none";
         changeDiv.style.display = "none";
       }
     }
@@ -368,6 +369,7 @@ const initializeUI = () => {
         localStorage.setItem("todos", JSON.stringify(changeTodo));
         todos = changeTodo;
         printTodos(assignmentsUl);
+        changeColorPopup.style.display = "none";
         changeTodoDiv.style.display = "none";
       },
     },
@@ -400,7 +402,7 @@ const initializeUI = () => {
   var changeColorPopup = HTMLAppender({
     parent: changeColorDiv,
     tagName: "div",
-    className: "colorPickerPopup",
+    className: "ChangeColorPopup",
   })
 
   for (const color of colors)
@@ -445,11 +447,12 @@ const initializeUI = () => {
   var changeTodoCloseBtn = HTMLAppender({
     parent: changeTodoForm,
     tagName: "button",
-    className: "ChangeTodoBtn",
+    className: "ChangeTodoBtn_X",
     type: "button",
     innerText: "X",
     eventListener: {
       click: () => {
+        changeColorPopup.style.display = "none";
         changeTodoDiv.style.display = "none";
       },
     },
@@ -458,13 +461,13 @@ const initializeUI = () => {
   var changeTodoBtn = HTMLAppender({
     parent: changeTodoForm,
     tagName: "button",
-    className: "ChangeTodoBtn",
+    className: "ChangeTodoBtn_O",
     type: "submit",
     innerText: "O",
   });
 
   printTodos(assignmentsUl);
-  setInterval(() => printTodos(assignmentsUl), 1000);
+  setInterval(() => printTodos(assignmentsUl), 1000);  // 인터벌
 };
 
 const printTodos = (assignmentsUl) => {

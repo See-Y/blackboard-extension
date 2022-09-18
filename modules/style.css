@@ -273,11 +273,12 @@
   flex:1;
 }
 
-.colorPickerPopup {
+.colorPickerPopup,
+.ChangeColorPopup {
   border-radius: 0.25rem;
   transition: all 150ms;
   display: none;
-  z-index: 9999;
+  z-index: 99999;
   width: 140px;
   height: 100px;
 
@@ -288,8 +289,6 @@
 
   position: absolute;
   background-color: #ededed;
-  bottom: 6rem;
-  left: 14rem;
 
   transition: all 0.5s;
 
@@ -297,6 +296,16 @@
   justify-content: space-around;
   flex-flow: row wrap;
   gap: 3px;
+}
+
+.colorPickerPopup {
+  bottom: 6rem;
+  left: 13.2rem;
+}
+
+.ChangeColorPopup {
+  bottom: 3.5rem;
+  left: 11rem;
 }
 
 .colorElement {
@@ -335,7 +344,8 @@
   cursor: pointer;
 }
 
-.ChangeTodoBtn {
+.ChangeTodoBtn_X,
+.ChangeTodoBtn_O {
   border-radius: 0.25rem;
 
   padding-left: 0.5rem;
@@ -349,7 +359,16 @@
   cursor: pointer;
 }
 
-.addTodoInput {
+.ChangeTodoBtn_X {
+  color: rgba(238, 51, 51);
+}
+
+.ChangeTodoBtn_O {
+  color: rgba(51, 170, 238);
+}
+
+.addTodoInput,
+.ChangeTodoName {
   cursor: text;
 }
 
@@ -360,7 +379,7 @@
   padding-bottom: 0.6rem;
 }
 
-.popupX:hover{
+.popupX:hover {
   --tw-ring-inset: ;
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0/0.1), 0 1px 2px -1px rgb(0 0 0/0.1);
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 0px #fff;
@@ -372,20 +391,24 @@
   color: #fff;
 }
 
+.sortDate:hover,
 .addTodoBtn:hover,
 .loadAssignsBtn:hover,
 .AssignLink:hover,
-.colorPickerBtn:hover {
+.colorPickerBtn:hover,
+.ChangeTodoBtn_O:hover {
   background-color: rgba(51, 170, 238);
   color: #fff;
 }
 
 .todoX:hover,
-.EmptyLink:hover {
+.EmptyLink:hover,
+.ChangeTodoBtn_X:hover {
   background-color: rgba(238, 51, 51);
   color: #fff;
 }
 
+.sortDate:focus,
 .addTodoBtn:focus,
 .addTodoInput:focus,
 .todoDateInput:focus,

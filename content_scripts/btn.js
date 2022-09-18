@@ -97,11 +97,9 @@ const initializeUI = () => {
     innerText: "Sort by Date",
     eventListener: {
       click: () => {
-        console.log(todos);
         todos.sort(function(a, b) {
           return (a.date < b.date) ? -1 : (a.date > b.date) ? 1 : 0;
         });
-        console.log(todos);
         localStorage.setItem("todos", JSON.stringify(todos));
         printTodos(assignmentsUl);
       },
@@ -126,18 +124,26 @@ const initializeUI = () => {
     parent: popupDiv,
     tagName: "div",
     className: "popupContent",
+    eventListener: {
+      scroll:() => {
+        var changeDiv = document.getElementById("changeTodoDiv");
+        changeDiv.style.display = "none";
+      }
+    }
   });
 
   var assignmentsDiv = HTMLAppender({
     parent: popupContent,
     tagName: "div",
     className: "assignmentsDiv",
+    
   });
 
   var assignmentsUl = HTMLAppender({
     parent: assignmentsDiv,
     tagName: "ul",
     className: "assignmentsUl",
+    
   });
 
   /* -------- */
@@ -269,7 +275,6 @@ const initializeUI = () => {
         evt.stopPropagation();
         evt.preventDefault();
         const fetchUrl = "https://blackboard.unist.ac.kr/webapps/calendar/calendarData/selectedCalendarEvents?start=" + Date.now() + "&end=2147483647000";
-        console.log(fetchUrl);
         fetch(fetchUrl) 
             .then((response) => response.json())
             .then(function(fetchData) {
@@ -307,14 +312,11 @@ const initializeUI = () => {
                 for(alreadyTodo in todosTemp) {
                   if(todosTemp[alreadyTodo].linkcode !== "") { // 과제인지 사용자가 직접 추가한거인지 구분
                     var idx = fetchedAssignsContents.indexOf(todosTemp[alreadyTodo].content);
-                    if(idx < 0 || (idx >= 0 && (fetchedAssignsDates.indexOf(todosTemp[alreadyTodo].date) < 0 || fetchedAssignsColors.indexOf(todosTemp[alreadyTodo].color) < 0))) { // 없어지거나 있는데 시간이 바뀐경우
-                      console.log(todosTemp[alreadyTodo]._id);
+                    if(idx < 0 || (idx >= 0 && (fetchedAssignsDates.indexOf(todosTemp[alreadyTodo].date) < 0 || fetchedAssignsColors.indexOf(todosTemp[alreadyTodo].color) < 0))) // 없어지거나 있는데 시간이 바뀐경우
                       todos = todos.filter((item) => item._id !== todosTemp[alreadyTodo]._id); // 제거
-                    }
                   }
                 }
                 localStorage.setItem("todos", JSON.stringify(todos));
-                console.log(todos);
                 printTodos(assignmentsUl);
             }
         );
@@ -356,13 +358,11 @@ const initializeUI = () => {
         evt.preventDefault();
         const targetId = document.getElementById("nameChangeHidden").value;
         var changeTodo = todos;
-        console.log(todos);
         for(assign in changeTodo) {
-          console.log(changeTodo[assign]);
           if(changeTodo[assign]._id === targetId) {
             changeTodo[assign].content = document.getElementById("nameChange").value;
             changeTodo[assign].date = document.getElementById("dateChange").valueAsNumber - 32_400_000;
-            changeTodo[assign].color = document.getElementById("colorChange").value;
+            changeTodo[assign].color = document.getElementById("changeColor").value;
           }
         }
         localStorage.setItem("todos", JSON.stringify(changeTodo));
@@ -372,6 +372,7 @@ const initializeUI = () => {
       },
     },
   });
+
 
   var changeTodoInputName = HTMLAppender({
     parent: changeTodoForm,
@@ -390,27 +391,48 @@ const initializeUI = () => {
     },
   });
 
-  var changeColorSelect = HTMLAppender({
+  var changeColorDiv = HTMLAppender({
     parent: changeTodoForm,
-    tagName: "select",
-    id: "colorChange",
-    className: "ChangeTodoColor",
-    placeholder: "Color",
-    eventListener: {
-      change: (evt) => {
-        console.log(evt.target.value);
-        changeTodoInputName.className = `${evt.target.value} ChangeTodoName`;
-      },
-    },
+    tagName: "div",
+    className: "colorPickerDiv",
   });
+
+  var changeColorPopup = HTMLAppender({
+    parent: changeColorDiv,
+    tagName: "div",
+    className: "colorPickerPopup",
+  })
 
   for (const color of colors)
     HTMLAppender({
-      parent: changeColorSelect,
-      tagName: "option",
+      parent: changeColorPopup,
+      tagName: "button",
+      className: "colorElement " + color,
+      type: "button",
       value: color,
-      innerText: color,
-    });
+      eventListener: {
+        click: (evt) => {
+          changeColorBtn.className = `${evt.target.value} colorPickerBtn`
+          changeColorBtn.value = evt.target.value
+          changeColorPopup.style.display = "none"
+        }
+      }
+    })
+
+  var changeColorBtn = HTMLAppender({
+    parent: changeColorDiv,
+    tagName: "button",
+    id: "changeColor",
+    value: "c_white",
+    type: "button",
+    className: "colorPickerBtn",
+    innerText: "🎨",
+    eventListener: {
+      click: () => (
+        changeColorPopup.style.display =
+        changeColorPopup.style.display === "flex" ? "none" : "flex")
+    }
+  });
 
   var changeTodoInputDate = HTMLAppender({
     parent: changeTodoForm,
@@ -465,21 +487,11 @@ const printLi = (assignmentsUl, todo) => {
     eventListener: {
       dblclick: () => { // 각 과제 열 더블클릭시 이벤트
         // 입력창 설정
-        console.log(li.offsetTop);
-        console.log(li.getBoundingClientRect().top);
         var changeDiv = document.getElementById("changeTodoDiv");
         changeDiv.style.top = li.getBoundingClientRect().top + "px";
-        console.log(changeDiv);
         document.getElementById("nameChange").value = todo.content;
         document.getElementById("nameChangeHidden").value = todo._id; // 바꿀 과목 id 보이지 않는 곳에 저장
-        if(colors.indexOf(todo.color) >= 0) {
-          document.getElementById("colorChange").value = todo.color;
-          document.getElementById("nameChange").className = "ChangeTodoName " + todo.color;
-        }
-        else {
-          document.getElementById("colorChange").value = "white";
-          document.getElementById("nameChange").className = "ChangeTodoName " + "white";
-        }
+        document.getElementById("changeColor").value = todo.color;
         const currentDate = new Date(todo.date);
         document.getElementById("dateChange").value = `${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}T${("0" + currentDate.getHours()).slice(-2)}:${("0" + currentDate.getMinutes()).slice(-2)}`;
         changeDiv.style.display = "flex";
@@ -534,7 +546,6 @@ const printLi = (assignmentsUl, todo) => {
     eventListener: {
       click: () => {
         if(todo.linkcode !== "") {
-          console.log(todo.linkcode);
           var linkurl = "https://blackboard.unist.ac.kr/webapps/calendar/launch/attempt/" + todo.linkcode;
           window.open(linkurl);
         }

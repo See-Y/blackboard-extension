@@ -63,11 +63,11 @@ function waitForElm() {
 
 function getLectureElement() {
     var AllaTag = document.getElementsByTagName('a');
-    var lectureDiv = document.getElementsByClassName('portletList-img courseListing coursefakeclass u_indent')[0];
+    var lectureDiv = document.querySelector('ul[class*="portletList-img courseListing coursefakeclass"]')
     var lecturelist = new Object();
     for (var i = 0; i < AllaTag.length; i += 1) {
         console.log(AllaTag[i].parentElement.parentElement);
-        if (AllaTag[i].href.includes('/webapps/blackboard/execute/launcher') && !AllaTag[i].className.includes('button')) {
+        if (AllaTag[i].href.includes('/webapps/blackboard/execute/launcher') && !AllaTag[i].className.includes('button') && AllaTag[i].parentElement.parentElement == lectureDiv) {
 
             var temp = new Object();
             temp["name"] = AllaTag[i].text;

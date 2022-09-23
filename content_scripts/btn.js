@@ -467,7 +467,7 @@ const initializeUI = () => {
   });
 
   printTodos(assignmentsUl);
-  setInterval(() => printTodos(assignmentsUl), 1000);  // 인터벌
+  //setInterval(() => printTodos(assignmentsUl), 1000);  // 인터벌
 };
 
 const printTodos = (assignmentsUl) => {
@@ -482,7 +482,21 @@ const printLi = (assignmentsUl, todo) => {
     tagName: "li",
     className: "assignmentsLi " + todo.color
   });
-
+  
+  HTMLAppender({
+    parent: li,
+    tagName: "button",
+    className: todo.linkcode !== "" ? "AssignLink" : "AssignLink EmptyLink",
+    innerText: "🔗",
+    eventListener: {
+      click: () => {
+        if(todo.linkcode !== "") {
+          var linkurl = "https://blackboard.unist.ac.kr/webapps/calendar/launch/attempt/" + todo.linkcode;
+          window.open(linkurl);
+        }
+      },
+    },
+  });
   var div = HTMLAppender({
     parent: li,
     tagName: "div",
@@ -504,6 +518,7 @@ const printLi = (assignmentsUl, todo) => {
       },
     },
   });
+  
 
   HTMLAppender({
     parent: div,
@@ -542,20 +557,6 @@ const printLi = (assignmentsUl, todo) => {
     },
   });
 
-  HTMLAppender({
-    parent: li,
-    tagName: "button",
-    className: todo.linkcode !== "" ? "AssignLink" : "AssignLink EmptyLink",
-    innerText: "🔗",
-    eventListener: {
-      click: () => {
-        if(todo.linkcode !== "") {
-          var linkurl = "https://blackboard.unist.ac.kr/webapps/calendar/launch/attempt/" + todo.linkcode;
-          window.open(linkurl);
-        }
-      },
-    },
-  });
 };
 
 const HTMLAppender = (elObj) => {

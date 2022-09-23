@@ -58,6 +58,12 @@
         },
         {
             "resources": [
+                "pageScript/redirect.js"
+            ],
+            "matches": ["https://unist.blackboard.com/*"]
+        },
+        {
+            "resources": [
                 "pageScript/changeN.js"
             ],
             "matches": ["https://unist-kr.zoom.us/*"]

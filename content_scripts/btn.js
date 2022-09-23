@@ -127,6 +127,7 @@ const initializeUI = () => {
     eventListener: {
       scroll:() => {
         var changeDiv = document.getElementById("changeTodoDiv");
+        var changeColorPopup = document.getElementById("changeColorPopup");
         changeColorPopup.style.display = "none";
         changeDiv.style.display = "none";
       }
@@ -286,15 +287,18 @@ const initializeUI = () => {
                     var newStartString = fetchData[key]["start"];
                     var newDate = new Date(newStartString);
                     var assignName = fetchData[key]["title"];
-                    if(fetchData[key]["calendarName"] !== "Personal")
+                    var link = "";
+                    if(fetchData[key]["calendarName"] !== "Personal") {
                       assignName = fetchData[key]["calendarName"] + ": " + assignName;
+                      link = fetchData[key]["id"];
+                    }
                     const re = new RegExp('[a-zA-Z0-9]{6}');
                     var Todo = {
                         _id : nanoid(),
                         content : assignName,
                         date : newDate.getTime(),
                         color: "c_" + re.exec(fetchData[key]["color"])[0],
-                        linkcode: fetchData[key]["id"]
+                        linkcode: link
                     };
                     fetchedAssignsContents.push(Todo.content);
                     fetchedAssignsDates.push(Todo.date);
@@ -402,6 +406,7 @@ const initializeUI = () => {
   var changeColorPopup = HTMLAppender({
     parent: changeColorDiv,
     tagName: "div",
+    id: "changeColorPopup",
     className: "ChangeColorPopup",
   })
 
@@ -552,7 +557,12 @@ const printLi = (assignmentsUl, todo) => {
       click: () => {
         todos = todos.filter((item) => item._id !== todo._id);
         localStorage.setItem("todos", JSON.stringify(todos));
+        var changeDiv = document.getElementById("changeTodoDiv");
+        var changeColorPopup = document.getElementById("changeColorPopup");
+        changeColorPopup.style.display = "none";
+        changeDiv.style.display = "none";
         printTodos(assignmentsUl);
+
       },
     },
   });

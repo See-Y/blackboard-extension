@@ -67,7 +67,7 @@ function getLectureElement() {
     var lecturelist = new Object();
     for (var i = 0; i < AllaTag.length; i += 1) {
         console.log(AllaTag[i].parentElement.parentElement);
-        if (AllaTag[i].href.includes('/webapps/blackboard/execute/launcher') && !AllaTag[i].className.includes('button') && AllaTag[i].parentElement.parentElement == lectureDiv) {
+        if (AllaTag[i].href.includes('/webapps/blackboard/execute/launcher') && !AllaTag[i].className.includes('button')) {
 
             var temp = new Object();
             temp["name"] = AllaTag[i].text;

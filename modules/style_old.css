@@ -1,0 +1,422 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: 0 !important;
+  border: 0;
+}
+
+.c_b65151 {
+  background-color: #b65151 !important;
+  color: white;
+}
+.c_d53383 {
+  background-color: #d53383 !important;
+  color: white;
+}
+.c_ba0665 {
+  background-color: #ba0665 !important;
+  color: white;
+}
+.c_de1934 {
+  background-color: #de1934 !important;
+  color: white;
+}
+.c_bc0f0f {
+  background-color: #bc0f0f !important;
+  color: white;
+}
+.c_670033 {
+  background-color: #670033 !important;
+  color: white;
+}
+.c_b06216 {
+  background-color: #b06216 !important;
+  color: white;
+}
+.c_844b15 {
+  background-color: #844b15 !important;
+  color: white;
+}
+.c_6f5b27 {
+  background-color: #6f5b27 !important;
+  color: white;
+}
+.c_687e34 {
+  background-color: #687e34 !important;
+  color: white;
+}
+.c_4a831c {
+  background-color: #4a831c !important;
+  color: white;
+}
+.c_006400 {
+  background-color: #006400 !important;
+  color: white;
+}
+.c_008850 {
+  background-color: #008850 !important;
+  color: white;
+}
+.c_0c808b {
+  background-color: #0c808b !important;
+  color: white;
+}
+.c_1a78d3 {
+  background-color: #1a78d3 !important;
+  color: white;
+}
+.c_0352ea {
+  background-color: #0352ea !important;
+  color: white;
+}
+.c_2525bf {
+  background-color: #2525bf !important;
+  color: white;
+}
+.c_09367f {
+  background-color: #09367f !important;
+  color: white;
+}
+.c_9e02fe {
+  background-color: #9e02fe !important;
+  color: white;
+}
+.c_800080 {
+  background-color: #800080 !important;
+  color: white;
+}
+.c_5f2782 {
+  background-color: #5f2782 !important;
+  color: white;
+}
+.c_777777 {
+  background-color: #777777 !important;
+  color: white;
+}
+.c_52515d {
+  background-color: #52515d !important;
+  color: white;
+}
+.c_222222 {
+  background-color: #222222 !important;
+  color: white;
+}
+.c_white {
+  background-color: #f2f2f2 !important;
+}
+
+.floatDiv {
+  z-index: 9998;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+}
+
+.floatBtn {
+  border-radius: 0.3em;
+  border-color: transparent;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #011a53;
+  opacity: 0.8;
+  color: white;
+}
+
+.popupDiv {
+  z-index: 9998;
+  transition: all 150ms;
+  float: top;
+  position: fixed;
+  width: 500px;
+  height: 475px;
+  bottom: 105px;
+  right: 40px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 0.3em;
+  border: 2px solid #f2f2f2;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* -------- */
+
+.popupNav {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popupX,
+.sortDate,
+.todoX,
+.AssignLink,
+.colorPickerBtn {
+  align-self: flex-end;
+
+  background-color: #ededed;
+
+  border-radius: 0.3em;
+  cursor: pointer;
+}
+
+.popupX {
+  color: red;
+  padding: 6px 8px;
+}
+
+.todoX {
+  color: red;
+  padding: 7px 8px;
+}
+
+.AssignLink {
+  padding: 6px 8px;
+}
+
+.colorPickerBtn {
+  font-size: 1.2em;
+}
+
+.popupContent {
+  flex: 1 1 0%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.assignmentsUl {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.3em;
+}
+
+.assignmentsLi {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.3em 0.5em;
+
+  border: 1px solid #f2f2f2;
+  border-radius: 0.3em;
+}
+
+.todoContents {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.4em;
+}
+
+.todoContent {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.todoDate {
+  font-size: 0.875em;
+}
+
+.todoX,
+.AssignLink {
+  align-self: center;
+}
+
+.addTodoForm {
+  display: flex;
+  flex-direction: row;
+  gap: 0.2em;
+}
+
+.loadAssignsForm {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+}
+
+.changeTodoDiv {
+  display: flex;
+  flex-direction: row;
+  width:inherit;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.3em 0.5em;
+
+  border: 1px solid #f2f2f2;
+  border-radius: 0.3em;
+}
+
+.changeTodoForm {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+}
+
+.addTodoInput,
+.loadAssignsInput
+.changeTodoName {
+  flex:1;
+}
+
+.colorPickerPopup,
+.ChangeColorPopup {
+  border-radius: 0.25rem;
+  transition: all 150ms;
+  display: none;
+  z-index: 99999;
+  width: 140px;
+  height: 100px;
+
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+
+  position: absolute;
+  background-color: #ededed;
+
+  transition: all 0.5s;
+
+  align-items: center;
+  justify-content: space-around;
+  flex-flow: row wrap;
+  gap: 3px;
+}
+
+.colorPickerPopup {
+  bottom: 6rem;
+  left: 13.2rem;
+}
+
+.ChangeColorPopup {
+  bottom: 3.5rem;
+  left: 11rem;
+}
+
+.colorElement {
+  flex: none;
+
+  border-style: solid;
+  border-radius: 0.25rem;
+  border-color: #000;
+  border-width: 0.01rem;
+
+  width: 15px;
+  height: 15px;
+
+  cursor: pointer;
+}
+
+.popupX,
+.sortDate,
+.addTodoBtn,
+.loadAssignsBtn,
+.addTodoInput,
+.colorPickerBtn,
+.todoDateInput,
+.TodoDateChange,
+.ChangeTodoName {
+  border-radius: 0.25rem;
+
+  padding-left: 0.75rem; /* 12px */
+  padding-right: 0.75rem;
+  padding-top: 0.5rem; /* 8px */
+  padding-bottom: 0.5rem;
+
+  background-color: #ededed;
+
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.ChangeTodoBtn_X,
+.ChangeTodoBtn_O {
+  border-radius: 0.25rem;
+
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+
+  background-color: #ededed;
+
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.ChangeTodoBtn_X {
+  color: rgba(238, 51, 51);
+}
+
+.ChangeTodoBtn_O {
+  color: rgba(51, 170, 238);
+}
+
+.addTodoInput,
+.ChangeTodoName {
+  cursor: text;
+}
+
+.colorPickerBtn {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.6rem;
+}
+
+.popupX:hover {
+  --tw-ring-inset: ;
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0/0.1), 0 1px 2px -1px rgb(0 0 0/0.1);
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 0px #fff;
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 3px rgba(238, 51, 51, 0.5);
+
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--tw-shadow, 0 0 #0000);
+  background-color: rgba(238, 51, 51);
+  color: #fff;
+}
+
+.sortDate:hover,
+.addTodoBtn:hover,
+.loadAssignsBtn:hover,
+.AssignLink:hover,
+.colorPickerBtn:hover,
+.ChangeTodoBtn_O:hover {
+  background-color: rgba(51, 170, 238);
+  color: #fff;
+}
+
+.todoX:hover,
+.EmptyLink:hover,
+.ChangeTodoBtn_X:hover {
+  background-color: rgba(238, 51, 51);
+  color: #fff;
+}
+
+.sortDate:focus,
+.addTodoBtn:focus,
+.addTodoInput:focus,
+.todoDateInput:focus {
+  --tw-ring-inset: ;
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0/0.1), 0 1px 2px -1px rgb(0 0 0/0.1);
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 0px #fff;
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 3px rgba(51, 170, 238, 0.5);
+
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--tw-shadow, 0 0 #0000);
+}

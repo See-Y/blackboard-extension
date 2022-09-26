@@ -44,6 +44,7 @@ const colors = [
 
 let todos = JSON.parse(localStorage.getItem("todos")) ?? [];
 
+
 const initializeUI = () => {
   var floatingDiv = HTMLAppender({
     parent: document.body,
@@ -126,10 +127,8 @@ const initializeUI = () => {
     className: "popupContent",
     eventListener: {
       scroll:() => {
-        var changeDiv = document.getElementById("changeTodoDiv");
-        var changeColorPopup = document.getElementById("changeColorPopup");
         changeColorPopup.style.display = "none";
-        changeDiv.style.display = "none";
+        changeTodoDiv.style.display = "none";
       }
     }
   });
@@ -338,15 +337,10 @@ const initializeUI = () => {
   });
 
   var changeTodoDiv = HTMLAppender({
-    parent: assignmentsDiv ,
+    parent: document.body,
     tagName: "div",
     className: "changeTodoDiv",
     id: "changeTodoDiv",
-    style: {
-      display:"none",
-      "z-index":99999,
-      background:"black"
-    },
   });
 
   var changeTodoForm = HTMLAppender({
@@ -384,7 +378,7 @@ const initializeUI = () => {
     parent: changeTodoForm,
     tagName: "input",
     id: "nameChange",
-    className: "ChangeTodoName",
+    className: "ChangeTodoContent",
     placeholder: "Change..",
   });
 
@@ -419,7 +413,7 @@ const initializeUI = () => {
       value: color,
       eventListener: {
         click: (evt) => {
-          changeColorBtn.className = `${evt.target.value} colorPickerBtn`
+          changeColorBtn.className = `${evt.target.value} changeColorBtn`
           changeColorBtn.value = evt.target.value
           changeColorPopup.style.display = "none"
         }
@@ -432,7 +426,7 @@ const initializeUI = () => {
     id: "changeColor",
     value: "c_white",
     type: "button",
-    className: "colorPickerBtn",
+    className: "changeColorBtn",
     innerText: "🎨",
     eventListener: {
       click: () => (
@@ -445,14 +439,14 @@ const initializeUI = () => {
     parent: changeTodoForm,
     tagName: "input",
     id: "dateChange",
-    className: "TodoDateChange",
+    className: "todoDateChange",
     type: "datetime-local",
   });
 
   var changeTodoCloseBtn = HTMLAppender({
     parent: changeTodoForm,
     tagName: "button",
-    className: "ChangeTodoBtn_X",
+    className: "changeTodoBtn_X",
     type: "button",
     innerText: "X",
     eventListener: {
@@ -466,13 +460,13 @@ const initializeUI = () => {
   var changeTodoBtn = HTMLAppender({
     parent: changeTodoForm,
     tagName: "button",
-    className: "ChangeTodoBtn_O",
+    className: "changeTodoBtn_O",
     type: "submit",
-    innerText: "O",
+    innerText: "✔",
   });
 
   printTodos(assignmentsUl);
-  //setInterval(() => printTodos(assignmentsUl), 1000);  // 인터벌
+  //setInterval(() => printTodos(assignmentsUl), 1000);
 };
 
 const printTodos = (assignmentsUl) => {
@@ -510,27 +504,29 @@ const printLi = (assignmentsUl, todo) => {
       dblclick: () => { // 각 과제 열 더블클릭시 이벤트
         // 입력창 설정
         var changeDiv = document.getElementById("changeTodoDiv");
-        changeDiv.style.top = li.getBoundingClientRect().top + "px";
+        console.log(li.getBoundingClientRect())
         document.getElementById("nameChange").value = todo.content;
         document.getElementById("nameChangeHidden").value = todo._id; // 바꿀 과목 id 보이지 않는 곳에 저장
         document.getElementById("changeColor").value = todo.color;
-        document.getElementById("changeColor").className = todo.color + " colorPickerBtn";
+        document.getElementById("changeColor").className = todo.color + " changeColorBtn";
         const currentDate = new Date(todo.date);
         document.getElementById("dateChange").value = `${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}T${("0" + currentDate.getHours()).slice(-2)}:${("0" + currentDate.getMinutes()).slice(-2)}`;
         changeDiv.style.display = "flex";
-        changeDiv.style.position = "fixed";
+        changeDiv.style.position = "absolute";
+        changeColorPopup.style.display = "none";
+        changeDiv.style.top = li.getBoundingClientRect().top + "px";
+        changeDiv.style.left = li.getBoundingClientRect().left + "px";
         changeDiv.style.height = li.getBoundingClientRect().height + "px";
+        changeDiv.style.width = li.getBoundingClientRect().width + "px";
       },
     },
   });
   
-
   HTMLAppender({
     parent: div,
     tagName: "span",
     className: "todoContent",
     innerText: `${todo.content}`,
-    
   });
 
   HTMLAppender({
@@ -538,7 +534,6 @@ const printLi = (assignmentsUl, todo) => {
     tagName: "span",
     className: "todoDate",
     innerText: `${dateFormatter(new Date(todo.date))}`,
-    
   });
 
   var d_day = HTMLAppender({
@@ -557,17 +552,17 @@ const printLi = (assignmentsUl, todo) => {
       click: () => {
         todos = todos.filter((item) => item._id !== todo._id);
         localStorage.setItem("todos", JSON.stringify(todos));
-        var changeDiv = document.getElementById("changeTodoDiv");
-        var changeColorPopup = document.getElementById("changeColorPopup");
         changeColorPopup.style.display = "none";
-        changeDiv.style.display = "none";
+        changeTodoDiv.style.display = "none";
         printTodos(assignmentsUl);
-
       },
     },
   });
-
 };
+
+window.addEventListener("resize", () => {
+  changeTodoDiv.style.display = "none";
+})
 
 const HTMLAppender = (elObj) => {
   const { parent, tagName, style, eventListener, ...filtered } = elObj;

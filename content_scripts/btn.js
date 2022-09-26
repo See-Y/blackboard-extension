@@ -115,6 +115,8 @@ const initializeUI = () => {
     eventListener: {
       click: () => {
         popupDiv.style.display = "none";
+        changeColorPopup.style.display = "none";
+        changeTodoDiv.style.display = "none";
       },
     },
   });

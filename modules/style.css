@@ -132,6 +132,8 @@
   background-color: #011a53;
   opacity: 0.8;
   color: #fafafa;
+
+  cursor: pointer;
 }
 
 .popupDiv {

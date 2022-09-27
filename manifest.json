@@ -12,6 +12,13 @@
   },
   "options_page": "options.html",
   "host_permissions": ["<all_urls>"],
+  "web_accessible_resources" : [
+    {
+      "resources": ["images/HeXA_logo.png"],
+      "matches": [],
+      "extension_ids": []
+    }
+  ],
   "content_scripts": [
     {
       "matches": ["https://blackboard.unist.ac.kr/*"],

@@ -56,13 +56,22 @@ const initializeUI = () => {
     parent: floatingDiv,
     tagName: "button",
     className: "floatBtn",
-    innerText: "HeXA",
     eventListener: {
       click: () =>
         (popupDiv.style.display =
           popupDiv.style.display === "flex" ? "none" : "flex"),
     },
   });
+
+  var HeXALogo = HTMLAppender({
+    parent: floatBtn,
+    tagName: "img",
+    className: "HeXALogo",
+    src: chrome.runtime.getURL("images/HeXA_logo.png"),
+    onerror: floatBtn.innerText = "HeXA",
+    alt: "",
+  });
+
 
   var popupDiv = HTMLAppender({
     parent: document.body,

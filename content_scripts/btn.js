@@ -68,7 +68,7 @@ const initializeUI = () => {
     tagName: "img",
     className: "HeXALogo",
     src: chrome.runtime.getURL("images/HeXA_logo.png"),
-    onerror: floatBtn.innerText = "HeXA",
+    onerror: "this.style.display='none';",
     alt: "",
   });
 

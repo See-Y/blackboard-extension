@@ -15,7 +15,7 @@
   "web_accessible_resources" : [
     {
       "resources": ["images/HeXA_logo.png"],
-      "matches": [],
+      "matches": ["https://blackboard.unist.ac.kr/*"],
       "extension_ids": []
     }
   ],

@@ -52,26 +52,44 @@ const initializeUI = () => {
     className: "floatDiv",
   });
 
-  var floatBtn = HTMLAppender({
+  var flipDiv = HTMLAppender({
     parent: floatingDiv,
-    tagName: "button",
-    className: "floatBtn",
+    tagName: "div",
+    className: "flipDiv",
     eventListener: {
       click: () =>
         (popupDiv.style.display =
           popupDiv.style.display === "flex" ? "none" : "flex"),
     },
-  });
+  })
+
+  var flipFront = HTMLAppender({
+    parent: flipDiv,
+    tagName: "div",
+    className: "flipFront",
+  })
+
+  var HeXAText = HTMLAppender({
+    parent: flipFront,
+    tagName: "p",
+    className: "HeXAText",
+    innerText: "HeXA",
+  })
+
+  var flipBack = HTMLAppender({
+    parent: flipDiv,
+    tagName: "div",
+    className: "flipBack",
+  })
 
   var HeXALogo = HTMLAppender({
-    parent: floatBtn,
+    parent: flipBack,
     tagName: "img",
     className: "HeXALogo",
     src: chrome.runtime.getURL("images/HeXA_logo.png"),
     onerror: "this.style.display='none';",
     alt: "",
   });
-
 
   var popupDiv = HTMLAppender({
     parent: document.body,

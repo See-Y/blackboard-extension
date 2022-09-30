@@ -115,6 +115,7 @@
   position: fixed;
 
   background-color: #011a53;
+  opacity: 0.85;
 
   border-radius: 5.12px;
   border-color: transparent;
@@ -126,6 +127,8 @@
   right: 40px;
 
   perspective: 1000px;
+
+  cursor: pointer;
 }
 
 .flipDiv {
@@ -159,10 +162,6 @@
   height: 100%;
 
   padding: 5.12px;
-
-  opacity: 0.8;
-
-  cursor: pointer;
 
   backface-visibility: hidden;
 }

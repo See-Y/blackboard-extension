@@ -50,17 +50,19 @@ const initializeUI = () => {
     parent: document.body,
     tagName: "div",
     className: "floatDiv",
+    eventListener: {
+      click: () => {
+        popupDiv.style.display =
+          popupDiv.style.display === "flex" ? "none" : "flex",
+        changeTodoDiv.style.display = "none";
+      }
+    },
   });
 
   var flipDiv = HTMLAppender({
     parent: floatingDiv,
     tagName: "div",
     className: "flipDiv",
-    eventListener: {
-      click: () =>
-        (popupDiv.style.display =
-          popupDiv.style.display === "flex" ? "none" : "flex"),
-    },
   })
 
   var flipFront = HTMLAppender({
@@ -107,6 +109,7 @@ const initializeUI = () => {
     tagName: "div",
     className: "popupNav",
   });
+
   var popupTitle = HTMLAppender({
     parent: popupNav,
     tagName: "span",
@@ -142,7 +145,6 @@ const initializeUI = () => {
     eventListener: {
       click: () => {
         popupDiv.style.display = "none";
-        changeColorPopup.style.display = "none";
         changeTodoDiv.style.display = "none";
       },
     },

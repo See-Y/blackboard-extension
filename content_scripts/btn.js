@@ -497,7 +497,7 @@ const initializeUI = () => {
   });
 
   printTodos(assignmentsUl);
-  //setInterval(() => printTodos(assignmentsUl), 1000);
+  setInterval(() => printTodos(assignmentsUl), 1000);
 };
 
 const printTodos = (assignmentsUl) => {
@@ -543,7 +543,7 @@ const printLi = (assignmentsUl, todo) => {
         const currentDate = new Date(todo.date);
         document.getElementById("dateChange").value = `${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}T${("0" + currentDate.getHours()).slice(-2)}:${("0" + currentDate.getMinutes()).slice(-2)}`;
         changeDiv.style.display = "flex";
-        changeDiv.style.position = "absolute";
+        changeDiv.style.position = "fixed";
         changeColorPopup.style.display = "none";
         changeDiv.style.top = li.getBoundingClientRect().top + "px";
         changeDiv.style.left = li.getBoundingClientRect().left + "px";

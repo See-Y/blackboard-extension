@@ -535,7 +535,6 @@ const printLi = (assignmentsUl, todo) => {
       dblclick: () => { // 각 과제 열 더블클릭시 이벤트
         // 입력창 설정
         var changeDiv = document.getElementById("changeTodoDiv");
-        console.log(li.getBoundingClientRect())
         document.getElementById("nameChange").value = todo.content;
         document.getElementById("nameChangeHidden").value = todo._id; // 바꿀 과목 id 보이지 않는 곳에 저장
         document.getElementById("changeColor").value = todo.color;

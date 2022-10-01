@@ -452,6 +452,11 @@
 
 .ChangeTodoContent {
   flex: 1;
+  font-size: 12.8px;
+}
+
+.todoDateChange {
+  font-size: 12.8px;
 }
 
 .ChangeTodoContent,
@@ -474,6 +479,8 @@
   padding: 6px 7.04px;
 
   background-color: #e1e2e1;
+
+  font-size: 12.8px;
 
   cursor: pointer;
 

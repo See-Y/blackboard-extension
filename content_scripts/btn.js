@@ -132,6 +132,7 @@ const initializeUI = () => {
           return (a.date < b.date) ? -1 : (a.date > b.date) ? 1 : 0;
         });
         localStorage.setItem("todos", JSON.stringify(todos));
+        changeTodoDiv.style.display = "none";
         printTodos(assignmentsUl);
       },
     },

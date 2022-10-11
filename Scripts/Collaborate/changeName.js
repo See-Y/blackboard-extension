@@ -45,7 +45,7 @@ chrome.storage.sync.get(['uname'], function(res) {
 
     } else {
         var s = document.createElement('script');
-        s.src = chrome.runtime.getURL('pageScript/changeN.js');
+        s.src = chrome.runtime.getURL('Scripts/Collaborate/changeN.js');
         s.setAttribute("id", res.uname);
         (document.head || document.documentElement).appendChild(s);
 

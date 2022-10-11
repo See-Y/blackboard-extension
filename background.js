@@ -2,7 +2,7 @@
  * Go to course's collaborate page.
  * @param {string} course_id course id
  */
-function gotoCollaborate(course_id) {
+ function gotoCollaborate(course_id) {
     var optionsUrl = `https://blackboard.unist.ac.kr/webapps/collab-ultra/tool/collabultra/lti/launch?course_id=${course_id}`
     chrome.tabs.query({ url: optionsUrl }, function(tabs) {
         if (tabs.length) {

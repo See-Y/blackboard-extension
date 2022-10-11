@@ -77,7 +77,7 @@ function getLectureElement() {
             lecturelist[AllaTag[i].text.split(":")[0].split("_")[1]] = temp;
         }
     }
-    fetch(chrome.runtime.getURL('lectureInfo.json'))
+    fetch(chrome.runtime.getURL('Others/lectureInfo.json'))
         .then((resp) => resp.json())
         .then(function(jsonData) {
             for (var key in lecturelist) {

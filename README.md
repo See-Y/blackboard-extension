@@ -20,7 +20,9 @@
 <li>이제 블랙보드의 과제들도 To-Do 리스트 처럼 관리할 수 있습니다!</li>
 <ol>
   <li>오른쪽 아래의 HeXA 로고를 클릭합니다.</li>
+  <img src="https://user-images.githubusercontent.com/41319239/195549962-e36a5e6e-c47f-429c-a305-6de4618b5f3c.png">
   <li>열린 패널 왼쪽 아래의 'Load assigns from BB calendar'버튼을 클릭합니다.</li>
+  <img src="https://user-images.githubusercontent.com/41319239/195550558-aba899a7-bc49-4028-a40a-bd5c15961201.png" width=400>
 </ol>
 <li>선택한 과제의 링크를 클릭하여 과제 제출 링크로 이동할 수 있습니다.</li>
 <li>선택한 과제를 더블클릭하여 수정할 수 있습니다.</li>
@@ -34,7 +36,9 @@
 <li>Collaborate으로 강의하는 수업에 자동으로 접속할 수 있습니다.</li>
 <ol>
   <li>오른쪽 위 확장프로그램의 목록에서 HeXA 로고를 클릭합니다.</li>
+  <img src="https://user-images.githubusercontent.com/41319239/195551769-90991781-2b48-4c1c-a825-4028f9f446eb.png" width=700>
   <li>자동 접속을 원하는 강의를 클릭하고 자동접속에 체크표시를 해주면 됩니다.</li>
+  <img src="https://user-images.githubusercontent.com/41319239/195552374-bfc70eaa-a058-4418-a34d-e321a3ca4ba4.png" width=500>
 </ol>
 <li>이제 해당 시간이 되면 자동으로 Collaborate에 접속하게 될 것입니다. (단, 브라우저가 실행 중이고, 블랙보드에 로그인이 되어있을 때)</li>
 </ul>

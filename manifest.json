@@ -1,17 +1,17 @@
 {
   "name": "Blackboard Extension",
   "description": "Blackboard Extension from UNIST HeXA",
-  "version": "2.0",
+  "version": "2.01",
   "manifest_version": 3,
   "action": {
-      "default_icon": "Images/HeXA_logo.png",
+      "default_icon": "Images/HeXA_icon.png",
       "default_popup": "popup.html"
   },
   "background": {
       "service_worker": "background.js",
       "type": "module"
   },
-  "permissions": ["storage", "activeTab", "scripting", "tabs", "alarms"],
+  "permissions": ["storage", "alarms"],
   
   "host_permissions": ["<all_urls>"],
   "content_security_policy": {

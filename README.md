@@ -5,7 +5,7 @@
 ### 0. Install
 
 <ol>
-<li><a href="https://chrome.google.com/webstore/detail/blackboard-extension/jmpahnilngodlgeccikomdkldbmphfhp/related?hl=ko">확장 프로그램 바로가기</a>를 클릭하거나 사용하고 있는 브라우저에서 Chrome 웹스토어에 접속해 'unist blackboard'를 검색해서 "Blackboard Extension"을 찾아서 설치합니다. (다른 확장 프로그램과 헷갈리지 않도록 주의하세요)</li>
+<li><a href="https://chrome.google.com/webstore/detail/blackboard-extension/pbpldnhboapmjkbgakkkgefgkkdajfnc?hl=ko">확장 프로그램 바로가기</a>를 클릭하거나 사용하고 있는 브라우저에서 Chrome 웹스토어에 접속해 'unist blackboard'를 검색해서 "Blackboard Extension"을 찾아서 설치합니다. (다른 확장 프로그램과 헷갈리지 않도록 주의하세요)</li>
 <li>앱의 권한을 묻는 알림이 뜨면 확인 버튼을 눌러서 허락해줍니다.</li>
 </ol>
 

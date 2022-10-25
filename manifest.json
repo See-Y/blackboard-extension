@@ -32,9 +32,15 @@
     },
     {
       "resources": [
+          "Scripts/Collaborate/content-cancelLogout.js"
+      ],
+      "matches": ["https://blackboard.unist.ac.kr/*"] 
+    },
+    {
+      "resources": [
           "Scripts/Collaborate/cancelLogout.js"
       ],
-      "matches": ["https://blackboard.unist.ac.kr/*"]
+      "matches": ["https://blackboard.unist.ac.kr/*"] 
     },
     {
       "resources": [

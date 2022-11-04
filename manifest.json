@@ -44,6 +44,18 @@
     },
     {
       "resources": [
+          "Scripts/Collaborate/Loadfile.js"
+      ],
+      "matches": ["https://blackboard.unist.ac.kr/*"] 
+    },
+    {
+      "resources": [
+          "Scripts/Collaborate/content-Loadfile.js"
+      ],
+      "matches": ["https://blackboard.unist.ac.kr/*"] 
+    },
+    {
+      "resources": [
           "Scripts/Collaborate/redirect.js"
       ],
       "matches": ["https://unist.blackboard.com/*"]
@@ -80,6 +92,10 @@
     {
         "matches": ["https://blackboard.unist.ac.kr/*"],
         "js": ["Scripts/Collaborate/content-cancelLogout.js"]
+    },
+    {
+      "matches": ["https://blackboard.unist.ac.kr/webapps/assignment/uploadAssignment*"],
+      "js": ["Scripts/Collaborate/content-Loadfile.js"]
     },
     {
         "matches": ["https://unist-kr.zoom.us/j/*"],

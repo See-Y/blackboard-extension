@@ -1,4 +1,4 @@
-String.prototype.extract = function(opts) {
+String.prototype.extract = (opts)=> {
     var undefined;
 
     var DEFAULTS = {
@@ -7,7 +7,7 @@ String.prototype.extract = function(opts) {
         startAfter: '?',
     };
 
-    function filterInt(value) {
+    const filterInt = (value) =>{
         return (/^(\-|\+)?([0-9]+|Infinity)$/.test(value)) ? Number(value) : NaN;
     }
 
@@ -41,7 +41,7 @@ String.prototype.extract = function(opts) {
     return params;
 };
 
-function waitForElm() {
+const waitForElm = () => {
     return new Promise(resolve => {
         if (document.querySelector('div[id*="22_1termCourses"]')) {
             return resolve(document.querySelector('div[id*="22_1termCourses"]'));
@@ -61,7 +61,7 @@ function waitForElm() {
     });
 }
 
-function getLectureElement() {
+const getLectureElement = () =>{
     var AllaTag = document.getElementsByTagName('a');
     var lectureDiv = document.querySelector('ul[class*="portletList-img courseListing coursefakeclass"]')
     var lecturelist = new Object();

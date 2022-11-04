@@ -1,4 +1,4 @@
-String.prototype.extract = function(opts) {
+String.prototype.extract =(opts) => {
     var undefined;
 
     var DEFAULTS = {
@@ -7,7 +7,7 @@ String.prototype.extract = function(opts) {
         startAfter: '?',
     };
 
-    function filterInt(value) {
+    const filterInt = (value)=> {
         return (/^(\-|\+)?([0-9]+|Infinity)$/.test(value)) ? Number(value) : NaN;
     }
 

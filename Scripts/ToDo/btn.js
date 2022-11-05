@@ -654,3 +654,5 @@ const fromNow = (dueDate) => {
 };
 
 initializeUI();
+
+

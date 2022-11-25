@@ -1,3 +1,5 @@
+/// <reference types="chrome" />
+/// <reference types="vite-plugin-svgr/client" />
 
 const waitForElm = () => {
     return new Promise(resolve => {
@@ -24,7 +26,6 @@ const getLectureElement = () =>{
     var lectureDiv = document.querySelector('ul[class*="portletList-img courseListing coursefakeclass"]')
     var lecturelist = new Object();
     for (var i = 0; i < AllaTag.length; i += 1) {
-        console.log(AllaTag[i].parentElement.parentElement);
         if (AllaTag[i].href.includes('/webapps/blackboard/execute/launcher') && !AllaTag[i].className.includes('button') && AllaTag[i].parentElement.parentElement == lectureDiv) {
 
             var temp = new Object();
@@ -34,7 +35,7 @@ const getLectureElement = () =>{
             lecturelist[AllaTag[i].text.split(":")[0].split("_")[1]] = temp;
         }
     }
-    fetch(chrome.runtime.getURL('Others/lectureInfo.json'))
+    fetch(window.chrome.runtime.getURL('content-script/src/assets/lectureInfo.json'))
         .then((resp) => resp.json())
         .then(function(jsonData) {
             for (var key in lecturelist) {
@@ -56,22 +57,21 @@ const getLectureElement = () =>{
                 }
             }
             console.log(lecturelist);
-            chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
+            window.chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
 
             });
 
         });
 }
 waitForElm().then((elm) => {
-    chrome.storage.sync.get(['lectureInfo'], function(res) {
+    window.chrome.storage.sync.get(['lectureInfo'], function(res) {
         console.log(res.lectureInfo);
         if (res.lectureInfo == undefined && res.lectureInfo == null) {
             getLectureElement();
         } else {
             var lecturelist = JSON.parse(res.lectureInfo);
-            //console.log(lecturelist);
+
             if (!lecturelist || (Object.keys(lecturelist).length === 0 && Object.getPrototypeOf(lecturelist) === Object.prototype)) {
-                //console.log(JSON.parse(res.lectureInfo));
                 getLectureElement();
             }
         }

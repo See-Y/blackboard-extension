@@ -1,106 +1,42 @@
 {
-  "name": "Blackboard Extension",
-  "description": "Blackboard Extension from UNIST HeXA",
-  "version": "2.02",
   "manifest_version": 3,
+  "name": "React Content Script",
+  "version": "1.0.0",
   "action": {
-      "default_icon": "Images/HeXA_icon.png",
-      "default_popup": "popup.html"
+    "default_title": "Popup",
+    "default_popup": "index.html",
+    "default_icon": "logo192.png"
   },
-  "background": {
-      "service_worker": "background.js",
-      "type": "module"
-  },
-  "permissions": ["storage", "alarms"],
-  
-  "host_permissions": ["<all_urls>"],
+  "icons": {},
+  "content_scripts": [
+    {
+      "matches": [
+        "https://blackboard.unist.ac.kr/webapps/portal/execute/tabs/*"
+      ],
+      "js": [
+        "content-script/src/getLectureInfo.tsx"
+      ],
+      "media": []
+    }
+  ],
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "content_security_policy": {
-      "extension_pages": "script-src 'self'; object-src 'self'",
-      "sandbox": "sandbox allow-scripts; script-src 'self'; object-src 'self'"
+    "extension_pages": "script-src 'self'; object-src 'self'",
+    "sandbox": "sandbox allow-scripts; script-src 'self'; object-src 'self'"
   },
   "web_accessible_resources" : [
     {
-      "resources": ["Images/HeXA_logo.png"],
-      "matches": ["https://blackboard.unist.ac.kr/*"],
-      "extension_ids": []
-    },
-    {
       "resources": [
-          "Scripts/Collaborate/intercept.js"
-      ],
-      "matches": ["https://au-lti.bbcollab.com/*"]
-    },
-    {
-      "resources": [
-          "Scripts/Collaborate/content-cancelLogout.js"
-      ],
-      "matches": ["https://blackboard.unist.ac.kr/*"] 
-    },
-    {
-      "resources": [
-          "Scripts/Collaborate/cancelLogout.js"
-      ],
-      "matches": ["https://blackboard.unist.ac.kr/*"] 
-    },
-    {
-      "resources": [
-          "Scripts/Collaborate/Loadfile.js"
-      ],
-      "matches": ["https://blackboard.unist.ac.kr/*"] 
-    },
-    {
-      "resources": [
-          "Scripts/Collaborate/content-Loadfile.js"
-      ],
-      "matches": ["https://blackboard.unist.ac.kr/*"] 
-    },
-    {
-      "resources": [
-          "Scripts/Collaborate/redirect.js"
-      ],
-      "matches": ["https://unist.blackboard.com/*"]
-    },
-    {
-      "resources": [
-          "Scripts/Collaborate/changeN.js"
-      ],
-      "matches": ["https://unist-kr.zoom.us/*"]
-    },
-    {
-      "resources": [
-          "Others/lectureInfo.json"
+          "content-script/src/assets/lectureInfo.json"
       ],
       "matches": ["<all_urls>"]
 
-    }
-  ],
-  "content_scripts": [
-    {
-      "matches": ["https://blackboard.unist.ac.kr/*"],
-      "js": ["Scripts/ToDo/btn.js"],
-      "css": ["CSS/style.css"]
-    },
-    {
-      "matches": ["https://au-lti.bbcollab.com/*"],
-      "js": ["Scripts/Collaborate/ClickCollaborate.js"],
-      "run_at": "document_end"
-    },
-    {
-        "matches": ["https://blackboard.unist.ac.kr/webapps/portal/execute/tabs/*"],
-        "js": ["Scripts/Collaborate/getLectureInfo.js"]
-    },
-    {
-        "matches": ["https://blackboard.unist.ac.kr/*"],
-        "js": ["Scripts/Collaborate/content-cancelLogout.js"]
-    },
-    {
-      "matches": ["https://blackboard.unist.ac.kr/webapps/assignment/uploadAssignment*"],
-      "js": ["Scripts/Collaborate/content-Loadfile.js"]
-    },
-    {
-        "matches": ["https://unist-kr.zoom.us/j/*"],
-        "js": ["Scripts/Collaborate/changeName.js"],
-        "run_at": "document_end"
     }
   ]
 }

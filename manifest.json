@@ -14,8 +14,13 @@
         "https://blackboard.unist.ac.kr/webapps/portal/execute/tabs/*"
       ],
       "js": [
-        "content-script/src/getLectureInfo.tsx"
+        "src/content-script/getLectureInfo/getLectureInfo.tsx"
       ],
+      "media": []
+    },
+    {
+      "matches": ["https://blackboard.unist.ac.kr/*"],
+      "js": ["src/content-script/timeTable/main.tsx"],
       "media": []
     }
   ],
@@ -33,7 +38,7 @@
   "web_accessible_resources" : [
     {
       "resources": [
-          "content-script/src/assets/lectureInfo.json"
+          "src/assets/lectureInfo.json"
       ],
       "matches": ["<all_urls>"]
 

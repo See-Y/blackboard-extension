@@ -35,7 +35,7 @@ const getLectureElement = () =>{
             lecturelist[AllaTag[i].text.split(":")[0].split("_")[1]] = temp;
         }
     }
-    fetch(window.chrome.runtime.getURL('content-script/src/assets/lectureInfo.json'))
+    fetch(window.chrome.runtime.getURL('src/assets/lectureInfo.json'))
         .then((resp) => resp.json())
         .then(function(jsonData) {
             for (var key in lecturelist) {

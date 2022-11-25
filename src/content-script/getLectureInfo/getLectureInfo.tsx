@@ -1,7 +1,7 @@
 /// <reference types="chrome" />
 /// <reference types="vite-plugin-svgr/client" />
 import logo from './logo.svg'
-import { URL } from 'url';
+
 const waitForElm = () => {
     return new Promise(resolve => {
         if (document.querySelector('div[id*="22_1termCourses"]')) {
@@ -49,7 +49,7 @@ const getLectureElement = () =>{
             lecturelist[AllaTag[i].text.split(":")[0].split("_")[1]] = temp;
         }
     }
-    fetch(window.chrome.runtime.getURL('content-script/src/assets/lectureInfo.json'))
+    fetch(window.chrome.runtime.getURL('src/assets/lectureInfo.json'))
         .then((resp) => resp.json())
         .then(function(jsonData) {
             for (var key in lecturelist) {

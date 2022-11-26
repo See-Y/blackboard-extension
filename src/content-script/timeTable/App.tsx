@@ -2,15 +2,21 @@
 /// <reference types="vite-plugin-svgr/client" />
 
 import logo from 'assets/logo.svg'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import './App.css'
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, styled } from '@mui/material';
 
 function App() {
+  const parentRef:any = useRef(null);
+  const isParentLoaded = useRef(parentRef.current !== null);
+  const [parentTop,setParentTop] =useState<number>();
+  const [parentLeft,setParentLeft] =useState<string>();
+
+  const style = { top: parentTop, position:'absolute', width:"57px" } as React.CSSProperties;
   const BorderedTD = styled(TableCell)`
   width: 57px;
 
-
+  
   padding: 0;
   &.MuiTableCell-root {
     border: 1px solid #000;
@@ -30,10 +36,18 @@ const BorderedTD2 = styled(TableCell)`
     width: 15px;
     height: 35px;
     
+    
   }
 `;
+
   return (
-    <>
+    <div ref ={(el:any)=>{
+      const parentTop:number= el?.getBoundingClientRect().top-140; //35*4 = 140 
+      const parentLeft:any = el?.getBoundingClientRect().left;
+      setParentTop(parentTop);
+      setParentLeft(parentLeft);
+      console.log(parentTop, parentLeft);
+    }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         {[...Array(11)].map((x, i) =>
           <TableRow key={i} sx={{height:'35px'}}>
@@ -45,11 +59,11 @@ const BorderedTD2 = styled(TableCell)`
             <BorderedTD></BorderedTD>
           </TableRow>
         )}
+        {parentTop?<div style={style}>a</div>:<></>}
+        
       </TableContainer>
-      {/* <Box sx={{width:300, height:300, border: '1px solid #d6d6d6'}}>
-      <Typography>hello</Typography>
-    </Box> */}
-    </>
+      
+    </div>
     // <div className="App" >
     //   <header className="App-header">
     //     <p>Hello, World!</p>

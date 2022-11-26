@@ -38,9 +38,8 @@ const waitForElm = () => {
   });
 }
 waitForElm().then(() => {
-  const container = document.getElementById('column2');
-  const root = createRoot(container!);
-  //console.log(root);
+  const container:any = document.getElementById('column2');
+  const root:any = createRoot(container!);
 
   root.render(
     <React.StrictMode>

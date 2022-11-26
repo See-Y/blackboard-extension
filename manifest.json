@@ -22,6 +22,10 @@
       "matches": ["https://blackboard.unist.ac.kr/*"],
       "js": ["src/content-script/timeTable/main.tsx"],
       "media": []
+    },
+    {
+      "matches": ["https://blackboard.unist.ac.kr/webapps/assignment/uploadAssignment*"],
+      "js": ["src/content-script/LoadAssignment/loadfile.js"]
     }
   ],
   "permissions": [
@@ -42,6 +46,12 @@
       ],
       "matches": ["<all_urls>"]
 
+    },
+    {
+      "resources": [
+          "src/content-script/LoadAssignment/loadfile-append.js"
+      ],
+      "matches": ["https://blackboard.unist.ac.kr/*"] 
     }
   ]
 }

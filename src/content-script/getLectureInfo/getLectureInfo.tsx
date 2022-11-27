@@ -71,10 +71,7 @@ const getLectureElement = () =>{
                 }
             }
             console.log(lecturelist);
-            window.chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, function() {
-
-            });
-
+            window.chrome.storage.sync.set({ 'lectureInfo': JSON.stringify(lecturelist) }, () =>{});
         });
 }
 waitForElm().then((elm) => {

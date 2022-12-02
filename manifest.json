@@ -31,6 +31,10 @@
       "matches": ["https://au-lti.bbcollab.com/*"],
       "js": ["src/content-script/ClickCollaborate/ClickCollaborate.js"],
       "run_at": "document_end"
+    },
+    {
+      "matches": ["https://blackboard.unist.ac.kr/*"],
+      "js": ["src/content-script/CancelLogout/CancelLogout.js"]
     }
   ],
   "permissions": [
@@ -63,6 +67,12 @@
           "src/content-script/ClickCollaborate/ClickCollaborate-append.js"
       ],
       "matches": ["https://au-lti.bbcollab.com/*"]
+    },
+    {
+      "resources": [
+          "src/content-script/CancelLogout/CancelLogout-append.js"
+      ],
+      "matches": ["https://blackboard.unist.ac.kr/*"] 
     }
   ]
 }

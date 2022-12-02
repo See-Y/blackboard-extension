@@ -35,6 +35,11 @@
     {
       "matches": ["https://blackboard.unist.ac.kr/*"],
       "js": ["src/content-script/CancelLogout/CancelLogout.js"]
+    },
+    {
+      "matches": ["https://unist-kr.zoom.us/j/*"],
+      "js": ["src/content-script/ChangeCollabName/ChangeCollabName.js"],
+      "run_at": "document_end"
     }
   ],
   "permissions": [
@@ -73,6 +78,12 @@
           "src/content-script/CancelLogout/CancelLogout-append.js"
       ],
       "matches": ["https://blackboard.unist.ac.kr/*"] 
+    },
+    {
+      "resources": [
+          "src/content-script/ChangeCollabName/ChangeCollabName-append.js"
+      ],
+      "matches": ["https://unist-kr.zoom.us/*"]
     }
   ]
 }

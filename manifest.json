@@ -26,6 +26,11 @@
     {
       "matches": ["https://blackboard.unist.ac.kr/webapps/assignment/uploadAssignment*"],
       "js": ["src/content-script/LoadAssignment/loadfile.js"]
+    },
+    {
+      "matches": ["https://au-lti.bbcollab.com/*"],
+      "js": ["src/content-script/ClickCollaborate/ClickCollaborate.js"],
+      "run_at": "document_end"
     }
   ],
   "permissions": [
@@ -52,6 +57,12 @@
           "src/content-script/LoadAssignment/loadfile-append.js"
       ],
       "matches": ["https://blackboard.unist.ac.kr/*"] 
+    },
+    {
+      "resources": [
+          "src/content-script/ClickCollaborate/ClickCollaborate-append.js"
+      ],
+      "matches": ["https://au-lti.bbcollab.com/*"]
     }
   ]
 }

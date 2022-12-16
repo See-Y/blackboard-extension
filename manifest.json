@@ -1,7 +1,7 @@
 {
   "name": "Blackboard Extension",
   "description": "Blackboard Extension from UNIST HeXA",
-  "version": "2.02",
+  "version": "2.03",
   "manifest_version": 3,
   "action": {
       "default_icon": "Images/HeXA_icon.png",

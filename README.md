@@ -43,7 +43,7 @@
 <li>이제 해당 시간이 되면 자동으로 Collaborate에 접속하게 될 것입니다. (단, 브라우저가 실행 중이고, 블랙보드에 로그인이 되어있을 때)</li>
 </ul>
 
-### 4. 강의 슬라이드 일괄 다운로드
+### 4. 강의 슬라이드 Downloader
 <ul>
 <li>학기 말에 모든 강의 슬라이드를 백업할 수 있는 기능입니다.</li>
 <ol>
@@ -57,7 +57,7 @@
 
 # Contributors
 ### Blackboard Extension 팀 구성원
-<p><a href="https://github.com/See-Y">장영웅</a>, <a href="https://github.com/shfd27">김기현</a>, <a href="https://github.com/calculus0129">방재현</a>, <a href="https://github.com/123wwwa">서휘원</a>, <a href="https://github.com/hikari0102">이예승</a>, <a href="https://github.com/bini-Bin">조성빈</a></p>
+<p><a href="https://github.com/See-Y">장영웅</a>, <a href="https://github.com/shfd27">김기현</a>, <a href="https://github.com/calculus0129">방재현</a>, <a href="https://github.com/123wwwa">서휘원</a>, <a href="https://github.com/hikari0102">이예승</a>, <a href="https://github.com/bini-Bin">조성빈</a></p>, <a href="https://github.com/junwha0511">홍준화</a></p>
 
 ### 자동 로그인 구현
 <p>Contributor: 서휘원</p>
@@ -67,6 +67,9 @@
 
 ### Collaborate 예약
 <p>Contributor: 서휘원, 김기현, 이예승</p>
+
+### 강의 슬라이드 Downloader
+<p> Contributor: 홍준화 </p>
 
 <!--Contributor에서 이름이 가장 앞에 있는 사람이 가장 많은 기여를 했습니다-->
 

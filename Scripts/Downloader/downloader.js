@@ -1,8 +1,8 @@
 const bbPrefixUrl = "https://blackboard.unist.ac.kr/"
-var loadAssignsDiv = document.getElementsByClassName("loadAssignsDiv")[0];
+var lastRowDiv = document.getElementsByClassName("lastRowDiv")[0];
 
 var downloadBtn = HTMLAppender({
-    parent: loadAssignsDiv,
+    parent: lastRowDiv,
     tagName: "button",
     className: "downloadBtn",
     type: "button",

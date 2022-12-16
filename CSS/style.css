@@ -383,7 +383,7 @@
 
 /* ------------------------------------------ */
 
-.loadAssignsDiv {
+.lastRowDiv {
   display: flex;
   flex-direction: row;
   gap: 3.84px;

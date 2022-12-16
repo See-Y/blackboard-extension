@@ -383,13 +383,13 @@
 
 /* ------------------------------------------ */
 
-.loadAssignsForm {
+.loadAssignsDiv {
   display: flex;
   flex-direction: row;
   gap: 3.84px;
 }
 
-.loadAssignsBtn {
+.loadAssignsBtn, .downloadBtn {
   padding: 6.4px 9.6px;
 
   background-color: #e1e2e1;
@@ -504,6 +504,7 @@
 .sortDate:hover,
 .addTodoBtn:hover,
 .loadAssignsBtn:hover,
+.downloadBtn:hover,
 .AssignLink:hover,
 .colorPickerBtn:hover,
 .changeTodoBtn_O:hover {

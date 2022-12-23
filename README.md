@@ -69,7 +69,7 @@
 <p>Contributor: 서휘원, 김기현, 이예승</p>
 
 ### 강의 슬라이드 Downloader
-<p> Contributor: 홍준화 </p>
+<p> Contributor: 홍준화, 장영웅 </p>
 
 <!--Contributor에서 이름이 가장 앞에 있는 사람이 가장 많은 기여를 했습니다-->
 

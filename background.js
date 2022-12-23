@@ -19,3 +19,9 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
     gotoCollaborate(alarm.name.split(":")[0]);
 });
 chrome.alarms.getAll(function(alarms) { console.log(alarms); })
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        if (request.sender === "downloader") chrome.downloads.download({url: request.url});
+    }
+);

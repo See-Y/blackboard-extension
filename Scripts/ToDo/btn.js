@@ -289,14 +289,14 @@ const initializeUI = () => {
     innerText: "Add",
   });
 
-  var loadAssignsDiv = HTMLAppender({
+  var lastRowDiv = HTMLAppender({
     parent: popupDiv,
     tagName: "div",
-    className: "loadAssignsDiv",
+    className: "lastRowDiv",
   });
 
   var loadAssignsForm = HTMLAppender({
-    parent: loadAssignsDiv,
+    parent: lastRowDiv,
     tagName: "form",
     id: "loadAssignsForm",
     className: "loadAssignsForm",

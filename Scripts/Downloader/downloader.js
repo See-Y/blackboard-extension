@@ -1,5 +1,6 @@
 var lastRowDiv = document.getElementsByClassName("lastRowDiv")[0];
 const BB_PREFIX_URL = "https://blackboard.unist.ac.kr";
+const BB_PREFIX_RE = new RegExp("https:\/\/blackboard\.unist\.ac\.kr.*");
 const MAX_NEST_THRESHOLD = 5;
 
 const decodeReaderStream = (rb) => {
@@ -42,12 +43,14 @@ function download(doc, count){
     for (var a of aTags) {
         var link = a.getAttribute("href");
         const buttonRe = "^#.*"
+        const role = a.getAttribute("role");
         if(link.match(buttonRe)) continue; // not a link
-        
-        const contentRe = new RegExp("^\/webapps\/blackboard.*"); // not file, loadable webapp
-        const result = link.match(contentRe);
-        
-        if(result){ // webapp (recursive)
+        if(role != null) continue;
+
+        const contentRe = new RegExp("^\/webapps\/blackboard\/content\/listContentEditable.*$"); // not file, loadable webapp
+        const fileRe = new RegExp(".*xid-.*")
+
+        if(link.match(contentRe)){ // webapp (recursive)
             getRedirectedResult(link, (res)=>{ // Redirect to webapp
                 var folder_doc = document.implementation.createHTMLDocument('');
                 folder_doc.write(res);
@@ -56,8 +59,14 @@ function download(doc, count){
                 }
             );
         }
-        else{ // url (download)
+        
+        if (!link.match(BB_PREFIX_RE)) {
+            link = BB_PREFIX_URL+link;
+        }
+        if(link.match(fileRe)){ // url (download)
             chrome.runtime.sendMessage({sender: "downloader", url: link});
+        }else {
+            console.log(link);
         }
     }
 }

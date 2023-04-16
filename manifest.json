@@ -56,7 +56,8 @@
   "web_accessible_resources" : [
     {
       "resources": [
-          "src/assets/lectureInfo.json"
+          "src/assets/lectureInfo.json",
+          "src/assets/HeXA_logo.png"
       ],
       "matches": ["<all_urls>"]
 
